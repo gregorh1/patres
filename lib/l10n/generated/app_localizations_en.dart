@@ -1,0 +1,86 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
+import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
+
+/// The translations for English (`en`).
+class AppLocalizationsEn extends AppLocalizations {
+  AppLocalizationsEn([String locale = 'en']) : super(locale);
+
+  @override
+  String get appTitle => 'Patres';
+
+  @override
+  String get homeTab => 'Home';
+
+  @override
+  String get libraryTab => 'Library';
+
+  @override
+  String get settingsTab => 'Settings';
+
+  @override
+  String get homeGreeting => 'Welcome to Patres';
+
+  @override
+  String get homeSubtitle => 'Discover the wisdom of the Church Fathers';
+
+  @override
+  String get continueReading => 'Continue reading';
+
+  @override
+  String get recommended => 'Recommended';
+
+  @override
+  String get libraryTitle => 'Library';
+
+  @override
+  String get libraryEmpty => 'Your library is empty';
+
+  @override
+  String get libraryEmptyHint => 'Add texts from the catalog to get started';
+
+  @override
+  String get searchHint => 'Search authors, titles…';
+
+  @override
+  String get settingsTitle => 'Settings';
+
+  @override
+  String get themeMode => 'Theme';
+
+  @override
+  String get themeLight => 'Light';
+
+  @override
+  String get themeDark => 'Dark';
+
+  @override
+  String get themeSepia => 'Sepia';
+
+  @override
+  String get language => 'Language';
+
+  @override
+  String get readerTitle => 'Reader';
+
+  @override
+  String get readerPlaceholder => 'Reading content will appear here.';
+
+  @override
+  String get churchFathers => 'Church Fathers';
+
+  @override
+  String get christianClassics => 'Christian Classics';
+
+  @override
+  String get aboutApp => 'About';
+
+  @override
+  String get aboutDescription =>
+      'Patres — a beautiful reader for patristic texts and Christian classics, with planned TTS audiobook support.';
+
+  @override
+  String get version => 'Version';
+}
