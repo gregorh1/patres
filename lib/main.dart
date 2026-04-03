@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:patres/l10n/generated/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:patres/blocs/library_bloc.dart';
@@ -11,6 +12,11 @@ import 'package:patres/theme.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Use FFI-based sqflite so sqlite3_flutter_libs' bundled SQLite (with FTS5)
+  // is used instead of Android's framework SQLite which may lack FTS5.
+  sqfliteFfiInit();
+  databaseFactory = databaseFactoryFfi;
 
   // Match status bar to splash from the first frame
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(

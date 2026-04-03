@@ -67,9 +67,33 @@ void main() {
 
   group('DatabaseService FTS availability', () {
     test('isFtsAvailable is true when FTS5 works', () async {
-      // Create a fresh database using the service's own init (with FTS5)
-      final service = DatabaseService();
-      final db = await service.database;
+      // Create a database with FTS5 table to verify FTS availability
+      final db = await databaseFactoryFfi.openDatabase(
+        inMemoryDatabasePath,
+        options: OpenDatabaseOptions(
+          version: 2,
+          onCreate: (db, version) async {
+            await db.execute('''
+              CREATE TABLE reading_progress (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                text_id TEXT NOT NULL,
+                last_chapter INTEGER NOT NULL DEFAULT 0,
+                updated_at TEXT NOT NULL,
+                UNIQUE(text_id)
+              )
+            ''');
+            await db.execute('''
+              CREATE VIRTUAL TABLE IF NOT EXISTS search_fts USING fts5(
+                title, content,
+                text_id UNINDEXED, chapter_index UNINDEXED,
+                book_title UNINDEXED, book_author UNINDEXED,
+                tokenize='unicode61 remove_diacritics 2'
+              )
+            ''');
+          },
+        ),
+      );
+      final service = DatabaseService(database: db);
       expect(service.isFtsAvailable, isTrue);
       await service.close();
     });
