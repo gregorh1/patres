@@ -6,8 +6,10 @@ import 'package:patres/blocs/reader_state.dart';
 import 'package:patres/models/bookmark.dart';
 import 'package:patres/models/highlight.dart';
 import 'package:patres/models/text_content.dart';
+import 'package:patres/services/database_service.dart';
 import 'package:patres/services/reader_storage_service.dart';
 import 'package:patres/services/text_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // --- Fakes ---
 
@@ -34,25 +36,26 @@ class FakeTextServiceThrowing extends TextService {
   }
 }
 
-class FakeReaderStorageService extends ReaderStorageService {
-  int _fontSizeIndex = 1;
-  String _fontFamily = 'Lora';
+/// In-memory fake that mirrors the DatabaseService API used by
+/// ReaderStorageService, without requiring a real SQLite database.
+class FakeDatabaseService extends DatabaseService {
   final Map<String, double> _scrollPositions = {};
   final Map<String, int> _lastChapters = {};
   final Map<String, List<Bookmark>> _bookmarks = {};
   final Map<String, List<Highlight>> _highlights = {};
+  int _nextBookmarkId = 1;
+  int _nextHighlightId = 1;
+
+  FakeDatabaseService() : super(database: null);
 
   @override
-  Future<int> getFontSizeIndex() async => _fontSizeIndex;
+  Future<int> getLastChapter(String textId) async =>
+      _lastChapters[textId] ?? 0;
 
   @override
-  Future<void> saveFontSizeIndex(int index) async => _fontSizeIndex = index;
-
-  @override
-  Future<String> getFontFamily() async => _fontFamily;
-
-  @override
-  Future<void> saveFontFamily(String family) async => _fontFamily = family;
+  Future<void> saveLastChapter(String textId, int chapter) async {
+    _lastChapters[textId] = chapter;
+  }
 
   @override
   Future<double> getScrollPosition(String textId, int chapter) async =>
@@ -65,32 +68,47 @@ class FakeReaderStorageService extends ReaderStorageService {
   }
 
   @override
-  Future<int> getLastChapter(String textId) async =>
-      _lastChapters[textId] ?? 0;
+  Future<List<Bookmark>> getBookmarks(String textId) async =>
+      List.of(_bookmarks[textId] ?? []);
 
   @override
-  Future<void> saveLastChapter(String textId, int chapter) async {
-    _lastChapters[textId] = chapter;
+  Future<int> insertBookmark(Bookmark bookmark) async {
+    final id = _nextBookmarkId++;
+    final saved = bookmark.copyWith(id: id);
+    _bookmarks.putIfAbsent(bookmark.textId, () => []).add(saved);
+    return id;
   }
 
   @override
-  Future<List<Bookmark>> getBookmarks(String textId) async =>
-      _bookmarks[textId] ?? [];
+  Future<void> deleteBookmark(int id) async {
+    for (final list in _bookmarks.values) {
+      list.removeWhere((b) => b.id == id);
+    }
+  }
 
   @override
-  Future<void> saveBookmarks(
-      String textId, List<Bookmark> bookmarks) async {
-    _bookmarks[textId] = bookmarks;
+  Future<void> deleteBookmarkByChapter(
+      String textId, int chapterIndex) async {
+    _bookmarks[textId]?.removeWhere((b) => b.chapterIndex == chapterIndex);
   }
 
   @override
   Future<List<Highlight>> getHighlights(String textId) async =>
-      _highlights[textId] ?? [];
+      List.of(_highlights[textId] ?? []);
 
   @override
-  Future<void> saveHighlights(
-      String textId, List<Highlight> highlights) async {
-    _highlights[textId] = highlights;
+  Future<void> insertHighlight(Highlight highlight) async {
+    final id = _nextHighlightId++;
+    final saved = highlight.copyWith(id: id);
+    _highlights.putIfAbsent(highlight.textId, () => []).add(saved);
+  }
+
+  @override
+  Future<void> deleteHighlight(
+      String textId, int chapterIndex, int paragraphIndex) async {
+    _highlights[textId]?.removeWhere((h) =>
+        h.chapterIndex == chapterIndex &&
+        h.paragraphIndex == paragraphIndex);
   }
 }
 
@@ -98,11 +116,16 @@ class FakeReaderStorageService extends ReaderStorageService {
 
 void main() {
   late FakeTextService textService;
-  late FakeReaderStorageService storageService;
+  late FakeDatabaseService fakeDatabaseService;
+  late ReaderStorageService storageService;
 
   setUp(() {
+    SharedPreferences.setMockInitialValues({});
     textService = FakeTextService();
-    storageService = FakeReaderStorageService();
+    fakeDatabaseService = FakeDatabaseService();
+    storageService = ReaderStorageService(
+      databaseService: fakeDatabaseService,
+    );
   });
 
   ReaderBloc buildBloc() => ReaderBloc(
@@ -134,7 +157,7 @@ void main() {
       blocTest<ReaderBloc, ReaderState>(
         'restores saved chapter and font settings',
         setUp: () async {
-          await storageService.saveLastChapter('augustyn', 2);
+          await fakeDatabaseService.saveLastChapter('augustyn', 2);
           await storageService.saveFontSizeIndex(3);
           await storageService.saveFontFamily('Merriweather');
         },
@@ -197,7 +220,7 @@ void main() {
         ],
         verify: (_) async {
           expect(
-              await storageService.getLastChapter('augustyn'), equals(1));
+              await fakeDatabaseService.getLastChapter('augustyn'), equals(1));
         },
       );
     });
@@ -255,7 +278,8 @@ void main() {
               .having((s) => s.bookmarks.first.chapterIndex, 'ch', 1)
               .having((s) => s.bookmarks.first.note, 'note', 'Great passage')
               .having(
-                  (s) => s.bookmarks.first.scrollPosition, 'scroll', 150.0),
+                  (s) => s.bookmarks.first.scrollPosition, 'scroll', 150.0)
+              .having((s) => s.bookmarks.first.id, 'id', isNotNull),
         ],
       );
 
@@ -268,6 +292,8 @@ void main() {
           currentChapter: 0,
           bookmarks: [
             Bookmark(
+              id: 1,
+              textId: 'augustyn',
               chapterIndex: 0,
               timestamp: DateTime(2026, 1, 1),
             ),
@@ -289,8 +315,16 @@ void main() {
           status: ReaderStatus.loaded,
           textId: 'augustyn',
           bookmarks: [
-            Bookmark(chapterIndex: 0, timestamp: DateTime(2026, 1, 1)),
-            Bookmark(chapterIndex: 2, timestamp: DateTime(2026, 1, 2)),
+            Bookmark(
+                id: 1,
+                textId: 'augustyn',
+                chapterIndex: 0,
+                timestamp: DateTime(2026, 1, 1)),
+            Bookmark(
+                id: 2,
+                textId: 'augustyn',
+                chapterIndex: 2,
+                timestamp: DateTime(2026, 1, 2)),
           ],
         ),
         act: (bloc) =>
@@ -318,7 +352,8 @@ void main() {
           isA<ReaderState>()
               .having((s) => s.highlights.length, 'count', 1)
               .having((s) => s.highlights.first.chapterIndex, 'ch', 0)
-              .having((s) => s.highlights.first.paragraphIndex, 'para', 2),
+              .having((s) => s.highlights.first.paragraphIndex, 'para', 2)
+              .having((s) => s.highlights.first.id, 'id', isNotNull),
         ],
       );
 
@@ -329,7 +364,13 @@ void main() {
           status: ReaderStatus.loaded,
           textId: 'augustyn',
           currentChapter: 0,
-          highlights: [Highlight(chapterIndex: 0, paragraphIndex: 2)],
+          highlights: [
+            Highlight(
+                id: 1,
+                textId: 'augustyn',
+                chapterIndex: 0,
+                paragraphIndex: 2),
+          ],
         ),
         act: (bloc) =>
             bloc.add(const ReaderHighlightToggled(paragraphIndex: 2)),
@@ -353,7 +394,8 @@ void main() {
             .add(const ReaderScrollPositionSaved(position: 200.0)),
         expect: () => const <ReaderState>[],
         verify: (_) async {
-          expect(await storageService.getScrollPosition('augustyn', 1),
+          expect(
+              await fakeDatabaseService.getScrollPosition('augustyn', 1),
               equals(200.0));
         },
       );

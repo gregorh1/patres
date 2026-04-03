@@ -1,20 +1,24 @@
-import 'dart:convert';
-
 import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:patres/models/bookmark.dart';
 import 'package:patres/models/highlight.dart';
+import 'package:patres/services/database_service.dart';
 
-/// Persists reader preferences, scroll positions, bookmarks, and highlights.
+/// Persists reader preferences (SharedPreferences) and reading data (SQLite).
 class ReaderStorageService {
-  ReaderStorageService({SharedPreferences? prefs}) : _prefs = prefs;
+  ReaderStorageService({
+    SharedPreferences? prefs,
+    required this.databaseService,
+  }) : _prefs = prefs;
 
   SharedPreferences? _prefs;
+  final DatabaseService databaseService;
 
   Future<SharedPreferences> get _preferences async {
     return _prefs ??= await SharedPreferences.getInstance();
   }
 
-  // Font settings
+  // --- Font settings (SharedPreferences) ---
 
   Future<int> getFontSizeIndex() async {
     final prefs = await _preferences;
@@ -36,65 +40,66 @@ class ReaderStorageService {
     await prefs.setString('reader_font_family', family);
   }
 
-  // Scroll position
+  // --- Reading progress (SQLite) ---
 
   Future<double> getScrollPosition(String textId, int chapter) async {
-    final prefs = await _preferences;
-    return prefs.getDouble('scroll_${textId}_$chapter') ?? 0.0;
+    return databaseService.getScrollPosition(textId, chapter);
   }
 
   Future<void> saveScrollPosition(
       String textId, int chapter, double position) async {
-    final prefs = await _preferences;
-    await prefs.setDouble('scroll_${textId}_$chapter', position);
+    await databaseService.saveScrollPosition(textId, chapter, position);
   }
 
-  // Last chapter
-
   Future<int> getLastChapter(String textId) async {
-    final prefs = await _preferences;
-    return prefs.getInt('last_chapter_$textId') ?? 0;
+    return databaseService.getLastChapter(textId);
   }
 
   Future<void> saveLastChapter(String textId, int chapter) async {
-    final prefs = await _preferences;
-    await prefs.setInt('last_chapter_$textId', chapter);
+    await databaseService.saveLastChapter(textId, chapter);
   }
 
-  // Bookmarks
+  // --- Bookmarks (SQLite) ---
 
   Future<List<Bookmark>> getBookmarks(String textId) async {
-    final prefs = await _preferences;
-    final raw = prefs.getString('bookmarks_$textId');
-    if (raw == null) return [];
-    final list = jsonDecode(raw) as List<dynamic>;
-    return list
-        .map((e) => Bookmark.fromJson(e as Map<String, dynamic>))
-        .toList();
+    return databaseService.getBookmarks(textId);
   }
 
   Future<void> saveBookmarks(String textId, List<Bookmark> bookmarks) async {
-    final prefs = await _preferences;
-    final raw = jsonEncode(bookmarks.map((b) => b.toJson()).toList());
-    await prefs.setString('bookmarks_$textId', raw);
+    // This method kept for backward compatibility with ReaderBloc.
+    // Individual insert/delete operations are preferred.
   }
 
-  // Highlights
+  Future<int> insertBookmark(Bookmark bookmark) async {
+    return databaseService.insertBookmark(bookmark);
+  }
+
+  Future<void> deleteBookmark(int id) async {
+    await databaseService.deleteBookmark(id);
+  }
+
+  Future<void> deleteBookmarkByChapter(String textId, int chapterIndex) async {
+    await databaseService.deleteBookmarkByChapter(textId, chapterIndex);
+  }
+
+  // --- Highlights (SQLite) ---
 
   Future<List<Highlight>> getHighlights(String textId) async {
-    final prefs = await _preferences;
-    final raw = prefs.getString('highlights_$textId');
-    if (raw == null) return [];
-    final list = jsonDecode(raw) as List<dynamic>;
-    return list
-        .map((e) => Highlight.fromJson(e as Map<String, dynamic>))
-        .toList();
+    return databaseService.getHighlights(textId);
   }
 
   Future<void> saveHighlights(
       String textId, List<Highlight> highlights) async {
-    final prefs = await _preferences;
-    final raw = jsonEncode(highlights.map((h) => h.toJson()).toList());
-    await prefs.setString('highlights_$textId', raw);
+    // This method kept for backward compatibility with ReaderBloc.
+    // Individual insert/delete operations are preferred.
+  }
+
+  Future<void> insertHighlight(Highlight highlight) async {
+    await databaseService.insertHighlight(highlight);
+  }
+
+  Future<void> deleteHighlight(
+      String textId, int chapterIndex, int paragraphIndex) async {
+    await databaseService.deleteHighlight(textId, chapterIndex, paragraphIndex);
   }
 }
