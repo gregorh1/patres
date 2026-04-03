@@ -24,5 +24,30 @@
   "christianClassics": "Klasycy chrześcijańscy",
   "aboutApp": "O aplikacji",
   "aboutDescription": "Patres — piękny czytnik tekstów patrystycznych i klasyki chrześcijańskiej, z planowaną obsługą audiobooków TTS.",
-  "version": "Wersja"
+  "version": "Wersja",
+  "filterAll": "Wszystkie",
+  "filterCategory": "Kategoria",
+  "filterEra": "Epoka",
+  "sortByTitle": "Tytuł",
+  "sortByAuthor": "Autor",
+  "sortByEra": "Epoka",
+  "sortBy": "Sortuj",
+  "categoryPatrystyka": "Patrystyka",
+  "categoryDuchowosc": "Duchowość",
+  "categoryMonastycyzm": "Monastycyzm",
+  "categoryHymnografia": "Hymnografia",
+  "categoryKaznodziejstwo": "Kaznodziejstwo",
+  "chaptersCount": "{count} {count, plural, one{rozdział} few{rozdziały} other{rozdziałów}}",
+  "@chaptersCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noResults": "Brak wyników",
+  "noResultsHint": "Spróbuj zmienić filtry lub wyszukiwanie",
+  "statusComplete": "Pełny tekst",
+  "statusPartial": "Częściowy",
+  "statusPlaceholder": "Wkrótce"
 }

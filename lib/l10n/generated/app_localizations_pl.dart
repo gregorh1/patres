@@ -83,4 +83,67 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get version => 'Wersja';
+
+  @override
+  String get filterAll => 'Wszystkie';
+
+  @override
+  String get filterCategory => 'Kategoria';
+
+  @override
+  String get filterEra => 'Epoka';
+
+  @override
+  String get sortByTitle => 'Tytuł';
+
+  @override
+  String get sortByAuthor => 'Autor';
+
+  @override
+  String get sortByEra => 'Epoka';
+
+  @override
+  String get sortBy => 'Sortuj';
+
+  @override
+  String get categoryPatrystyka => 'Patrystyka';
+
+  @override
+  String get categoryDuchowosc => 'Duchowość';
+
+  @override
+  String get categoryMonastycyzm => 'Monastycyzm';
+
+  @override
+  String get categoryHymnografia => 'Hymnografia';
+
+  @override
+  String get categoryKaznodziejstwo => 'Kaznodziejstwo';
+
+  @override
+  String chaptersCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'rozdziałów',
+      few: 'rozdziały',
+      one: 'rozdział',
+    );
+    return '$count $_temp0';
+  }
+
+  @override
+  String get noResults => 'Brak wyników';
+
+  @override
+  String get noResultsHint => 'Spróbuj zmienić filtry lub wyszukiwanie';
+
+  @override
+  String get statusComplete => 'Pełny tekst';
+
+  @override
+  String get statusPartial => 'Częściowy';
+
+  @override
+  String get statusPlaceholder => 'Wkrótce';
 }
