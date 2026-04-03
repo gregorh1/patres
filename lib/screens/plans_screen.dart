@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:patres/blocs/plan_bloc.dart';
 import 'package:patres/l10n/generated/app_localizations.dart';
 import 'package:patres/models/reading_plan.dart';
-import 'package:patres/theme.dart';
 
 class PlansScreen extends StatelessWidget {
   const PlansScreen({super.key});
@@ -13,17 +12,17 @@ class PlansScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    final isLight = theme.brightness == Brightness.light;
+    final scaffoldBg = theme.scaffoldBackgroundColor;
 
     return DecoratedBox(
-      decoration: isLight
-          ? const BoxDecoration(
+      decoration: theme.brightness == Brightness.light
+          ? BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  PatresTheme.lightParchment,
-                  PatresTheme.lightParchmentEnd,
+                  scaffoldBg,
+                  Color.lerp(scaffoldBg, Colors.brown.withValues(alpha: 0.1), 0.15) ?? scaffoldBg,
                 ],
               ),
             )
@@ -98,6 +97,7 @@ class _PlanCard extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
     final fraction = progress.progressFraction(plan.totalDays);
     final completedCount = progress.completedDays.length;
+    final isCompleted = completedCount == plan.totalDays && plan.totalDays > 0;
 
     return Card(
       clipBehavior: Clip.antiAlias,
@@ -148,13 +148,19 @@ class _PlanCard extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 4),
                       decoration: BoxDecoration(
-                        color: cs.tertiaryContainer,
+                        color: isCompleted
+                            ? cs.primaryContainer
+                            : cs.tertiaryContainer,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(
-                        '$completedCount/${plan.totalDays}',
+                        isCompleted
+                            ? l10n.planCompletedStatus
+                            : l10n.planInProgress,
                         style: theme.textTheme.labelSmall?.copyWith(
-                          color: cs.onTertiaryContainer,
+                          color: isCompleted
+                              ? cs.onPrimaryContainer
+                              : cs.onTertiaryContainer,
                           fontWeight: FontWeight.w600,
                         ),
                       ),

@@ -607,6 +607,24 @@ abstract class AppLocalizations {
   /// In pl, this message translates to:
   /// **'{count} {count, plural, one{dzień} few{dni} other{dni}} z rzędu'**
   String streakDays(int count);
+
+  /// No description provided for @planInProgress.
+  ///
+  /// In pl, this message translates to:
+  /// **'W trakcie'**
+  String get planInProgress;
+
+  /// No description provided for @planCompletedStatus.
+  ///
+  /// In pl, this message translates to:
+  /// **'Ukończony'**
+  String get planCompletedStatus;
+
+  /// No description provided for @planStartPrompt.
+  ///
+  /// In pl, this message translates to:
+  /// **'Rozpocznij plan, aby śledzić postępy'**
+  String get planStartPrompt;
 }
 
 class _AppLocalizationsDelegate

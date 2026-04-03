@@ -294,4 +294,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String streakDays(int count) {
     return '$count-day streak';
   }
+
+  @override
+  String get planInProgress => 'In Progress';
+
+  @override
+  String get planCompletedStatus => 'Completed';
+
+  @override
+  String get planStartPrompt => 'Start this plan to track your progress';
 }

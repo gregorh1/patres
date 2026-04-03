@@ -123,5 +123,8 @@
         "type": "int"
       }
     }
-  }
+  },
+  "planInProgress": "W trakcie",
+  "planCompletedStatus": "Ukończony",
+  "planStartPrompt": "Rozpocznij plan, aby śledzić postępy"
 }

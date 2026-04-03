@@ -123,5 +123,8 @@
         "type": "int"
       }
     }
-  }
+  },
+  "planInProgress": "In Progress",
+  "planCompletedStatus": "Completed",
+  "planStartPrompt": "Start this plan to track your progress"
 }

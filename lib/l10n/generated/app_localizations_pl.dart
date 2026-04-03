@@ -304,4 +304,13 @@ class AppLocalizationsPl extends AppLocalizations {
     );
     return '$count $_temp0 z rzędu';
   }
+
+  @override
+  String get planInProgress => 'W trakcie';
+
+  @override
+  String get planCompletedStatus => 'Ukończony';
+
+  @override
+  String get planStartPrompt => 'Rozpocznij plan, aby śledzić postępy';
 }

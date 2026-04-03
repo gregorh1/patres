@@ -35,7 +35,12 @@ class PlanDetailScreen extends StatelessWidget {
 
         return Scaffold(
           appBar: AppBar(
-            title: Text(plan.title),
+            title: Text(
+              plan.title,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: theme.textTheme.titleLarge,
+            ),
           ),
           body: CustomScrollView(
             slivers: [
@@ -54,52 +59,80 @@ class PlanDetailScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      // Stats row
-                      Row(
-                        children: [
-                          _StatChip(
-                            icon: Icons.check_circle_outline_rounded,
-                            label:
-                                '${progress.completedDays.length}/${plan.totalDays}',
-                            subtitle: l10n.planCompleted,
-                          ),
-                          const SizedBox(width: 12),
-                          _StatChip(
-                            icon: Icons.local_fire_department_rounded,
-                            label: '${progress.currentStreak}',
-                            subtitle: l10n.planStreak,
-                          ),
-                          const SizedBox(width: 12),
-                          _StatChip(
-                            icon: Icons.emoji_events_outlined,
-                            label: '${progress.longestStreak}',
-                            subtitle: l10n.planLongestStreak,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(4),
-                        child: LinearProgressIndicator(
-                          value: fraction,
-                          minHeight: 8,
-                          backgroundColor: cs.surfaceContainerHighest,
-                          valueColor: AlwaysStoppedAnimation(cs.primary),
+                      if (progress.isStarted) ...[
+                        // Stats row - only shown after plan is started
+                        Row(
+                          children: [
+                            _StatChip(
+                              icon: Icons.check_circle_outline_rounded,
+                              label:
+                                  '${progress.completedDays.length}/${plan.totalDays}',
+                              subtitle: l10n.planCompleted,
+                            ),
+                            const SizedBox(width: 12),
+                            _StatChip(
+                              icon: Icons.local_fire_department_rounded,
+                              label: '${progress.currentStreak}',
+                              subtitle: l10n.planStreak,
+                            ),
+                            const SizedBox(width: 12),
+                            _StatChip(
+                              icon: Icons.emoji_events_outlined,
+                              label: '${progress.longestStreak}',
+                              subtitle: l10n.planLongestStreak,
+                            ),
+                          ],
                         ),
-                      ),
-                      const SizedBox(height: 8),
-                      if (!progress.isStarted)
-                        Center(
-                          child: FilledButton.icon(
-                            onPressed: () {
-                              context
-                                  .read<PlanBloc>()
-                                  .add(PlanStarted(planId));
-                            },
-                            icon: const Icon(Icons.play_arrow_rounded),
-                            label: Text(l10n.planStart),
+                        const SizedBox(height: 16),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(4),
+                          child: LinearProgressIndicator(
+                            value: fraction,
+                            minHeight: 8,
+                            backgroundColor: cs.surfaceContainerHighest,
+                            valueColor: AlwaysStoppedAnimation(cs.primary),
                           ),
                         ),
+                      ] else ...[
+                        // Friendly prompt when plan hasn't been started
+                        Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 20, horizontal: 16),
+                          decoration: BoxDecoration(
+                            color: cs.surfaceContainerHighest
+                                .withValues(alpha: 0.5),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Column(
+                            children: [
+                              Icon(
+                                Icons.auto_stories_rounded,
+                                size: 32,
+                                color: cs.onSurfaceVariant,
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                l10n.planStartPrompt,
+                                style: theme.textTheme.bodyMedium?.copyWith(
+                                  color: cs.onSurfaceVariant,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                              const SizedBox(height: 16),
+                              FilledButton.icon(
+                                onPressed: () {
+                                  context
+                                      .read<PlanBloc>()
+                                      .add(PlanStarted(planId));
+                                },
+                                icon: const Icon(Icons.play_arrow_rounded),
+                                label: Text(l10n.planStart),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ],
                   ),
                 ),
