@@ -98,5 +98,30 @@
         "type": "int"
       }
     }
+  },
+  "plansTab": "Plans",
+  "plansTitle": "Reading plans",
+  "plansError": "Failed to load plans",
+  "planDaysCount": "{count} {count, plural, one{day} other{days}}",
+  "@planDaysCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "planStart": "Start plan",
+  "planCompleted": "completed",
+  "planStreak": "streak",
+  "planLongestStreak": "best",
+  "planMarkComplete": "Mark as complete",
+  "planMarkIncomplete": "Mark as incomplete",
+  "streakDays": "{count}-day streak",
+  "@streakDays": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   }
 }

@@ -47,6 +47,7 @@ flutter:
     - assets/texts/skarga-kazania-sejmowe.json
     - assets/daily_readings.json
     - assets/authors.json
+    - assets/reading_plans.json
     - assets/splash_icon.png
 
 flutter_native_splash:

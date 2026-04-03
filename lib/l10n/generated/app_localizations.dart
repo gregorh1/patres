@@ -541,6 +541,72 @@ abstract class AppLocalizations {
   /// In pl, this message translates to:
   /// **'{count} {count, plural, one{wynik} few{wyniki} other{wyników}}'**
   String searchResultsCount(int count);
+
+  /// No description provided for @plansTab.
+  ///
+  /// In pl, this message translates to:
+  /// **'Plany'**
+  String get plansTab;
+
+  /// No description provided for @plansTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Plany czytania'**
+  String get plansTitle;
+
+  /// No description provided for @plansError.
+  ///
+  /// In pl, this message translates to:
+  /// **'Nie udało się załadować planów'**
+  String get plansError;
+
+  /// No description provided for @planDaysCount.
+  ///
+  /// In pl, this message translates to:
+  /// **'{count} {count, plural, one{dzień} few{dni} other{dni}}'**
+  String planDaysCount(int count);
+
+  /// No description provided for @planStart.
+  ///
+  /// In pl, this message translates to:
+  /// **'Rozpocznij plan'**
+  String get planStart;
+
+  /// No description provided for @planCompleted.
+  ///
+  /// In pl, this message translates to:
+  /// **'ukończono'**
+  String get planCompleted;
+
+  /// No description provided for @planStreak.
+  ///
+  /// In pl, this message translates to:
+  /// **'seria'**
+  String get planStreak;
+
+  /// No description provided for @planLongestStreak.
+  ///
+  /// In pl, this message translates to:
+  /// **'rekord'**
+  String get planLongestStreak;
+
+  /// No description provided for @planMarkComplete.
+  ///
+  /// In pl, this message translates to:
+  /// **'Oznacz jako ukończone'**
+  String get planMarkComplete;
+
+  /// No description provided for @planMarkIncomplete.
+  ///
+  /// In pl, this message translates to:
+  /// **'Cofnij ukończenie'**
+  String get planMarkIncomplete;
+
+  /// No description provided for @streakDays.
+  ///
+  /// In pl, this message translates to:
+  /// **'{count} {count, plural, one{dzień} few{dni} other{dni}} z rzędu'**
+  String streakDays(int count);
 }
 
 class _AppLocalizationsDelegate

@@ -116,12 +116,13 @@ void main() {
       expect(find.text('Witaj w Patres'), findsOneWidget);
     });
 
-    testWidgets('bottom navigation has three tabs', (tester) async {
+    testWidgets('bottom navigation has four tabs', (tester) async {
       await tester.pumpWidget(PatresApp(textService: _fakeTextService()));
       await tester.pumpAndSettle();
 
       expect(find.text('Główna'), findsOneWidget);
       expect(find.text('Biblioteka'), findsOneWidget);
+      expect(find.text('Plany'), findsOneWidget);
       expect(find.text('Ustawienia'), findsOneWidget);
     });
 

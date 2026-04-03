@@ -251,4 +251,47 @@ class AppLocalizationsEn extends AppLocalizations {
     );
     return '$count $_temp0';
   }
+
+  @override
+  String get plansTab => 'Plans';
+
+  @override
+  String get plansTitle => 'Reading plans';
+
+  @override
+  String get plansError => 'Failed to load plans';
+
+  @override
+  String planDaysCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'days',
+      one: 'day',
+    );
+    return '$count $_temp0';
+  }
+
+  @override
+  String get planStart => 'Start plan';
+
+  @override
+  String get planCompleted => 'completed';
+
+  @override
+  String get planStreak => 'streak';
+
+  @override
+  String get planLongestStreak => 'best';
+
+  @override
+  String get planMarkComplete => 'Mark as complete';
+
+  @override
+  String get planMarkIncomplete => 'Mark as incomplete';
+
+  @override
+  String streakDays(int count) {
+    return '$count-day streak';
+  }
 }
