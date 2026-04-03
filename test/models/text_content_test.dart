@@ -86,6 +86,8 @@ void main() {
   group('Bookmark', () {
     test('toJson and fromJson round-trip', () {
       final original = Bookmark(
+        id: 42,
+        textId: 'augustyn',
         chapterIndex: 5,
         timestamp: DateTime.utc(2026, 4, 3, 12, 0),
         note: 'Piękny fragment',
@@ -95,6 +97,8 @@ void main() {
       final json = original.toJson();
       final restored = Bookmark.fromJson(json);
 
+      expect(restored.id, 42);
+      expect(restored.textId, 'augustyn');
       expect(restored.chapterIndex, 5);
       expect(restored.timestamp, DateTime.utc(2026, 4, 3, 12, 0));
       expect(restored.note, 'Piękny fragment');
@@ -109,20 +113,61 @@ void main() {
 
       final bookmark = Bookmark.fromJson(json);
 
+      expect(bookmark.id, isNull);
+      expect(bookmark.textId, '');
       expect(bookmark.note, isNull);
       expect(bookmark.scrollPosition, 0.0);
+    });
+
+    test('copyWith creates modified copy', () {
+      final original = Bookmark(
+        id: 1,
+        textId: 'test',
+        chapterIndex: 0,
+        timestamp: DateTime(2026, 1, 1),
+      );
+
+      final modified = original.copyWith(id: 42, note: 'updated');
+
+      expect(modified.id, 42);
+      expect(modified.note, 'updated');
+      expect(modified.textId, 'test');
+      expect(modified.chapterIndex, 0);
     });
   });
 
   group('Highlight', () {
     test('toJson and fromJson round-trip', () {
-      const original = Highlight(chapterIndex: 2, paragraphIndex: 7);
+      const original = Highlight(
+        id: 7,
+        textId: 'augustyn',
+        chapterIndex: 2,
+        paragraphIndex: 7,
+      );
 
       final json = original.toJson();
       final restored = Highlight.fromJson(json);
 
+      expect(restored.id, 7);
+      expect(restored.textId, 'augustyn');
       expect(restored.chapterIndex, 2);
       expect(restored.paragraphIndex, 7);
+    });
+
+    test('copyWith creates modified copy', () {
+      const original = Highlight(
+        id: 1,
+        textId: 'test',
+        chapterIndex: 0,
+        paragraphIndex: 3,
+      );
+
+      final modified = original.copyWith(id: 42, textId: 'other');
+
+      expect(modified.id, 42);
+      expect(modified.textId, 'other');
+      expect(modified.chapterIndex, 0);
+      expect(modified.paragraphIndex, 3);
     });
   });
 }

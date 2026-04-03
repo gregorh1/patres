@@ -105,32 +105,39 @@ class ReaderBloc extends Bloc<ReaderEvent, ReaderState> {
     final existingIndex = state.bookmarks
         .indexWhere((b) => b.chapterIndex == state.currentChapter);
 
-    List<Bookmark> newBookmarks;
     if (existingIndex >= 0) {
-      newBookmarks = List.of(state.bookmarks)..removeAt(existingIndex);
+      final existing = state.bookmarks[existingIndex];
+      await storageService.deleteBookmarkByChapter(
+          state.textId, state.currentChapter);
+      final newBookmarks = List.of(state.bookmarks)..removeAt(existingIndex);
+      emit(state.copyWith(bookmarks: newBookmarks));
     } else {
-      newBookmarks = [
+      final bookmark = Bookmark(
+        textId: state.textId,
+        chapterIndex: state.currentChapter,
+        timestamp: DateTime.now(),
+        note: event.note,
+        scrollPosition: event.scrollPosition,
+      );
+      final id = await storageService.insertBookmark(bookmark);
+      final newBookmarks = [
         ...state.bookmarks,
-        Bookmark(
-          chapterIndex: state.currentChapter,
-          timestamp: DateTime.now(),
-          note: event.note,
-          scrollPosition: event.scrollPosition,
-        ),
+        bookmark.copyWith(id: id),
       ];
+      emit(state.copyWith(bookmarks: newBookmarks));
     }
-
-    emit(state.copyWith(bookmarks: newBookmarks));
-    await storageService.saveBookmarks(state.textId, newBookmarks);
   }
 
   Future<void> _onBookmarkRemoved(
     ReaderBookmarkRemoved event,
     Emitter<ReaderState> emit,
   ) async {
+    final bookmark = state.bookmarks[event.index];
+    if (bookmark.id != null) {
+      await storageService.deleteBookmark(bookmark.id!);
+    }
     final newBookmarks = List.of(state.bookmarks)..removeAt(event.index);
     emit(state.copyWith(bookmarks: newBookmarks));
-    await storageService.saveBookmarks(state.textId, newBookmarks);
   }
 
   Future<void> _onHighlightToggled(
@@ -141,20 +148,22 @@ class ReaderBloc extends Bloc<ReaderEvent, ReaderState> {
         h.chapterIndex == state.currentChapter &&
         h.paragraphIndex == event.paragraphIndex);
 
-    List<Highlight> newHighlights;
     if (existingIndex >= 0) {
-      newHighlights = List.of(state.highlights)..removeAt(existingIndex);
+      await storageService.deleteHighlight(
+          state.textId, state.currentChapter, event.paragraphIndex);
+      final newHighlights = List.of(state.highlights)
+        ..removeAt(existingIndex);
+      emit(state.copyWith(highlights: newHighlights));
     } else {
-      newHighlights = [
-        ...state.highlights,
-        Highlight(
-          chapterIndex: state.currentChapter,
-          paragraphIndex: event.paragraphIndex,
-        ),
-      ];
+      final highlight = Highlight(
+        textId: state.textId,
+        chapterIndex: state.currentChapter,
+        paragraphIndex: event.paragraphIndex,
+      );
+      await storageService.insertHighlight(highlight);
+      // Re-fetch to get the id assigned by SQLite
+      final highlights = await storageService.getHighlights(state.textId);
+      emit(state.copyWith(highlights: highlights));
     }
-
-    emit(state.copyWith(highlights: newHighlights));
-    await storageService.saveHighlights(state.textId, newHighlights);
   }
 }
