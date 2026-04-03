@@ -1,0 +1,65 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Open book - left page -->
+    <path
+        android:fillColor="#F5EBE0"
+        android:strokeColor="#6B1D2A"
+        android:strokeWidth="1.2"
+        android:pathData="M30,58 L30,80 Q54,74 54,74 L54,52 Q54,52 30,58 Z" />
+
+    <!-- Open book - right page -->
+    <path
+        android:fillColor="#F5EBE0"
+        android:strokeColor="#6B1D2A"
+        android:strokeWidth="1.2"
+        android:pathData="M78,58 L78,80 Q54,74 54,74 L54,52 Q54,52 78,58 Z" />
+
+    <!-- Book spine line -->
+    <path
+        android:strokeColor="#6B1D2A"
+        android:strokeWidth="1.5"
+        android:pathData="M54,52 L54,74" />
+
+    <!-- Text lines on left page -->
+    <path
+        android:strokeColor="#C9A84C"
+        android:strokeWidth="0.8"
+        android:pathData="M36,62 L50,59" />
+    <path
+        android:strokeColor="#C9A84C"
+        android:strokeWidth="0.8"
+        android:pathData="M36,66 L50,63" />
+    <path
+        android:strokeColor="#C9A84C"
+        android:strokeWidth="0.8"
+        android:pathData="M36,70 L50,67" />
+
+    <!-- Text lines on right page -->
+    <path
+        android:strokeColor="#C9A84C"
+        android:strokeWidth="0.8"
+        android:pathData="M58,59 L72,62" />
+    <path
+        android:strokeColor="#C9A84C"
+        android:strokeWidth="0.8"
+        android:pathData="M58,63 L72,66" />
+    <path
+        android:strokeColor="#C9A84C"
+        android:strokeWidth="0.8"
+        android:pathData="M58,67 L72,70" />
+
+    <!-- Cross - vertical beam -->
+    <path
+        android:fillColor="#C9A84C"
+        android:pathData="M52,24 L56,24 L56,54 L52,54 Z" />
+
+    <!-- Cross - horizontal beam -->
+    <path
+        android:fillColor="#C9A84C"
+        android:pathData="M42,32 L66,32 L66,36 L42,36 Z" />
+
+</vector>

@@ -4,8 +4,14 @@ import 'package:patres/models/app_theme_mode.dart';
 class PatresTheme {
   PatresTheme._();
 
-  // Refined color palette inspired by illuminated manuscripts
-  static const _primarySeed = Color(0xFF8B1A1A); // Deep ecclesiastical red
+  // Brand color palette
+  static const brandBurgundy = Color(0xFF6B1D2A); // Deep burgundy primary
+  static const brandGold = Color(0xFFC9A84C); // Gold accent
+  static const brandParchment = Color(0xFFF5EBE0); // Warm parchment surface
+  static const brandDarkBrown = Color(0xFF3B2218); // Dark brown text
+
+  // Light theme palette
+  static const _primarySeed = brandBurgundy;
   static const _sepiaPrimary = Color(0xFF6D4C2A); // Warm brown
   static const _sepiaBackground = Color(0xFFF5ECD7); // Aged parchment
   static const _sepiaSurface = Color(0xFFFAF4E8); // Lighter parchment
@@ -21,14 +27,14 @@ class PatresTheme {
   static const _darkOnPrimary = Color(0xFF3E1C1C);
   static const _darkPrimaryContainer = Color(0xFF4A2828);
   static const _darkOnPrimaryContainer = Color(0xFFECC8C8);
-  static const _darkSecondary = Color(0xFFD4B896);
+  static const _darkSecondary = Color(0xFFD4B896); // Gold-tinted for dark
   static const _darkOnSecondary = Color(0xFF3E2C1C);
   static const _darkSecondaryContainer = Color(0xFF4A3828);
   static const _darkOnSecondaryContainer = Color(0xFFE8D5B8);
 
   // Light mode parchment tint
-  static const lightParchment = Color(0xFFFAF6F0);
-  static const lightParchmentEnd = Color(0xFFF5EDE2);
+  static const lightParchment = brandParchment;
+  static const lightParchmentEnd = Color(0xFFEFE1D3);
 
   static ThemeData themeFor(AppThemeMode mode) {
     switch (mode) {
@@ -41,17 +47,34 @@ class PatresTheme {
     }
   }
 
+  static final _lightColorScheme = ColorScheme.fromSeed(
+    seedColor: brandBurgundy,
+    brightness: Brightness.light,
+    primary: brandBurgundy,
+    onPrimary: Colors.white,
+    secondary: brandGold,
+    onSecondary: brandDarkBrown,
+    secondaryContainer: const Color(0xFFF0E4C8),
+    onSecondaryContainer: brandDarkBrown,
+    tertiary: const Color(0xFF1A237E), // Navy accent
+    surface: brandParchment,
+    onSurface: brandDarkBrown,
+    surfaceContainerHighest: const Color(0xFFE8DDD0),
+    outline: const Color(0xFF9C8B72),
+  );
+
   static final _lightTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.light,
-    colorSchemeSeed: _primarySeed,
+    colorScheme: _lightColorScheme,
     scaffoldBackgroundColor: lightParchment,
     fontFamily: 'Roboto',
-    appBarTheme: const AppBarTheme(
+    appBarTheme: AppBarTheme(
       centerTitle: true,
       elevation: 0,
       scrolledUnderElevation: 1,
       backgroundColor: lightParchment,
+      foregroundColor: brandDarkBrown,
     ),
     cardTheme: CardThemeData(
       elevation: 0,
@@ -143,7 +166,7 @@ class PatresTheme {
     onPrimary: Colors.white,
     primaryContainer: const Color(0xFFDEC8A0),
     onPrimaryContainer: const Color(0xFF3E2C1C),
-    secondary: const Color(0xFF8B6914),
+    secondary: brandGold,
     onSecondary: Colors.white,
     secondaryContainer: const Color(0xFFE8D5A8),
     onSecondaryContainer: const Color(0xFF4A3800),

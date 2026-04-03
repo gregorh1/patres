@@ -265,6 +265,42 @@ void main() {
       expect(sepia.scaffoldBackgroundColor,
           isNot(equals(light.scaffoldBackgroundColor)));
     });
+
+    test('brand colors are defined correctly', () {
+      expect(PatresTheme.brandBurgundy, const Color(0xFF6B1D2A));
+      expect(PatresTheme.brandGold, const Color(0xFFC9A84C));
+      expect(PatresTheme.brandParchment, const Color(0xFFF5EBE0));
+      expect(PatresTheme.brandDarkBrown, const Color(0xFF3B2218));
+    });
+
+    test('light theme uses brand burgundy as primary', () {
+      final theme = PatresTheme.themeFor(AppThemeMode.light);
+      expect(theme.colorScheme.primary, PatresTheme.brandBurgundy);
+    });
+
+    test('light theme uses brand gold as secondary', () {
+      final theme = PatresTheme.themeFor(AppThemeMode.light);
+      expect(theme.colorScheme.secondary, PatresTheme.brandGold);
+    });
+
+    test('light theme uses brand parchment as scaffold background', () {
+      final theme = PatresTheme.themeFor(AppThemeMode.light);
+      expect(theme.scaffoldBackgroundColor, PatresTheme.brandParchment);
+    });
+
+    test('light theme uses dark brown for text', () {
+      final theme = PatresTheme.themeFor(AppThemeMode.light);
+      expect(theme.colorScheme.onSurface, PatresTheme.brandDarkBrown);
+    });
+
+    test('sepia theme uses brand gold as secondary', () {
+      final theme = PatresTheme.themeFor(AppThemeMode.sepia);
+      expect(theme.colorScheme.secondary, PatresTheme.brandGold);
+    });
+
+    test('lightParchment equals brandParchment', () {
+      expect(PatresTheme.lightParchment, PatresTheme.brandParchment);
+    });
   });
 
   group('LibraryScreen', () {
