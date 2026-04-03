@@ -15,6 +15,18 @@
       "status": "complete"
     },
     {
+      "id": "augustine-confessions-en",
+      "file": "augustine-confessions-en.json",
+      "title": "Confessions",
+      "titleOriginal": "Confessiones",
+      "author": "St. Augustine of Hippo",
+      "era": "IV-V w.",
+      "category": "patrystyka",
+      "language": "en",
+      "chaptersCount": 4,
+      "status": "placeholder"
+    },
+    {
       "id": "didache",
       "file": "didache.json",
       "title": "Didache — Nauka Dwunastu Apostołów",
@@ -25,6 +37,18 @@
       "language": "pl",
       "chaptersCount": 6,
       "status": "complete"
+    },
+    {
+      "id": "didache-en",
+      "file": "didache-en.json",
+      "title": "Didache — Teaching of the Twelve Apostles",
+      "titleOriginal": "Διδαχὴ τῶν δώδεκα ἀποστόλων",
+      "author": "Anonymous (Apostolic Fathers)",
+      "era": "I-II w.",
+      "category": "patrystyka",
+      "language": "en",
+      "chaptersCount": 3,
+      "status": "placeholder"
     },
     {
       "id": "chryzostom-mysli",
@@ -51,6 +75,18 @@
       "status": "placeholder"
     },
     {
+      "id": "kempis-imitation-en",
+      "file": "kempis-imitation-en.json",
+      "title": "The Imitation of Christ",
+      "titleOriginal": "De Imitatione Christi",
+      "author": "Thomas à Kempis",
+      "era": "XV w.",
+      "category": "duchowość",
+      "language": "en",
+      "chaptersCount": 4,
+      "status": "placeholder"
+    },
+    {
       "id": "list-do-diogneta",
       "file": "list-do-diogneta.json",
       "title": "List do Diogneta",
@@ -63,6 +99,18 @@
       "status": "partial"
     },
     {
+      "id": "letter-to-diognetus-en",
+      "file": "letter-to-diognetus-en.json",
+      "title": "Letter to Diognetus",
+      "titleOriginal": "Πρὸς Διόγνητον",
+      "author": "Anonymous (Apostolic Fathers)",
+      "era": "II-III w.",
+      "category": "patrystyka",
+      "language": "en",
+      "chaptersCount": 5,
+      "status": "placeholder"
+    },
+    {
       "id": "benedykt-regula",
       "file": "benedykt-regula.json",
       "title": "Reguła",
@@ -73,6 +121,18 @@
       "language": "pl",
       "chaptersCount": 4,
       "status": "partial"
+    },
+    {
+      "id": "benedict-rule-en",
+      "file": "benedict-rule-en.json",
+      "title": "The Rule",
+      "titleOriginal": "Regula Sancti Benedicti",
+      "author": "St. Benedict of Nursia",
+      "era": "VI w.",
+      "category": "monastycyzm",
+      "language": "en",
+      "chaptersCount": 3,
+      "status": "placeholder"
     },
     {
       "id": "bogurodzica",

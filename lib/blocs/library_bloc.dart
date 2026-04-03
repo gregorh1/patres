@@ -12,6 +12,7 @@ class LibraryBloc extends Bloc<LibraryEvent, LibraryState> {
     on<LibrarySearchChanged>(_onSearchChanged);
     on<LibraryCategoryFilterChanged>(_onCategoryFilterChanged);
     on<LibraryEraFilterChanged>(_onEraFilterChanged);
+    on<LibraryLanguageFilterChanged>(_onLanguageFilterChanged);
     on<LibrarySortChanged>(_onSortChanged);
     on<LibraryViewModeToggled>(_onViewModeToggled);
   }
@@ -68,6 +69,14 @@ class LibraryBloc extends Bloc<LibraryEvent, LibraryState> {
     emit(updated.copyWith(filteredTexts: _applyFilters(state.allTexts, updated)));
   }
 
+  void _onLanguageFilterChanged(
+    LibraryLanguageFilterChanged event,
+    Emitter<LibraryState> emit,
+  ) {
+    final updated = state.copyWith(selectedLanguage: event.language);
+    emit(updated.copyWith(filteredTexts: _applyFilters(state.allTexts, updated)));
+  }
+
   void _onSortChanged(
     LibrarySortChanged event,
     Emitter<LibraryState> emit,
@@ -98,6 +107,11 @@ class LibraryBloc extends Bloc<LibraryEvent, LibraryState> {
             t.author.toLowerCase().contains(q) ||
             t.titleOriginal.toLowerCase().contains(q);
       }).toList();
+    }
+
+    // Language filter
+    if (s.selectedLanguage != null) {
+      result = result.where((t) => t.language == s.selectedLanguage).toList();
     }
 
     // Category filter

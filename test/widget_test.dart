@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:patres/blocs/library_bloc.dart';
+import 'package:patres/blocs/locale_bloc.dart';
 import 'package:patres/blocs/theme_bloc.dart';
 import 'package:patres/l10n/generated/app_localizations.dart';
 import 'package:patres/main.dart';
@@ -78,29 +79,40 @@ TextService _fakeTextService() =>
     TextService(assetBundle: _FakeAssetBundle());
 
 /// Wraps a widget with all providers and localizations needed for testing.
-Widget testApp(Widget child, {ThemeBloc? themeBloc, LibraryBloc? libraryBloc}) {
+Widget testApp(
+  Widget child, {
+  ThemeBloc? themeBloc,
+  LibraryBloc? libraryBloc,
+  LocaleBloc? localeBloc,
+}) {
   final tBloc = themeBloc ?? ThemeBloc();
-  final lBloc = libraryBloc ??
-      LibraryBloc(textService: _fakeTextService());
+  final lBloc = libraryBloc ?? LibraryBloc(textService: _fakeTextService());
+  final lcBloc = localeBloc ?? LocaleBloc();
   return MultiBlocProvider(
     providers: [
       BlocProvider<ThemeBloc>.value(value: tBloc),
       BlocProvider<LibraryBloc>.value(value: lBloc),
+      BlocProvider<LocaleBloc>.value(value: lcBloc),
     ],
     child: BlocBuilder<ThemeBloc, ThemeState>(
       bloc: tBloc,
-      builder: (context, state) {
-        return MaterialApp(
-          theme: PatresTheme.themeFor(state.themeMode),
-          locale: const Locale('pl'),
-          supportedLocales: AppLocalizations.supportedLocales,
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          home: child,
+      builder: (context, themeState) {
+        return BlocBuilder<LocaleBloc, LocaleState>(
+          bloc: lcBloc,
+          builder: (context, localeState) {
+            return MaterialApp(
+              theme: PatresTheme.themeFor(themeState.themeMode),
+              locale: localeState.locale,
+              supportedLocales: AppLocalizations.supportedLocales,
+              localizationsDelegates: const [
+                AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              home: child,
+            );
+          },
         );
       },
     ),
@@ -301,6 +313,49 @@ void main() {
 
     test('lightParchment equals brandParchment', () {
       expect(PatresTheme.lightParchment, PatresTheme.brandParchment);
+    });
+  });
+
+  group('Language switching', () {
+    testWidgets('Settings shows two language options', (tester) async {
+      await tester.pumpWidget(testApp(const SettingsScreen()));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Polski'), findsOneWidget);
+      expect(find.text('English'), findsOneWidget);
+    });
+
+    testWidgets('tapping English dispatches LocaleChanged event',
+        (tester) async {
+      final bloc = LocaleBloc();
+      await tester.pumpWidget(
+        testApp(const SettingsScreen(), localeBloc: bloc),
+      );
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('English'));
+      await tester.pump();
+
+      expect(bloc.state.locale.languageCode, 'en');
+      bloc.close();
+    });
+
+    testWidgets('tapping Polski after English restores Polish',
+        (tester) async {
+      final bloc = LocaleBloc();
+      bloc.add(const LocaleChanged(Locale('en')));
+      await Future<void>.delayed(Duration.zero);
+
+      await tester.pumpWidget(
+        testApp(const SettingsScreen(), localeBloc: bloc),
+      );
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Polski'));
+      await tester.pump();
+
+      expect(bloc.state.locale.languageCode, 'pl');
+      bloc.close();
     });
   });
 
