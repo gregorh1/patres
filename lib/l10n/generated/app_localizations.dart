@@ -439,6 +439,24 @@ abstract class AppLocalizations {
   /// In pl, this message translates to:
   /// **'Zapisz'**
   String get save;
+
+  /// No description provided for @dailyReading.
+  ///
+  /// In pl, this message translates to:
+  /// **'Czytanie na dziś'**
+  String get dailyReading;
+
+  /// No description provided for @shareDailyReading.
+  ///
+  /// In pl, this message translates to:
+  /// **'Udostępnij cytat'**
+  String get shareDailyReading;
+
+  /// No description provided for @dailyReadingShared.
+  ///
+  /// In pl, this message translates to:
+  /// **'— {author}, via Patres'**
+  String dailyReadingShared(String author);
 }
 
 class _AppLocalizationsDelegate

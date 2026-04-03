@@ -190,4 +190,15 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get save => 'Zapisz';
+
+  @override
+  String get dailyReading => 'Czytanie na dziś';
+
+  @override
+  String get shareDailyReading => 'Udostępnij cytat';
+
+  @override
+  String dailyReadingShared(String author) {
+    return '— $author, via Patres';
+  }
 }

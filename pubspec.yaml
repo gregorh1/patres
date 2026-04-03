@@ -43,6 +43,7 @@ flutter:
     - assets/texts/benedykt-regula.json
     - assets/texts/bogurodzica.json
     - assets/texts/skarga-kazania-sejmowe.json
+    - assets/daily_readings.json
     - assets/splash_icon.png
 
 flutter_native_splash:

@@ -47,10 +47,23 @@ const _testManifestJson = '''
 }
 ''';
 
+const _testDailyReadingsJson = '''
+[
+  {
+    "textId": "augustyn-wyznania",
+    "chapterIndex": 0,
+    "paragraphIndex": 0,
+    "quote": "Test daily reading quote.",
+    "author": "Św. Augustyn"
+  }
+]
+''';
+
 class _FakeAssetBundle extends CachingAssetBundle {
   @override
   Future<String> loadString(String key, {bool cache = true}) async {
     if (key == 'assets/texts/manifest.json') return _testManifestJson;
+    if (key == 'assets/daily_readings.json') return _testDailyReadingsJson;
     throw FlutterError('Asset not found: $key');
   }
 

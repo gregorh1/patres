@@ -33,8 +33,9 @@ class ReaderBloc extends Bloc<ReaderEvent, ReaderState> {
       final textContent = await textService.loadText(event.textId);
       final fontSizeIndex = await storageService.getFontSizeIndex();
       final fontFamily = await storageService.getFontFamily();
-      final lastChapter = await storageService.getLastChapter(event.textId);
-      final chapter = lastChapter.clamp(0, textContent.chapters.length - 1);
+      final savedChapter = await storageService.getLastChapter(event.textId);
+      final chapter = (event.initialChapter ?? savedChapter)
+          .clamp(0, textContent.chapters.length - 1);
       final scrollPosition =
           await storageService.getScrollPosition(event.textId, chapter);
       final bookmarks = await storageService.getBookmarks(event.textId);

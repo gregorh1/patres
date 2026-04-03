@@ -189,4 +189,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get save => 'Save';
+
+  @override
+  String get dailyReading => 'Daily reading';
+
+  @override
+  String get shareDailyReading => 'Share quote';
+
+  @override
+  String dailyReadingShared(String author) {
+    return '— $author, via Patres';
+  }
 }

@@ -63,13 +63,17 @@ GoRouter createRouter({DatabaseService? databaseService}) {
         parentNavigatorKey: rootNavigatorKey,
         builder: (context, state) {
           final textId = state.pathParameters['id'] ?? '';
+          final chapterParam = state.uri.queryParameters['chapter'];
+          final initialChapter =
+              chapterParam != null ? int.tryParse(chapterParam) : null;
           return BlocProvider(
             create: (_) => ReaderBloc(
               textService: const TextService(),
               storageService: ReaderStorageService(
                 databaseService: dbService,
               ),
-            )..add(ReaderLoadRequested(textId: textId)),
+            )..add(ReaderLoadRequested(
+                textId: textId, initialChapter: initialChapter)),
             child: ReaderScreen(textId: textId),
           );
         },

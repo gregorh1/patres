@@ -69,5 +69,13 @@
   "previousChapter": "Poprzedni rozdział",
   "nextChapter": "Następny rozdział",
   "cancel": "Anuluj",
-  "save": "Zapisz"
+  "save": "Zapisz",
+  "dailyReading": "Czytanie na dziś",
+  "shareDailyReading": "Udostępnij cytat",
+  "dailyReadingShared": "— {author}, via Patres",
+  "@dailyReadingShared": {
+    "placeholders": {
+      "author": { "type": "String" }
+    }
+  }
 }
