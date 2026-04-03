@@ -505,6 +505,42 @@ abstract class AppLocalizations {
   /// In pl, this message translates to:
   /// **'Nieznany autor'**
   String get authorUnknown;
+
+  /// No description provided for @searchFullText.
+  ///
+  /// In pl, this message translates to:
+  /// **'Szukaj w tekstach'**
+  String get searchFullText;
+
+  /// No description provided for @searchFullTextHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Szukaj słów i fraz w tekstach…'**
+  String get searchFullTextHint;
+
+  /// No description provided for @searchIndexing.
+  ///
+  /// In pl, this message translates to:
+  /// **'Indeksowanie tekstów…'**
+  String get searchIndexing;
+
+  /// No description provided for @searchPrompt.
+  ///
+  /// In pl, this message translates to:
+  /// **'Wpisz co najmniej 2 znaki, aby wyszukać w całej bibliotece'**
+  String get searchPrompt;
+
+  /// No description provided for @searchError.
+  ///
+  /// In pl, this message translates to:
+  /// **'Błąd wyszukiwania'**
+  String get searchError;
+
+  /// No description provided for @searchResultsCount.
+  ///
+  /// In pl, this message translates to:
+  /// **'{count} {count, plural, one{wynik} few{wyniki} other{wyników}}'**
+  String searchResultsCount(int count);
 }
 
 class _AppLocalizationsDelegate

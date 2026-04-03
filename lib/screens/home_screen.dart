@@ -93,6 +93,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 letterSpacing: 2,
               ),
             ),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.search_rounded),
+                tooltip: l10n.searchFullText,
+                onPressed: () => context.push('/search'),
+              ),
+            ],
           ),
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 20),

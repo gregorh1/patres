@@ -225,4 +225,32 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get authorUnknown => 'Nieznany autor';
+
+  @override
+  String get searchFullText => 'Szukaj w tekstach';
+
+  @override
+  String get searchFullTextHint => 'Szukaj słów i fraz w tekstach…';
+
+  @override
+  String get searchIndexing => 'Indeksowanie tekstów…';
+
+  @override
+  String get searchPrompt =>
+      'Wpisz co najmniej 2 znaki, aby wyszukać w całej bibliotece';
+
+  @override
+  String get searchError => 'Błąd wyszukiwania';
+
+  @override
+  String searchResultsCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'wyników',
+      few: 'wyniki',
+      one: 'wynik',
+    );
+    return '$count $_temp0';
+  }
 }

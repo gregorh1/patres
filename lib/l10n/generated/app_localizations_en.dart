@@ -224,4 +224,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get authorUnknown => 'Unknown author';
+
+  @override
+  String get searchFullText => 'Search texts';
+
+  @override
+  String get searchFullTextHint => 'Search words and phrases in texts…';
+
+  @override
+  String get searchIndexing => 'Indexing texts…';
+
+  @override
+  String get searchPrompt =>
+      'Type at least 2 characters to search the entire library';
+
+  @override
+  String get searchError => 'Search error';
+
+  @override
+  String searchResultsCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'results',
+      one: 'result',
+    );
+    return '$count $_temp0';
+  }
 }
