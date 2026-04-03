@@ -49,5 +49,25 @@
   "noResultsHint": "Try changing your filters or search",
   "statusComplete": "Full text",
   "statusPartial": "Partial",
-  "statusPlaceholder": "Coming soon"
+  "statusPlaceholder": "Coming soon",
+  "readerSettings": "Reader settings",
+  "fontSize": "Font size",
+  "fontFamily": "Font",
+  "chapters": "Chapters",
+  "chapterOf": "Chapter {current} of {total}",
+  "@chapterOf": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "addBookmark": "Add bookmark",
+  "removeBookmark": "Remove bookmark",
+  "bookmarkAdded": "Bookmark added",
+  "bookmarkRemoved": "Bookmark removed",
+  "bookmarkNoteHint": "Add a note (optional)",
+  "previousChapter": "Previous chapter",
+  "nextChapter": "Next chapter",
+  "cancel": "Cancel",
+  "save": "Save"
 }

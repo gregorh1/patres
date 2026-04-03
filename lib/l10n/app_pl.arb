@@ -49,5 +49,25 @@
   "noResultsHint": "Spróbuj zmienić filtry lub wyszukiwanie",
   "statusComplete": "Pełny tekst",
   "statusPartial": "Częściowy",
-  "statusPlaceholder": "Wkrótce"
+  "statusPlaceholder": "Wkrótce",
+  "readerSettings": "Ustawienia czytnika",
+  "fontSize": "Rozmiar czcionki",
+  "fontFamily": "Czcionka",
+  "chapters": "Rozdziały",
+  "chapterOf": "Rozdział {current} z {total}",
+  "@chapterOf": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "addBookmark": "Dodaj zakładkę",
+  "removeBookmark": "Usuń zakładkę",
+  "bookmarkAdded": "Zakładka dodana",
+  "bookmarkRemoved": "Zakładka usunięta",
+  "bookmarkNoteHint": "Dodaj notatkę (opcjonalnie)",
+  "previousChapter": "Poprzedni rozdział",
+  "nextChapter": "Następny rozdział",
+  "cancel": "Anuluj",
+  "save": "Zapisz"
 }
