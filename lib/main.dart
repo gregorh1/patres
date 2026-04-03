@@ -8,9 +8,15 @@ import 'package:patres/blocs/theme_bloc.dart';
 import 'package:patres/router.dart';
 import 'package:patres/services/text_service.dart';
 import 'package:patres/theme.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Use bundled SQLite (from sqlite3_flutter_libs) via FFI.
+  // This ensures FTS5 is available on all platforms.
+  sqfliteFfiInit();
+  databaseFactory = databaseFactoryFfi;
 
   // Match status bar to splash from the first frame
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(

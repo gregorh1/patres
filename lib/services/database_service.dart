@@ -5,15 +5,32 @@ import 'package:patres/models/bookmark.dart';
 import 'package:patres/models/highlight.dart';
 import 'package:patres/models/search_result.dart';
 
+/// Thrown when FTS5 full-text search is not available on this device.
+class SearchUnavailableException implements Exception {
+  const SearchUnavailableException();
+
+  @override
+  String toString() => 'SearchUnavailableException: FTS5 is not available';
+}
+
 /// SQLite database service for offline storage of reading progress,
 /// bookmarks, highlights, and full-text search index.
 class DatabaseService {
   DatabaseService({Database? database}) : _database = database;
 
+  /// Creates a service with FTS marked as unavailable. Used for testing.
+  DatabaseService.withFtsUnavailable({Database? database})
+      : _database = database,
+        _ftsAvailable = false;
+
   static const _databaseName = 'patres.db';
   static const _databaseVersion = 2;
 
   Database? _database;
+  bool _ftsAvailable = true;
+
+  /// Whether FTS5 full-text search tables were created successfully.
+  bool get isFtsAvailable => _ftsAvailable;
 
   Future<Database> get database async {
     return _database ??= await _initDatabase();
@@ -89,17 +106,21 @@ class DatabaseService {
   }
 
   Future<void> _createSearchTables(Database db) async {
-    await db.execute('''
-      CREATE VIRTUAL TABLE IF NOT EXISTS search_fts USING fts5(
-        title,
-        content,
-        text_id UNINDEXED,
-        chapter_index UNINDEXED,
-        book_title UNINDEXED,
-        book_author UNINDEXED,
-        tokenize='unicode61 remove_diacritics 2'
-      )
-    ''');
+    try {
+      await db.execute('''
+        CREATE VIRTUAL TABLE IF NOT EXISTS search_fts USING fts5(
+          title,
+          content,
+          text_id UNINDEXED,
+          chapter_index UNINDEXED,
+          book_title UNINDEXED,
+          book_author UNINDEXED,
+          tokenize='unicode61 remove_diacritics 2'
+        )
+      ''');
+    } catch (_) {
+      _ftsAvailable = false;
+    }
   }
 
   // --- Reading Progress ---
@@ -249,8 +270,13 @@ class DatabaseService {
 
   // --- Full-Text Search ---
 
+  void _ensureFtsAvailable() {
+    if (!_ftsAvailable) throw const SearchUnavailableException();
+  }
+
   Future<bool> isSearchIndexed() async {
     final db = await database;
+    _ensureFtsAvailable();
     final result = await db.rawQuery('SELECT COUNT(*) as cnt FROM search_fts');
     final count = result.first['cnt'] as int;
     return count > 0;
@@ -258,6 +284,7 @@ class DatabaseService {
 
   Future<void> clearSearchIndex() async {
     final db = await database;
+    _ensureFtsAvailable();
     await db.execute("DELETE FROM search_fts");
   }
 
@@ -270,6 +297,7 @@ class DatabaseService {
     required String content,
   }) async {
     final db = await database;
+    _ensureFtsAvailable();
     await db.insert('search_fts', {
       'title': chapterTitle,
       'content': content,
@@ -284,6 +312,7 @@ class DatabaseService {
     if (query.trim().isEmpty) return [];
 
     final db = await database;
+    _ensureFtsAvailable();
 
     // Escape FTS5 special characters and build query
     final escaped = _escapeFtsQuery(query.trim());

@@ -65,6 +65,44 @@ void main() {
     await dbService.close();
   });
 
+  group('DatabaseService FTS availability', () {
+    test('isFtsAvailable is true when FTS5 works', () async {
+      // Create a fresh database using the service's own init (with FTS5)
+      final service = DatabaseService();
+      final db = await service.database;
+      expect(service.isFtsAvailable, isTrue);
+      await service.close();
+    });
+
+    test('search throws SearchUnavailableException when FTS unavailable',
+        () async {
+      // Create a database without FTS table, then mark FTS unavailable
+      final db = await databaseFactoryFfi.openDatabase(
+        inMemoryDatabasePath,
+        options: OpenDatabaseOptions(version: 1, onCreate: (db, v) async {
+          await db.execute('''
+            CREATE TABLE reading_progress (
+              id INTEGER PRIMARY KEY AUTOINCREMENT,
+              text_id TEXT NOT NULL,
+              last_chapter INTEGER NOT NULL DEFAULT 0,
+              updated_at TEXT NOT NULL,
+              UNIQUE(text_id)
+            )
+          ''');
+        }),
+      );
+      final service = DatabaseService.withFtsUnavailable(database: db);
+      expect(service.isFtsAvailable, isFalse);
+      expect(() => service.search('test'),
+          throwsA(isA<SearchUnavailableException>()));
+      expect(() => service.isSearchIndexed(),
+          throwsA(isA<SearchUnavailableException>()));
+      expect(() => service.clearSearchIndex(),
+          throwsA(isA<SearchUnavailableException>()));
+      await service.close();
+    });
+  });
+
   group('DatabaseService', () {
     group('reading progress', () {
       test('returns 0 for unknown text', () async {

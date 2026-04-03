@@ -2,8 +2,8 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:patres/blocs/search_bloc.dart';
 import 'package:patres/models/search_result.dart';
-import 'package:patres/services/search_service.dart';
 import 'package:patres/services/database_service.dart';
+import 'package:patres/services/search_service.dart';
 import 'package:patres/services/text_service.dart';
 
 // --- Fakes ---
@@ -17,15 +17,18 @@ class FakeSearchService extends SearchService {
 
   bool indexCalled = false;
   bool shouldThrow = false;
+  bool shouldThrowFtsUnavailable = false;
 
   @override
   Future<void> ensureIndexed() async {
     indexCalled = true;
+    if (shouldThrowFtsUnavailable) throw const SearchUnavailableException();
     if (shouldThrow) throw Exception('Index failed');
   }
 
   @override
   Future<List<SearchResult>> search(String query, {int limit = 50}) async {
+    if (shouldThrowFtsUnavailable) throw const SearchUnavailableException();
     if (shouldThrow) throw Exception('Search failed');
     if (query.contains('empty')) return [];
     return [
@@ -81,6 +84,42 @@ void main() {
         const SearchState(status: SearchStatus.indexing),
         isA<SearchState>()
             .having((s) => s.status, 'status', SearchStatus.error),
+      ],
+    );
+
+    blocTest<SearchBloc, SearchState>(
+      'SearchIndexRequested emits Polish error when FTS unavailable',
+      build: () {
+        fakeService.shouldThrowFtsUnavailable = true;
+        return SearchBloc(searchService: fakeService);
+      },
+      act: (bloc) => bloc.add(const SearchIndexRequested()),
+      expect: () => [
+        const SearchState(status: SearchStatus.indexing),
+        isA<SearchState>()
+            .having((s) => s.status, 'status', SearchStatus.error)
+            .having((s) => s.errorMessage, 'errorMessage',
+                'Wyszukiwanie jest niedostępne na tym urządzeniu'),
+      ],
+    );
+
+    blocTest<SearchBloc, SearchState>(
+      'SearchQueryChanged emits Polish error when FTS unavailable',
+      build: () {
+        fakeService.shouldThrowFtsUnavailable = true;
+        return SearchBloc(searchService: fakeService);
+      },
+      seed: () => const SearchState(status: SearchStatus.ready),
+      act: (bloc) => bloc.add(const SearchQueryChanged('test query')),
+      wait: const Duration(milliseconds: 500),
+      expect: () => [
+        const SearchState(status: SearchStatus.ready, query: 'test query'),
+        const SearchState(
+            status: SearchStatus.searching, query: 'test query'),
+        isA<SearchState>()
+            .having((s) => s.status, 'status', SearchStatus.error)
+            .having((s) => s.errorMessage, 'errorMessage',
+                'Wyszukiwanie jest niedostępne na tym urządzeniu'),
       ],
     );
 

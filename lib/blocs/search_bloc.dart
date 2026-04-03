@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:patres/models/search_result.dart';
+import 'package:patres/services/database_service.dart';
 import 'package:patres/services/search_service.dart';
 
 part 'search_event.dart';
@@ -25,6 +26,11 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     try {
       await searchService.ensureIndexed();
       emit(state.copyWith(status: SearchStatus.ready));
+    } on SearchUnavailableException {
+      emit(state.copyWith(
+        status: SearchStatus.error,
+        errorMessage: 'Wyszukiwanie jest niedostępne na tym urządzeniu',
+      ));
     } catch (e) {
       emit(state.copyWith(
         status: SearchStatus.error,
@@ -63,6 +69,12 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       emit(state.copyWith(
         status: SearchStatus.loaded,
         results: results,
+      ));
+    } on SearchUnavailableException {
+      if (state.query != query) return;
+      emit(state.copyWith(
+        status: SearchStatus.error,
+        errorMessage: 'Wyszukiwanie jest niedostępne na tym urządzeniu',
       ));
     } catch (e) {
       if (state.query != query) return;
