@@ -1,30 +1,50 @@
 import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'package:patres/models/bookmark.dart';
 import 'package:patres/models/highlight.dart';
+import 'package:patres/models/search_result.dart';
+
+/// Thrown when FTS5 full-text search is not available on this device.
+class SearchUnavailableException implements Exception {
+  const SearchUnavailableException();
+
+  @override
+  String toString() => 'SearchUnavailableException: FTS5 is not available';
+}
 
 /// SQLite database service for offline storage of reading progress,
-/// bookmarks, and highlights.
+/// bookmarks, highlights, and full-text search index.
 class DatabaseService {
   DatabaseService({Database? database}) : _database = database;
 
+  /// Creates a service with FTS marked as unavailable. Used for testing.
+  DatabaseService.withFtsUnavailable({Database? database})
+      : _database = database,
+        _ftsAvailable = false;
+
   static const _databaseName = 'patres.db';
-  static const _databaseVersion = 1;
+  static const _databaseVersion = 2;
 
   Database? _database;
+  bool _ftsAvailable = true;
+
+  /// Whether FTS5 full-text search tables were created successfully.
+  bool get isFtsAvailable => _ftsAvailable;
 
   Future<Database> get database async {
     return _database ??= await _initDatabase();
   }
 
   Future<Database> _initDatabase() async {
-    final dbPath = await getDatabasesPath();
-    final path = join(dbPath, _databaseName);
+    final dir = await getApplicationDocumentsDirectory();
+    final path = join(dir.path, _databaseName);
     return openDatabase(
       path,
       version: _databaseVersion,
       onCreate: _onCreate,
+      onUpgrade: _onUpgrade,
     );
   }
 
@@ -76,6 +96,32 @@ class DatabaseService {
         'CREATE INDEX idx_highlights_text ON highlights(text_id)');
     await db.execute(
         'CREATE INDEX idx_reading_progress_text ON reading_progress(text_id)');
+
+    await _createSearchTables(db);
+  }
+
+  Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < 2) {
+      await _createSearchTables(db);
+    }
+  }
+
+  Future<void> _createSearchTables(Database db) async {
+    try {
+      await db.execute('''
+        CREATE VIRTUAL TABLE IF NOT EXISTS search_fts USING fts5(
+          title,
+          content,
+          text_id UNINDEXED,
+          chapter_index UNINDEXED,
+          book_title UNINDEXED,
+          book_author UNINDEXED,
+          tokenize='unicode61 remove_diacritics 2'
+        )
+      ''');
+    } catch (_) {
+      _ftsAvailable = false;
+    }
   }
 
   // --- Reading Progress ---
@@ -221,6 +267,93 @@ class DatabaseService {
       where: 'text_id = ? AND chapter_index = ? AND paragraph_index = ?',
       whereArgs: [textId, chapterIndex, paragraphIndex],
     );
+  }
+
+  // --- Full-Text Search ---
+
+  void _ensureFtsAvailable() {
+    if (!_ftsAvailable) throw const SearchUnavailableException();
+  }
+
+  Future<bool> isSearchIndexed() async {
+    final db = await database;
+    _ensureFtsAvailable();
+    final result = await db.rawQuery('SELECT COUNT(*) as cnt FROM search_fts');
+    final count = result.first['cnt'] as int;
+    return count > 0;
+  }
+
+  Future<void> clearSearchIndex() async {
+    final db = await database;
+    _ensureFtsAvailable();
+    await db.execute("DELETE FROM search_fts");
+  }
+
+  Future<void> insertSearchEntry({
+    required String textId,
+    required int chapterIndex,
+    required String chapterTitle,
+    required String bookTitle,
+    required String bookAuthor,
+    required String content,
+  }) async {
+    final db = await database;
+    _ensureFtsAvailable();
+    await db.insert('search_fts', {
+      'title': chapterTitle,
+      'content': content,
+      'text_id': textId,
+      'chapter_index': chapterIndex,
+      'book_title': bookTitle,
+      'book_author': bookAuthor,
+    });
+  }
+
+  Future<List<SearchResult>> search(String query, {int limit = 50}) async {
+    if (query.trim().isEmpty) return [];
+
+    final db = await database;
+    _ensureFtsAvailable();
+
+    // Escape FTS5 special characters and build query
+    final escaped = _escapeFtsQuery(query.trim());
+
+    final results = await db.rawQuery('''
+      SELECT
+        text_id,
+        book_title,
+        book_author,
+        chapter_index,
+        title,
+        snippet(search_fts, 1, '<b>', '</b>', '…', 40) as snippet
+      FROM search_fts
+      WHERE search_fts MATCH ?
+      ORDER BY rank
+      LIMIT ?
+    ''', [escaped, limit]);
+
+    return results
+        .map((row) => SearchResult(
+              textId: row['text_id'] as String,
+              bookTitle: row['book_title'] as String,
+              bookAuthor: row['book_author'] as String,
+              chapterIndex: row['chapter_index'] as int,
+              chapterTitle: row['title'] as String,
+              snippet: row['snippet'] as String,
+            ))
+        .toList();
+  }
+
+  /// Escapes special FTS5 characters and wraps each term with * for prefix matching.
+  String _escapeFtsQuery(String query) {
+    // Remove FTS5 operators and special chars
+    final cleaned =
+        query.replaceAll(RegExp(r'["\*\(\)\-\+\^]'), ' ').trim();
+    if (cleaned.isEmpty) return '""';
+
+    final terms = cleaned.split(RegExp(r'\s+'));
+    // Use prefix matching for each term
+    return terms.map((t) => '"$t" *').join(' ');
   }
 
   Future<void> close() async {

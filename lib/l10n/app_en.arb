@@ -85,5 +85,18 @@
   "authorDates": "Dates",
   "authorEra": "Era",
   "authorOriginalName": "Original name",
-  "authorUnknown": "Unknown author"
+  "authorUnknown": "Unknown author",
+  "searchFullText": "Search texts",
+  "searchFullTextHint": "Search words and phrases in texts…",
+  "searchIndexing": "Indexing texts…",
+  "searchPrompt": "Type at least 2 characters to search the entire library",
+  "searchError": "Search error",
+  "searchResultsCount": "{count} {count, plural, one{result} other{results}}",
+  "@searchResultsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

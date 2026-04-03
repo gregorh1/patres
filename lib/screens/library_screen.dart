@@ -52,6 +52,11 @@ class _LibraryScreenState extends State<LibraryScreen> {
               ),
               actions: [
                 IconButton(
+                  icon: const Icon(Icons.search_rounded),
+                  tooltip: l10n.searchFullText,
+                  onPressed: () => context.push('/search'),
+                ),
+                IconButton(
                   icon: Icon(
                     state.viewMode == LibraryViewMode.grid
                         ? Icons.view_list_rounded

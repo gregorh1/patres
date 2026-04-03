@@ -85,5 +85,18 @@
   "authorDates": "Daty",
   "authorEra": "Epoka",
   "authorOriginalName": "Imię oryginalne",
-  "authorUnknown": "Nieznany autor"
+  "authorUnknown": "Nieznany autor",
+  "searchFullText": "Szukaj w tekstach",
+  "searchFullTextHint": "Szukaj słów i fraz w tekstach…",
+  "searchIndexing": "Indeksowanie tekstów…",
+  "searchPrompt": "Wpisz co najmniej 2 znaki, aby wyszukać w całej bibliotece",
+  "searchError": "Błąd wyszukiwania",
+  "searchResultsCount": "{count} {count, plural, one{wynik} few{wyniki} other{wyników}}",
+  "@searchResultsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

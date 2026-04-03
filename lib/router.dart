@@ -3,21 +3,27 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:patres/blocs/reader_bloc.dart';
 import 'package:patres/blocs/reader_event.dart';
+import 'package:patres/blocs/search_bloc.dart';
 import 'package:patres/screens/home_screen.dart';
 import 'package:patres/screens/library_screen.dart';
 import 'package:patres/screens/reader_screen.dart';
+import 'package:patres/screens/search_screen.dart';
 import 'package:patres/screens/settings_screen.dart';
 import 'package:patres/screens/author_profile_screen.dart';
 import 'package:patres/screens/splash_screen.dart';
 import 'package:patres/services/database_service.dart';
 import 'package:patres/services/reader_storage_service.dart';
+import 'package:patres/services/search_service.dart';
 import 'package:patres/services/text_service.dart';
 import 'package:patres/widgets/shell_scaffold.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
-GoRouter createRouter({DatabaseService? databaseService}) {
+GoRouter createRouter({
+  DatabaseService? databaseService,
+  SearchService? searchService,
+}) {
   final dbService = databaseService ?? DatabaseService();
 
   return GoRouter(
@@ -84,6 +90,23 @@ GoRouter createRouter({DatabaseService? databaseService}) {
             )..add(ReaderLoadRequested(
                 textId: textId, initialChapter: initialChapter)),
             child: ReaderScreen(textId: textId),
+          );
+        },
+      ),
+      GoRoute(
+        path: '/search',
+        parentNavigatorKey: rootNavigatorKey,
+        builder: (context, state) {
+          final svc = searchService ??
+              SearchService(
+                databaseService: dbService,
+                textService: const TextService(),
+              );
+          return BlocProvider(
+            create: (_) =>
+                SearchBloc(searchService: svc)
+                  ..add(const SearchIndexRequested()),
+            child: const SearchScreen(),
           );
         },
       ),
