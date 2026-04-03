@@ -1,0 +1,94 @@
+{
+  "authors": [
+    {
+      "id": "augustyn",
+      "name": "Św. Augustyn z Hippony",
+      "nameOriginal": "Aurelius Augustinus Hipponensis",
+      "dates": "354–430",
+      "era": "IV-V w.",
+      "bio": "Biskup Hippony w Afryce Północnej, jeden z najwybitniejszych Ojców i Doktorów Kościoła zachodniego. Urodził się w Tagaście (dzisiejszy Algieria) jako syn pobożnej chrześcijanki Moniki i pogańskiego urzędnika Patrycjusza. W młodości prowadził burzliwe życie, poszukując prawdy w manicheizmie i neoplatonizmie. Po dramatycznym nawróceniu w 386 roku, opisanym w \"Wyznaniach\", przyjął chrzest z rąk św. Ambrożego w Mediolanie. Jako biskup przez 35 lat zwalczał herezje donatystów i pelagian, a jednocześnie stworzył monumentalne dzieła teologiczne i filozoficzne.",
+      "significance": "Najważniejszy teolog łaciński starożytności. Jego myśl ukształtowała zachodnią teologię na ponad tysiąc lat — od nauki o łasce i predestynacji, przez koncepcję grzechu pierworodnego, po filozofię historii w \"Państwie Bożym\". Wpłynął na reformację, scholastykę i współczesną filozofię egzystencjalną."
+    },
+    {
+      "id": "chryzostom",
+      "name": "Św. Jan Chryzostom",
+      "nameOriginal": "Ἰωάννης ὁ Χρυσόστομος",
+      "dates": "ok. 349–407",
+      "era": "IV-V w.",
+      "bio": "Arcybiskup Konstantynopola, najwybitniejszy kaznodzieja Kościoła wschodniego, którego przydomek \"Złotousty\" (Chrysostomos) oddaje niezwykłą moc jego wymowy. Urodził się w Antiochii, gdzie studiował retorykę u słynnego Libaniusza. Po latach surowej ascezy na pustyni został kapłanem, a potem patriarchą stolicy cesarstwa. Jego bezkompromisowa krytyka nadwornej rozrzutności i niemoralności sprowadziła na niego gniew cesarzowej Eudoksji — dwukrotnie skazany na wygnanie, zmarł w drodze do odległego miejsca zesłania.",
+      "significance": "Pozostawił ogromny dorobek homiletyczny i egzegetyczny — ponad 700 homilii i komentarzy do Pisma Świętego. Patron kaznodziejów. Jego liturgia (Boska Liturgia św. Jana Chryzostoma) jest do dziś głównym obrządkiem eucharystycznym w Kościołach wschodnich."
+    },
+    {
+      "id": "kasjan",
+      "name": "Św. Jan Kasjan",
+      "nameOriginal": "Ioannes Cassianus",
+      "dates": "ok. 360–435",
+      "era": "IV-V w.",
+      "bio": "Mnich, teolog i pisarz ascetyczny, który przeniósł duchowość mnichów egipskich na Zachód. Urodził się prawdopodobnie w Scytii Mniejszej (dzisiejsza Dobrudża). Jako młody człowiek odbył podróż do Egiptu, gdzie spędził lata wśród anachoretów pustyni — poznając ich metody modlitwy, ascezy i walki duchowej. Osiadł w Marsylii, gdzie ok. 415 roku założył dwa klasztory: męski (św. Wiktora) i żeński.",
+      "significance": "Jego \"Rozmowy z Ojcami\" (Collationes) i \"O urządzeniach klasztornych\" (De institutis coenobiorum) stały się fundamentem zachodniego monastycyzmu. Św. Benedykt zalecał ich lekturę w swojej Regule. Kasjan jako pierwszy systematycznie opisał osiem głównych wad (późniejsze siedem grzechów głównych)."
+    },
+    {
+      "id": "grzegorz-nazjanzu",
+      "name": "Św. Grzegorz z Nazjanzu",
+      "nameOriginal": "Γρηγόριος ὁ Ναζιανζηνός",
+      "dates": "ok. 329–390",
+      "era": "IV w.",
+      "bio": "Biskup, teolog i poeta, jeden z trzech wielkich Kapadocczyków (obok Bazylego Wielkiego i Grzegorza z Nyssy). Urodził się w Arianzos koło Nazjanzu w Kapadocji. Studiował w Cezarei, Aleksandrii i Atenach, gdzie zaprzyjaźnił się z Bazylym Wielkim. Mimo głębokiej niechęci do życia publicznego, został wezwany do obrony ortodoksji trynitarnej w Konstantynopolu, gdzie w 381 roku przewodniczył II Soborowi Powszechnemu. Ostatnie lata spędził w samotności, oddając się pisarstwu i modlitwie.",
+      "significance": "Nosi tytuł \"Teologa\" (ho Theologos) — jedyny z Ojców Kościoła wschodniego wyróżniony tym mianem obok św. Jana Ewangelisty. Jego pięć \"Mów teologicznych\" o Trójcy Świętej stanowi szczyt patrystycznej refleksji trynitarnej. Wybitny poeta — pozostawił ok. 17 000 wersów poezji religijnej."
+    },
+    {
+      "id": "pseudo-dionizy",
+      "name": "Pseudo-Dionizy Areopagita",
+      "nameOriginal": "Pseudo-Dionysius Areopagita",
+      "dates": "ok. V-VI w.",
+      "era": "V-VI w.",
+      "bio": "Tajemniczy autor piszący pod imieniem Dionizego Areopagity — ateńczyka nawróconego przez św. Pawła (Dz 17,34). Jego prawdziwa tożsamość pozostaje nieznana; pisma powstały najprawdopodobniej pod koniec V lub na początku VI wieku w Syrii. Korpus Dionizjański obejmuje cztery traktaty i dziesięć listów, w których autor łączy chrześcijańską teologię z neoplatonizmem Proklosa.",
+      "significance": "Twórca teologii apofatycznej (negatywnej) i mistyki chrześcijańskiej. Jego hierarchiczna wizja kosmosu i koncepcja \"Boskiej ciemności\" wywarły ogromny wpływ na średniowieczną teologię i mistykę — od Jana Szkota Eriugeny, przez Tomasza z Akwinu, po Mistrza Eckharta i Jana od Krzyża."
+    },
+    {
+      "id": "skarga",
+      "name": "Piotr Skarga",
+      "nameOriginal": "Piotr Skarga Pawęski SJ",
+      "dates": "1536–1612",
+      "era": "XVI w.",
+      "bio": "Jezuita, kaznodzieja królewski, pisarz i działacz kontrreformacyjny — jedna z najważniejszych postaci polskiego Kościoła doby renesansu i baroku. Urodził się w Grójcu koło Radomia. Studiował w Akademii Krakowskiej, po czym wstąpił do Towarzystwa Jezusowego w Rzymie. Był rektorem Akademii Wileńskiej, a od 1588 roku nadwornym kaznodzieją króla Zygmunta III Wazy. Przez 24 lata głosił kazania na Wawelu — słynne \"Kazania sejmowe\" powstały jako literacki zapis jego troski o losy Rzeczypospolitej.",
+      "significance": "Autor \"Żywotów świętych\" — najpoczytniejszej książki w dawnej Polsce, oraz \"Kazań sejmowych\" — profetycznego dzieła o zagrożeniach dla państwa polskiego. Uznawany za jednego z najwybitniejszych prozaików staropolskich i prekursora polskiego kaznodziejstwa patriotycznego."
+    },
+    {
+      "id": "anonim",
+      "name": "Anonim",
+      "nameOriginal": "",
+      "dates": "",
+      "era": "I-XIII w.",
+      "bio": "Wiele kluczowych dzieł starożytnego chrześcijaństwa i polskiego średniowiecza powstało anonimowo lub zostało przypisanych zbiorowej tradycji wspólnotowej. Didache, List do Diogneta i Bogurodzica to teksty, których autorzy pozostają nieznani — ich anonimowość świadczy o tym, że w starożytnym Kościele ważniejsze było przesłanie niż nazwisko autora. Teksty te powstawały jako wyraz żywej wiary wspólnot chrześcijańskich.",
+      "significance": "Anonimowe teksty chrześcijańskie należą do najcenniejszych świadectw wiary pierwszych wieków. Didache jest najstarszym zachowanym podręcznikiem życia chrześcijańskiego. List do Diogneta zawiera jeden z najpiękniejszych opisów chrześcijan w świecie pogańskim. Bogurodzica to najstarsza polska pieśń religijna i jeden z pierwszych zabytków języka polskiego."
+    },
+    {
+      "id": "benedykt",
+      "name": "Św. Benedykt z Nursji",
+      "nameOriginal": "Benedictus Nursinus",
+      "dates": "ok. 480–547",
+      "era": "VI w.",
+      "bio": "Mnich i założyciel zakonu benedyktynów, patron Europy. Urodził się w Nursji (Norcia) w Umbrii we Włoszech w zamożnej rodzinie. Jako młodzieniec porzucił studia w Rzymie i udał się na pustelnię w Subiaco, gdzie przez trzy lata żył w grocie jako anachoreta. Później założył dwanaście małych klasztorów, a ok. 529 roku osiadł na Monte Cassino, gdzie powstał najsłynniejszy klasztor Zachodu i gdzie napisał swoją Regułę.",
+      "significance": "Jego \"Reguła\" (Regula Sancti Benedicti) stała się fundamentem życia monastycznego w Europie zachodniej. Dewiza \"Ora et labora\" (Módl się i pracuj) ukształtowała europejską kulturę pracy i duchowości. Benedyktyni odegrali kluczową rolę w zachowaniu dziedzictwa antycznego i chrystianizacji Europy."
+    },
+    {
+      "id": "kempis",
+      "name": "Tomasz à Kempis",
+      "nameOriginal": "Thomas a Kempis",
+      "dates": "ok. 1380–1471",
+      "era": "XV w.",
+      "bio": "Mnich augustiański, mistyk i pisarz ascetyczny, związany z ruchem Devotio Moderna. Urodził się w Kempen (Nadrenia) w rodzinie rzemieślniczej. W 1399 roku wstąpił do klasztoru kanoników regularnych na Górze św. Agnieszki koło Zwolle w Holandii, gdzie spędził niemal całe życie — ponad siedemdziesiąt lat — przepisując rękopisy, pisząc i prowadząc życie kontemplacyjne.",
+      "significance": "Autor \"O naśladowaniu Chrystusa\" (De Imitatione Christi) — po Biblii najczęściej czytanej i tłumaczonej książki w historii chrześcijaństwa. Dzieło to, napisane prostym, bezpośrednim językiem, jest przewodnikiem po życiu wewnętrznym i drodze do zjednoczenia z Bogiem."
+    }
+  ],
+  "authorMapping": {
+    "Św. Augustyn z Hippony": "augustyn",
+    "Św. Jan Chryzostom": "chryzostom",
+    "Anonim (Ojcowie Apostolscy)": "anonim",
+    "Anonim": "anonim",
+    "Piotr Skarga": "skarga",
+    "Św. Benedykt z Nursji": "benedykt",
+    "Tomasz à Kempis": "kempis"
+  }
+}

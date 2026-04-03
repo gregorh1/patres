@@ -77,5 +77,13 @@
     "placeholders": {
       "author": { "type": "String" }
     }
-  }
+  },
+  "authorProfile": "Profil autora",
+  "authorBio": "Biografia",
+  "authorSignificance": "Znaczenie",
+  "authorWorks": "Dzieła w aplikacji",
+  "authorDates": "Daty",
+  "authorEra": "Epoka",
+  "authorOriginalName": "Imię oryginalne",
+  "authorUnknown": "Nieznany autor"
 }

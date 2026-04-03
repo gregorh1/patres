@@ -7,6 +7,7 @@ import 'package:patres/screens/home_screen.dart';
 import 'package:patres/screens/library_screen.dart';
 import 'package:patres/screens/reader_screen.dart';
 import 'package:patres/screens/settings_screen.dart';
+import 'package:patres/screens/author_profile_screen.dart';
 import 'package:patres/screens/splash_screen.dart';
 import 'package:patres/services/database_service.dart';
 import 'package:patres/services/reader_storage_service.dart';
@@ -57,6 +58,14 @@ GoRouter createRouter({DatabaseService? databaseService}) {
             ),
           ),
         ],
+      ),
+      GoRoute(
+        path: '/author/:id',
+        parentNavigatorKey: rootNavigatorKey,
+        builder: (context, state) {
+          final authorId = state.pathParameters['id'] ?? '';
+          return AuthorProfileScreen(authorId: authorId);
+        },
       ),
       GoRoute(
         path: '/reader/:id',

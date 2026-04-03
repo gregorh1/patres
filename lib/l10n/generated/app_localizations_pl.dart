@@ -201,4 +201,28 @@ class AppLocalizationsPl extends AppLocalizations {
   String dailyReadingShared(String author) {
     return '— $author, via Patres';
   }
+
+  @override
+  String get authorProfile => 'Profil autora';
+
+  @override
+  String get authorBio => 'Biografia';
+
+  @override
+  String get authorSignificance => 'Znaczenie';
+
+  @override
+  String get authorWorks => 'Dzieła w aplikacji';
+
+  @override
+  String get authorDates => 'Daty';
+
+  @override
+  String get authorEra => 'Epoka';
+
+  @override
+  String get authorOriginalName => 'Imię oryginalne';
+
+  @override
+  String get authorUnknown => 'Nieznany autor';
 }

@@ -457,6 +457,54 @@ abstract class AppLocalizations {
   /// In pl, this message translates to:
   /// **'— {author}, via Patres'**
   String dailyReadingShared(String author);
+
+  /// No description provided for @authorProfile.
+  ///
+  /// In pl, this message translates to:
+  /// **'Profil autora'**
+  String get authorProfile;
+
+  /// No description provided for @authorBio.
+  ///
+  /// In pl, this message translates to:
+  /// **'Biografia'**
+  String get authorBio;
+
+  /// No description provided for @authorSignificance.
+  ///
+  /// In pl, this message translates to:
+  /// **'Znaczenie'**
+  String get authorSignificance;
+
+  /// No description provided for @authorWorks.
+  ///
+  /// In pl, this message translates to:
+  /// **'Dzieła w aplikacji'**
+  String get authorWorks;
+
+  /// No description provided for @authorDates.
+  ///
+  /// In pl, this message translates to:
+  /// **'Daty'**
+  String get authorDates;
+
+  /// No description provided for @authorEra.
+  ///
+  /// In pl, this message translates to:
+  /// **'Epoka'**
+  String get authorEra;
+
+  /// No description provided for @authorOriginalName.
+  ///
+  /// In pl, this message translates to:
+  /// **'Imię oryginalne'**
+  String get authorOriginalName;
+
+  /// No description provided for @authorUnknown.
+  ///
+  /// In pl, this message translates to:
+  /// **'Nieznany autor'**
+  String get authorUnknown;
 }
 
 class _AppLocalizationsDelegate

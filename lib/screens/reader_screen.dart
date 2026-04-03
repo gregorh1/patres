@@ -11,6 +11,7 @@ import 'package:patres/blocs/reader_state.dart';
 import 'package:patres/l10n/generated/app_localizations.dart';
 import 'package:patres/widgets/chapter_list_sheet.dart';
 import 'package:patres/widgets/reader_settings_sheet.dart';
+import 'package:patres/widgets/tappable_author.dart';
 
 class ReaderScreen extends StatefulWidget {
   const ReaderScreen({super.key, required this.textId});
@@ -390,8 +391,8 @@ class _ChapterHeader extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          Text(
-            authorName,
+          TappableAuthor(
+            authorName: authorName,
             style: GoogleFonts.getFont(
               fontFamily,
               fontSize: fontSize - 2,

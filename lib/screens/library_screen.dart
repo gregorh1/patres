@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:patres/blocs/library_bloc.dart';
 import 'package:patres/l10n/generated/app_localizations.dart';
 import 'package:patres/models/text_entry.dart';
+import 'package:patres/widgets/tappable_author.dart';
 
 class LibraryScreen extends StatefulWidget {
   const LibraryScreen({super.key});
@@ -385,14 +386,12 @@ class _TextGridCard extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
               const Spacer(),
-              Text(
-                entry.author,
+              TappableAuthor(
+                authorName: entry.author,
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: cs.onSurfaceVariant,
                   fontWeight: FontWeight.w500,
                 ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
               ),
               const SizedBox(height: 4),
               Row(
@@ -475,13 +474,23 @@ class _TextListCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 2),
-                    Text(
-                      '${entry.author} · ${entry.era}',
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: cs.onSurfaceVariant,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+                    Row(
+                      children: [
+                        Flexible(
+                          child: TappableAuthor(
+                            authorName: entry.author,
+                            style: theme.textTheme.bodySmall?.copyWith(
+                              color: cs.onSurfaceVariant,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          ' · ${entry.era}',
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: cs.onSurfaceVariant,
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 4),
                     Row(

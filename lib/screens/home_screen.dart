@@ -8,6 +8,7 @@ import 'package:patres/models/text_entry.dart';
 import 'package:patres/services/daily_reading_service.dart';
 import 'package:patres/theme.dart';
 import 'package:go_router/go_router.dart';
+import 'package:patres/widgets/tappable_author.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, this.dailyReadingService});
@@ -306,8 +307,8 @@ class _ReadingCard extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 4),
-                    Text(
-                      author,
+                    TappableAuthor(
+                      authorName: author,
                       style: theme.textTheme.bodyMedium?.copyWith(
                         color: cs.onSurfaceVariant,
                       ),
@@ -415,13 +416,11 @@ class _BookCard extends StatelessWidget {
               ),
               if (author.isNotEmpty) ...[
                 const SizedBox(height: 2),
-                Text(
-                  author,
+                TappableAuthor(
+                  authorName: author,
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: cs.onSurfaceVariant,
                   ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
                 ),
               ],
               if (description.isNotEmpty) ...[
@@ -511,8 +510,8 @@ class _DailyReadingCard extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   Expanded(
-                    child: Text(
-                      reading.author,
+                    child: TappableAuthor(
+                      authorName: reading.author,
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: cs.onSurfaceVariant,
                         fontWeight: FontWeight.w500,
