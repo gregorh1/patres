@@ -16,6 +16,7 @@ dependencies:
   go_router: ^17.2.0
   equatable: ^2.0.8
   intl: ^0.20.2
+  flutter_native_splash: ^2.4.6
 
 dev_dependencies:
   flutter_test:
@@ -36,3 +37,15 @@ flutter:
     - assets/texts/benedykt-regula.json
     - assets/texts/bogurodzica.json
     - assets/texts/skarga-kazania-sejmowe.json
+    - assets/splash_icon.png
+
+flutter_native_splash:
+  color: "#F5E6D3"
+  color_dark: "#1A1512"
+  image: assets/splash_icon.png
+  image_dark: assets/splash_icon.png
+  android_12:
+    color: "#F5E6D3"
+    color_dark: "#1A1512"
+    image: assets/splash_icon.png
+    image_dark: assets/splash_icon.png

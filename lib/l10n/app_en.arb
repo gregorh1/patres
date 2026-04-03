@@ -24,5 +24,30 @@
   "christianClassics": "Christian Classics",
   "aboutApp": "About",
   "aboutDescription": "Patres — a beautiful reader for patristic texts and Christian classics, with planned TTS audiobook support.",
-  "version": "Version"
+  "version": "Version",
+  "filterAll": "All",
+  "filterCategory": "Category",
+  "filterEra": "Era",
+  "sortByTitle": "Title",
+  "sortByAuthor": "Author",
+  "sortByEra": "Era",
+  "sortBy": "Sort",
+  "categoryPatrystyka": "Patristics",
+  "categoryDuchowosc": "Spirituality",
+  "categoryMonastycyzm": "Monasticism",
+  "categoryHymnografia": "Hymnography",
+  "categoryKaznodziejstwo": "Preaching",
+  "chaptersCount": "{count} {count, plural, one{chapter} other{chapters}}",
+  "@chaptersCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noResults": "No results",
+  "noResultsHint": "Try changing your filters or search",
+  "statusComplete": "Full text",
+  "statusPartial": "Partial",
+  "statusPlaceholder": "Coming soon"
 }

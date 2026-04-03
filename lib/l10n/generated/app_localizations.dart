@@ -247,6 +247,114 @@ abstract class AppLocalizations {
   /// In pl, this message translates to:
   /// **'Wersja'**
   String get version;
+
+  /// No description provided for @filterAll.
+  ///
+  /// In pl, this message translates to:
+  /// **'Wszystkie'**
+  String get filterAll;
+
+  /// No description provided for @filterCategory.
+  ///
+  /// In pl, this message translates to:
+  /// **'Kategoria'**
+  String get filterCategory;
+
+  /// No description provided for @filterEra.
+  ///
+  /// In pl, this message translates to:
+  /// **'Epoka'**
+  String get filterEra;
+
+  /// No description provided for @sortByTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Tytuł'**
+  String get sortByTitle;
+
+  /// No description provided for @sortByAuthor.
+  ///
+  /// In pl, this message translates to:
+  /// **'Autor'**
+  String get sortByAuthor;
+
+  /// No description provided for @sortByEra.
+  ///
+  /// In pl, this message translates to:
+  /// **'Epoka'**
+  String get sortByEra;
+
+  /// No description provided for @sortBy.
+  ///
+  /// In pl, this message translates to:
+  /// **'Sortuj'**
+  String get sortBy;
+
+  /// No description provided for @categoryPatrystyka.
+  ///
+  /// In pl, this message translates to:
+  /// **'Patrystyka'**
+  String get categoryPatrystyka;
+
+  /// No description provided for @categoryDuchowosc.
+  ///
+  /// In pl, this message translates to:
+  /// **'Duchowość'**
+  String get categoryDuchowosc;
+
+  /// No description provided for @categoryMonastycyzm.
+  ///
+  /// In pl, this message translates to:
+  /// **'Monastycyzm'**
+  String get categoryMonastycyzm;
+
+  /// No description provided for @categoryHymnografia.
+  ///
+  /// In pl, this message translates to:
+  /// **'Hymnografia'**
+  String get categoryHymnografia;
+
+  /// No description provided for @categoryKaznodziejstwo.
+  ///
+  /// In pl, this message translates to:
+  /// **'Kaznodziejstwo'**
+  String get categoryKaznodziejstwo;
+
+  /// No description provided for @chaptersCount.
+  ///
+  /// In pl, this message translates to:
+  /// **'{count} {count, plural, one{rozdział} few{rozdziały} other{rozdziałów}}'**
+  String chaptersCount(int count);
+
+  /// No description provided for @noResults.
+  ///
+  /// In pl, this message translates to:
+  /// **'Brak wyników'**
+  String get noResults;
+
+  /// No description provided for @noResultsHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Spróbuj zmienić filtry lub wyszukiwanie'**
+  String get noResultsHint;
+
+  /// No description provided for @statusComplete.
+  ///
+  /// In pl, this message translates to:
+  /// **'Pełny tekst'**
+  String get statusComplete;
+
+  /// No description provided for @statusPartial.
+  ///
+  /// In pl, this message translates to:
+  /// **'Częściowy'**
+  String get statusPartial;
+
+  /// No description provided for @statusPlaceholder.
+  ///
+  /// In pl, this message translates to:
+  /// **'Wkrótce'**
+  String get statusPlaceholder;
 }
 
 class _AppLocalizationsDelegate
