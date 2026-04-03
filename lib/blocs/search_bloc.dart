@@ -31,10 +31,10 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         status: SearchStatus.error,
         errorMessage: 'Wyszukiwanie jest niedostępne na tym urządzeniu',
       ));
-    } catch (e) {
+    } catch (_) {
       emit(state.copyWith(
         status: SearchStatus.error,
-        errorMessage: e.toString(),
+        errorMessage: 'Wyszukiwanie jest niedostępne na tym urządzeniu',
       ));
     }
   }
@@ -76,11 +76,11 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         status: SearchStatus.error,
         errorMessage: 'Wyszukiwanie jest niedostępne na tym urządzeniu',
       ));
-    } catch (e) {
+    } catch (_) {
       if (state.query != query) return;
       emit(state.copyWith(
         status: SearchStatus.error,
-        errorMessage: e.toString(),
+        errorMessage: 'Wyszukiwanie jest niedostępne na tym urządzeniu',
       ));
     }
   }
