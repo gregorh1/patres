@@ -338,18 +338,16 @@ class _LanguageSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-
     return Row(
       children: [
         _LanguageOption(
-          label: l10n.languagePolish,
+          label: 'Polski',
           isSelected: currentLocale.languageCode == 'pl',
           onTap: () => onChanged(const Locale('pl')),
         ),
         const SizedBox(width: 12),
         _LanguageOption(
-          label: l10n.languageEnglish,
+          label: 'English',
           isSelected: currentLocale.languageCode == 'en',
           onTap: () => onChanged(const Locale('en')),
         ),
