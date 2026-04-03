@@ -51,10 +51,10 @@ class _SearchScreenState extends State<SearchScreen> {
                   onPressed: () => Navigator.of(context).pop(),
                 ),
                 trailing: [
-                  BlocBuilder<SearchBloc, SearchState>(
-                    buildWhen: (prev, curr) => prev.query != curr.query,
-                    builder: (context, state) {
-                      if (state.query.isEmpty) {
+                  ValueListenableBuilder<TextEditingValue>(
+                    valueListenable: _controller,
+                    builder: (context, value, _) {
+                      if (value.text.isEmpty) {
                         return const SizedBox.shrink();
                       }
                       return IconButton(
@@ -233,9 +233,11 @@ class _SearchResultTile extends StatelessWidget {
             '/reader/${result.textId}?chapter=${result.chapterIndex}',
           );
         },
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(minHeight: 48),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Book title and chapter
@@ -274,6 +276,7 @@ class _SearchResultTile extends StatelessWidget {
               _HighlightedSnippet(snippet: result.snippet),
             ],
           ),
+        ),
         ),
       ),
     );
