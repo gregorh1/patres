@@ -126,5 +126,33 @@
   },
   "planInProgress": "In Progress",
   "planCompletedStatus": "Completed",
-  "planStartPrompt": "Start this plan to track your progress"
+  "planStartPrompt": "Start this plan to track your progress",
+  "audioListen": "Listen",
+  "audioDownloads": "Audiobooks",
+  "audioDownloadsDescription": "Manage downloaded audiobooks",
+  "audioDownload": "Download audio",
+  "audioDeleteDownload": "Delete audio",
+  "audioDeleteConfirm": "Are you sure you want to delete the downloaded audio?",
+  "audioDelete": "Delete",
+  "audioStorageUsed": "Storage used",
+  "audioGenerating": "Generating audio…",
+  "audioGeneratingChapter": "Generating chapter audio…",
+  "audioGenerationError": "Audio generation error",
+  "audioChapterProgress": "Chapter {completed} of {total}",
+  "@audioChapterProgress": {
+    "placeholders": {
+      "completed": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "audioSpeed": "Playback speed",
+  "audioSleepTimer": "Sleep timer",
+  "audioSleepTimerActive": "Timer active",
+  "audioSleepTimerCancel": "Cancel timer",
+  "audioSleepTimer15": "15 minutes",
+  "audioSleepTimer30": "30 minutes",
+  "audioSleepTimer45": "45 minutes",
+  "audioSleepTimer60": "1 hour",
+  "audioSkipForward": "Skip forward",
+  "audioSkipBackward": "Skip backward"
 }

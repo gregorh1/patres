@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:patres/l10n/generated/app_localizations.dart';
 import 'package:patres/blocs/theme_bloc.dart';
 import 'package:patres/models/app_theme_mode.dart';
@@ -45,6 +46,37 @@ class SettingsScreen extends StatelessWidget {
                     },
                   );
                 },
+              ),
+              const SizedBox(height: 32),
+
+              // Audio downloads section
+              Text(
+                l10n.audioDownloads,
+                style: theme.textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Card(
+                clipBehavior: Clip.antiAlias,
+                child: ListTile(
+                  leading: Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: cs.primaryContainer,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Icon(
+                      Icons.headphones_rounded,
+                      color: cs.onPrimaryContainer,
+                      size: 20,
+                    ),
+                  ),
+                  title: Text(l10n.audioDownloadsDescription),
+                  trailing: const Icon(Icons.chevron_right_rounded),
+                  onTap: () => context.push('/audio-downloads'),
+                ),
               ),
               const SizedBox(height: 32),
 

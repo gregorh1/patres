@@ -313,4 +313,72 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get planStartPrompt => 'Rozpocznij plan, aby śledzić postępy';
+
+  @override
+  String get audioListen => 'Słuchaj';
+
+  @override
+  String get audioDownloads => 'Audiobooki';
+
+  @override
+  String get audioDownloadsDescription => 'Zarządzaj pobranymi audiobookami';
+
+  @override
+  String get audioDownload => 'Pobierz audio';
+
+  @override
+  String get audioDeleteDownload => 'Usuń audio';
+
+  @override
+  String get audioDeleteConfirm => 'Czy na pewno chcesz usunąć pobrane audio?';
+
+  @override
+  String get audioDelete => 'Usuń';
+
+  @override
+  String get audioStorageUsed => 'Zajęte miejsce';
+
+  @override
+  String get audioGenerating => 'Generowanie audio…';
+
+  @override
+  String get audioGeneratingChapter => 'Generowanie audio rozdziału…';
+
+  @override
+  String get audioGenerationError => 'Błąd generowania audio';
+
+  @override
+  String audioChapterProgress(int completed, int total) {
+    return 'Rozdział $completed z $total';
+  }
+
+  @override
+  String get audioSpeed => 'Prędkość odtwarzania';
+
+  @override
+  String get audioSleepTimer => 'Wyłącznik czasowy';
+
+  @override
+  String get audioSleepTimerActive => 'Wyłącznik aktywny';
+
+  @override
+  String get audioSleepTimerCancel => 'Anuluj wyłącznik';
+
+  @override
+  String get audioSleepTimer15 => '15 minut';
+
+  @override
+  String get audioSleepTimer30 => '30 minut';
+
+  @override
+  String get audioSleepTimer45 => '45 minut';
+
+  @override
+  String get audioSleepTimer60 => '1 godzina';
+
+  @override
+  String get audioSkipForward => 'Przewiń do przodu';
+
+  @override
+  String get audioSkipBackward => 'Przewiń do tyłu';
 }

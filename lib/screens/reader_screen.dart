@@ -5,10 +5,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
+import 'package:patres/blocs/audio_bloc.dart';
+import 'package:patres/blocs/audio_event.dart';
 import 'package:patres/blocs/reader_bloc.dart';
 import 'package:patres/blocs/reader_event.dart';
 import 'package:patres/blocs/reader_state.dart';
+import 'package:patres/blocs/tts_generation_bloc.dart';
+import 'package:patres/blocs/tts_generation_event.dart';
+import 'package:patres/blocs/tts_generation_state.dart';
 import 'package:patres/l10n/generated/app_localizations.dart';
+import 'package:patres/services/audio_service.dart';
+import 'package:patres/widgets/audio_player_widget.dart';
 import 'package:patres/widgets/chapter_list_sheet.dart';
 import 'package:patres/widgets/reader_settings_sheet.dart';
 import 'package:patres/widgets/tappable_author.dart';
@@ -149,6 +156,12 @@ class _ReaderScreenState extends State<ReaderScreen> {
                       ),
                       actions: [
                         IconButton(
+                          icon: const Icon(Icons.headphones_rounded),
+                          tooltip: l10n.audioListen,
+                          onPressed: () =>
+                              _onAudioPressed(context, state),
+                        ),
+                        IconButton(
                           icon: Icon(
                             state.isCurrentChapterBookmarked
                                 ? Icons.bookmark_rounded
@@ -227,6 +240,14 @@ class _ReaderScreenState extends State<ReaderScreen> {
                     const SliverToBoxAdapter(child: SizedBox(height: 24)),
                   ],
                 ),
+              ),
+
+              // Mini audio player
+              MiniAudioPlayer(
+                textTitle: textContent.title,
+                chapterTitle: chapter.title,
+                onTap: () => _showAudioPlayer(
+                    context, textContent.title, chapter.title),
               ),
 
               // Bottom chapter navigation
@@ -314,6 +335,76 @@ class _ReaderScreenState extends State<ReaderScreen> {
             child: Text(l10n.save),
           ),
         ],
+      ),
+    );
+  }
+
+  void _onAudioPressed(BuildContext context, ReaderState state) async {
+    final l10n = AppLocalizations.of(context)!;
+    final textContent = state.textContent!;
+    final chapter = textContent.chapters[state.currentChapter];
+    final textId = state.textId;
+
+    // Check if audio is cached
+    final isCached = await TtsAudioService.isChapterCached(
+        textId, state.currentChapter);
+
+    if (!context.mounted) return;
+
+    if (isCached) {
+      // Play cached audio
+      final filePath = await TtsAudioService.chapterAudioPath(
+          textId, state.currentChapter);
+      if (!context.mounted) return;
+      context.read<AudioBloc>().add(AudioPlayRequested(
+            textId: textId,
+            chapterIndex: state.currentChapter,
+            filePath: filePath,
+          ));
+      _showAudioPlayer(context, textContent.title, chapter.title);
+    } else {
+      // Generate audio first
+      context.read<TtsGenerationBloc>().add(TtsGenerateChapterRequested(
+            textId: textId,
+            chapterIndex: state.currentChapter,
+            chapterContent: chapter.content,
+          ));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(l10n.audioGeneratingChapter),
+          duration: const Duration(seconds: 3),
+        ),
+      );
+
+      // Listen for completion to auto-play
+      final sub = context.read<TtsGenerationBloc>().stream.listen((ttsState) async {
+        if (ttsState.status == TtsGenerationStatus.completed) {
+          final filePath = await TtsAudioService.chapterAudioPath(
+              textId, state.currentChapter);
+          if (!context.mounted) return;
+          context.read<AudioBloc>().add(AudioPlayRequested(
+                textId: textId,
+                chapterIndex: state.currentChapter,
+                filePath: filePath,
+              ));
+          _showAudioPlayer(context, textContent.title, chapter.title);
+        }
+      });
+      // Cancel listener after first emission
+      sub.onData((_) => sub.cancel());
+    }
+  }
+
+  void _showAudioPlayer(
+      BuildContext context, String textTitle, String chapterTitle) {
+    showModalBottomSheet(
+      context: context,
+      builder: (_) => BlocProvider.value(
+        value: context.read<AudioBloc>(),
+        child: AudioPlayerWidget(
+          textTitle: textTitle,
+          chapterTitle: chapterTitle,
+        ),
       ),
     );
   }

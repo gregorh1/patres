@@ -625,6 +625,138 @@ abstract class AppLocalizations {
   /// In pl, this message translates to:
   /// **'Rozpocznij plan, aby śledzić postępy'**
   String get planStartPrompt;
+
+  /// No description provided for @audioListen.
+  ///
+  /// In pl, this message translates to:
+  /// **'Słuchaj'**
+  String get audioListen;
+
+  /// No description provided for @audioDownloads.
+  ///
+  /// In pl, this message translates to:
+  /// **'Audiobooki'**
+  String get audioDownloads;
+
+  /// No description provided for @audioDownloadsDescription.
+  ///
+  /// In pl, this message translates to:
+  /// **'Zarządzaj pobranymi audiobookami'**
+  String get audioDownloadsDescription;
+
+  /// No description provided for @audioDownload.
+  ///
+  /// In pl, this message translates to:
+  /// **'Pobierz audio'**
+  String get audioDownload;
+
+  /// No description provided for @audioDeleteDownload.
+  ///
+  /// In pl, this message translates to:
+  /// **'Usuń audio'**
+  String get audioDeleteDownload;
+
+  /// No description provided for @audioDeleteConfirm.
+  ///
+  /// In pl, this message translates to:
+  /// **'Czy na pewno chcesz usunąć pobrane audio?'**
+  String get audioDeleteConfirm;
+
+  /// No description provided for @audioDelete.
+  ///
+  /// In pl, this message translates to:
+  /// **'Usuń'**
+  String get audioDelete;
+
+  /// No description provided for @audioStorageUsed.
+  ///
+  /// In pl, this message translates to:
+  /// **'Zajęte miejsce'**
+  String get audioStorageUsed;
+
+  /// No description provided for @audioGenerating.
+  ///
+  /// In pl, this message translates to:
+  /// **'Generowanie audio…'**
+  String get audioGenerating;
+
+  /// No description provided for @audioGeneratingChapter.
+  ///
+  /// In pl, this message translates to:
+  /// **'Generowanie audio rozdziału…'**
+  String get audioGeneratingChapter;
+
+  /// No description provided for @audioGenerationError.
+  ///
+  /// In pl, this message translates to:
+  /// **'Błąd generowania audio'**
+  String get audioGenerationError;
+
+  /// No description provided for @audioChapterProgress.
+  ///
+  /// In pl, this message translates to:
+  /// **'Rozdział {completed} z {total}'**
+  String audioChapterProgress(int completed, int total);
+
+  /// No description provided for @audioSpeed.
+  ///
+  /// In pl, this message translates to:
+  /// **'Prędkość odtwarzania'**
+  String get audioSpeed;
+
+  /// No description provided for @audioSleepTimer.
+  ///
+  /// In pl, this message translates to:
+  /// **'Wyłącznik czasowy'**
+  String get audioSleepTimer;
+
+  /// No description provided for @audioSleepTimerActive.
+  ///
+  /// In pl, this message translates to:
+  /// **'Wyłącznik aktywny'**
+  String get audioSleepTimerActive;
+
+  /// No description provided for @audioSleepTimerCancel.
+  ///
+  /// In pl, this message translates to:
+  /// **'Anuluj wyłącznik'**
+  String get audioSleepTimerCancel;
+
+  /// No description provided for @audioSleepTimer15.
+  ///
+  /// In pl, this message translates to:
+  /// **'15 minut'**
+  String get audioSleepTimer15;
+
+  /// No description provided for @audioSleepTimer30.
+  ///
+  /// In pl, this message translates to:
+  /// **'30 minut'**
+  String get audioSleepTimer30;
+
+  /// No description provided for @audioSleepTimer45.
+  ///
+  /// In pl, this message translates to:
+  /// **'45 minut'**
+  String get audioSleepTimer45;
+
+  /// No description provided for @audioSleepTimer60.
+  ///
+  /// In pl, this message translates to:
+  /// **'1 godzina'**
+  String get audioSleepTimer60;
+
+  /// No description provided for @audioSkipForward.
+  ///
+  /// In pl, this message translates to:
+  /// **'Przewiń do przodu'**
+  String get audioSkipForward;
+
+  /// No description provided for @audioSkipBackward.
+  ///
+  /// In pl, this message translates to:
+  /// **'Przewiń do tyłu'**
+  String get audioSkipBackward;
 }
 
 class _AppLocalizationsDelegate
