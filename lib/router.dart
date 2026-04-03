@@ -4,6 +4,7 @@ import 'package:patres/screens/home_screen.dart';
 import 'package:patres/screens/library_screen.dart';
 import 'package:patres/screens/reader_screen.dart';
 import 'package:patres/screens/settings_screen.dart';
+import 'package:patres/screens/splash_screen.dart';
 import 'package:patres/widgets/shell_scaffold.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -11,8 +12,18 @@ final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
 final router = GoRouter(
   navigatorKey: rootNavigatorKey,
-  initialLocation: '/home',
+  initialLocation: '/splash',
   routes: [
+    GoRoute(
+      path: '/splash',
+      parentNavigatorKey: rootNavigatorKey,
+      pageBuilder: (context, state) => CustomTransitionPage(
+        child: const SplashScreen(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+            FadeTransition(opacity: animation, child: child),
+        transitionDuration: const Duration(milliseconds: 300),
+      ),
+    ),
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
       builder: (context, state, child) => ShellScaffold(child: child),

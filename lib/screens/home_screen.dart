@@ -1,135 +1,214 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:patres/blocs/library_bloc.dart';
 import 'package:patres/l10n/generated/app_localizations.dart';
+import 'package:patres/models/text_entry.dart';
+import 'package:patres/theme.dart';
 import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
+
+  static const _featuredIds = [
+    'didache',
+    'list-do-diogneta',
+    'benedykt-regula',
+    'bogurodzica',
+  ];
+
+  static const _descriptions = {
+    'didache':
+        'Jeden z najstarszych tekstów chrześcijańskich — zbiór wskazań moralnych i liturgicznych dla pierwszych wspólnot.',
+    'list-do-diogneta':
+        'Anonimowy list apologetyczny — słynny opis chrześcijan jako „duszy świata".',
+    'benedykt-regula':
+        'Fundament życia klasztornego w Europie — wskazania dotyczące modlitwy, pracy i posłuszeństwa.',
+    'bogurodzica':
+        'Najstarsza polska pieśń religijna, hymn rycerstwa i modlitwa do Matki Bożej.',
+  };
+
+  static IconData _iconFor(String id) {
+    return switch (id) {
+      'didache' => Icons.menu_book_rounded,
+      'list-do-diogneta' => Icons.history_edu_rounded,
+      'benedykt-regula' => Icons.account_balance_rounded,
+      'bogurodzica' => Icons.music_note_rounded,
+      _ => Icons.auto_stories_rounded,
+    };
+  }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final cs = theme.colorScheme;
+    final isLight = theme.brightness == Brightness.light;
 
-    return CustomScrollView(
-      slivers: [
-        SliverAppBar.large(
-          title: Text(
-            l10n.appTitle,
-            style: theme.textTheme.headlineMedium?.copyWith(
-              fontWeight: FontWeight.w300,
-              letterSpacing: 2,
+    return DecoratedBox(
+      decoration: isLight
+          ? const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  PatresTheme.lightParchment,
+                  PatresTheme.lightParchmentEnd,
+                ],
+              ),
+            )
+          : const BoxDecoration(),
+      child: CustomScrollView(
+        slivers: [
+          SliverAppBar.large(
+            title: Text(
+              l10n.appTitle,
+              style: theme.textTheme.headlineMedium?.copyWith(
+                fontWeight: FontWeight.w300,
+                letterSpacing: 2,
+              ),
             ),
           ),
-        ),
-        SliverPadding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          sliver: SliverList.list(
-            children: [
-              const SizedBox(height: 8),
-              // Hero greeting card
-              Container(
-                padding: const EdgeInsets.all(28),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      cs.primaryContainer,
-                      cs.primaryContainer.withValues(alpha: 0.6),
-                    ],
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            sliver: SliverList.list(
+              children: [
+                const SizedBox(height: 8),
+                // Hero greeting card
+                Container(
+                  padding: const EdgeInsets.all(28),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        cs.primaryContainer,
+                        cs.primaryContainer.withValues(alpha: 0.6),
+                      ],
+                    ),
+                    borderRadius: BorderRadius.circular(24),
                   ),
-                  borderRadius: BorderRadius.circular(24),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Icon(
-                      Icons.auto_stories_rounded,
-                      size: 40,
-                      color: cs.onPrimaryContainer.withValues(alpha: 0.8),
-                    ),
-                    const SizedBox(height: 16),
-                    Text(
-                      l10n.homeGreeting,
-                      style: theme.textTheme.headlineSmall?.copyWith(
-                        color: cs.onPrimaryContainer,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      l10n.homeSubtitle,
-                      style: theme.textTheme.bodyLarge?.copyWith(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Icon(
+                        Icons.auto_stories_rounded,
+                        size: 40,
                         color: cs.onPrimaryContainer.withValues(alpha: 0.8),
                       ),
-                    ),
-                  ],
+                      const SizedBox(height: 16),
+                      Text(
+                        l10n.homeGreeting,
+                        style: theme.textTheme.headlineSmall?.copyWith(
+                          color: cs.onPrimaryContainer,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        l10n.homeSubtitle,
+                        style: theme.textTheme.bodyLarge?.copyWith(
+                          color: cs.onPrimaryContainer.withValues(alpha: 0.8),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(height: 32),
+                const SizedBox(height: 32),
 
-              // Continue reading section
-              Text(
-                l10n.continueReading,
-                style: theme.textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.w600,
+                // Continue reading section
+                Text(
+                  l10n.continueReading,
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 12),
-              _ReadingCard(
-                title: 'Wyznania',
-                author: 'Św. Augustyn z Hippony',
-                progress: 0.34,
-                onTap: () => context.push('/reader/confessions'),
-              ),
-              const SizedBox(height: 32),
+                const SizedBox(height: 12),
+                _ReadingCard(
+                  title: 'Wyznania',
+                  author: 'Św. Augustyn z Hippony',
+                  progress: 0.34,
+                  onTap: () => context.push('/reader/augustyn-wyznania'),
+                ),
+                const SizedBox(height: 32),
 
-              // Recommended section
-              Text(
-                l10n.recommended,
-                style: theme.textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.w600,
+                // Recommended section
+                Text(
+                  l10n.recommended,
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 12),
-            ],
+                const SizedBox(height: 12),
+              ],
+            ),
           ),
-        ),
-        SliverPadding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          sliver: SliverGrid.count(
-            crossAxisCount: 2,
-            mainAxisSpacing: 12,
-            crossAxisSpacing: 12,
-            childAspectRatio: 0.72,
-            children: const [
-              _BookCard(
-                title: 'Didache',
-                author: 'Nauka Dwunastu Apostołów',
-                icon: Icons.menu_book_rounded,
-              ),
-              _BookCard(
-                title: 'List do Diogneta',
-                author: 'Anonim',
-                icon: Icons.history_edu_rounded,
-              ),
-              _BookCard(
-                title: 'O Wcieleniu Słowa',
-                author: 'Św. Atanazy Wielki',
-                icon: Icons.church_rounded,
-              ),
-              _BookCard(
-                title: 'Reguła',
-                author: 'Św. Benedykt z Nursji',
-                icon: Icons.account_balance_rounded,
-              ),
-            ],
+          BlocBuilder<LibraryBloc, LibraryState>(
+            builder: (context, state) {
+              final featured = _featuredIds
+                  .map((id) => state.allTexts
+                      .cast<TextEntry?>()
+                      .firstWhere((t) => t?.id == id, orElse: () => null))
+                  .whereType<TextEntry>()
+                  .toList();
+
+              if (featured.isEmpty) {
+                // Fallback while loading
+                return SliverPadding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  sliver: SliverGrid.count(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 12,
+                    crossAxisSpacing: 12,
+                    childAspectRatio: 0.65,
+                    children: _featuredIds.map((id) {
+                      return _BookCard(
+                        title: _fallbackTitle(id),
+                        author: '',
+                        era: '',
+                        description: _descriptions[id] ?? '',
+                        icon: _iconFor(id),
+                        textId: id,
+                      );
+                    }).toList(),
+                  ),
+                );
+              }
+
+              return SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                sliver: SliverGrid.count(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 12,
+                  crossAxisSpacing: 12,
+                  childAspectRatio: 0.65,
+                  children: featured.map((text) {
+                    return _BookCard(
+                      title: text.title,
+                      author: text.author,
+                      era: text.era,
+                      description: _descriptions[text.id] ?? '',
+                      icon: _iconFor(text.id),
+                      textId: text.id,
+                    );
+                  }).toList(),
+                ),
+              );
+            },
           ),
-        ),
-        const SliverPadding(padding: EdgeInsets.only(bottom: 24)),
-      ],
+          const SliverPadding(padding: EdgeInsets.only(bottom: 24)),
+        ],
+      ),
     );
+  }
+
+  static String _fallbackTitle(String id) {
+    return switch (id) {
+      'didache' => 'Didache',
+      'list-do-diogneta' => 'List do Diogneta',
+      'benedykt-regula' => 'Reguła',
+      'bogurodzica' => 'Bogurodzica',
+      _ => id,
+    };
   }
 }
 
@@ -225,12 +304,18 @@ class _BookCard extends StatelessWidget {
   const _BookCard({
     required this.title,
     required this.author,
+    required this.era,
+    required this.description,
     required this.icon,
+    required this.textId,
   });
 
   final String title;
   final String author;
+  final String era;
+  final String description;
   final IconData icon;
+  final String textId;
 
   @override
   Widget build(BuildContext context) {
@@ -240,22 +325,42 @@ class _BookCard extends StatelessWidget {
     return Card(
       clipBehavior: Clip.antiAlias,
       child: InkWell(
-        onTap: () => context.push('/reader/sample'),
+        onTap: () => context.push('/reader/$textId'),
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: 48,
-                height: 48,
-                decoration: BoxDecoration(
-                  color: cs.tertiaryContainer,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Icon(icon, color: cs.onTertiaryContainer),
+              Row(
+                children: [
+                  Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: cs.tertiaryContainer,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Icon(icon, size: 20, color: cs.onTertiaryContainer),
+                  ),
+                  const Spacer(),
+                  if (era.isNotEmpty)
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: cs.secondaryContainer.withValues(alpha: 0.6),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        era,
+                        style: theme.textTheme.labelSmall?.copyWith(
+                          color: cs.onSecondaryContainer,
+                        ),
+                      ),
+                    ),
+                ],
               ),
-              const Spacer(),
+              const SizedBox(height: 12),
               Text(
                 title,
                 style: theme.textTheme.titleSmall?.copyWith(
@@ -264,15 +369,31 @@ class _BookCard extends StatelessWidget {
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
-              const SizedBox(height: 4),
-              Text(
-                author,
-                style: theme.textTheme.bodySmall?.copyWith(
-                  color: cs.onSurfaceVariant,
+              if (author.isNotEmpty) ...[
+                const SizedBox(height: 2),
+                Text(
+                  author,
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: cs.onSurfaceVariant,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
+              ],
+              if (description.isNotEmpty) ...[
+                const SizedBox(height: 8),
+                Expanded(
+                  child: Text(
+                    description,
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: cs.onSurfaceVariant.withValues(alpha: 0.7),
+                      fontSize: 11,
+                      height: 1.4,
+                    ),
+                    overflow: TextOverflow.fade,
+                  ),
+                ),
+              ],
             ],
           ),
         ),
