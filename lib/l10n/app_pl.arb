@@ -98,5 +98,33 @@
         "type": "int"
       }
     }
-  }
+  },
+  "plansTab": "Plany",
+  "plansTitle": "Plany czytania",
+  "plansError": "Nie udało się załadować planów",
+  "planDaysCount": "{count} {count, plural, one{dzień} few{dni} other{dni}}",
+  "@planDaysCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "planStart": "Rozpocznij plan",
+  "planCompleted": "ukończono",
+  "planStreak": "seria",
+  "planLongestStreak": "rekord",
+  "planMarkComplete": "Oznacz jako ukończone",
+  "planMarkIncomplete": "Cofnij ukończenie",
+  "streakDays": "{count} {count, plural, one{dzień} few{dni} other{dni}} z rzędu",
+  "@streakDays": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "planInProgress": "W trakcie",
+  "planCompletedStatus": "Ukończony",
+  "planStartPrompt": "Rozpocznij plan, aby śledzić postępy"
 }

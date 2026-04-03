@@ -25,7 +25,7 @@ class DatabaseService {
         _ftsAvailable = false;
 
   static const _databaseName = 'patres.db';
-  static const _databaseVersion = 2;
+  static const _databaseVersion = 3;
 
   Database? _database;
   bool _ftsAvailable = true;
@@ -98,12 +98,43 @@ class DatabaseService {
         'CREATE INDEX idx_reading_progress_text ON reading_progress(text_id)');
 
     await _createSearchTables(db);
+    await _createPlanTables(db);
   }
 
   Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
     if (oldVersion < 2) {
       await _createSearchTables(db);
     }
+    if (oldVersion < 3) {
+      await _createPlanTables(db);
+    }
+  }
+
+  Future<void> _createPlanTables(Database db) async {
+    await db.execute('''
+      CREATE TABLE IF NOT EXISTS plan_progress (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        plan_id TEXT NOT NULL,
+        started_at TEXT NOT NULL,
+        current_streak INTEGER NOT NULL DEFAULT 0,
+        longest_streak INTEGER NOT NULL DEFAULT 0,
+        last_completed_at TEXT,
+        UNIQUE(plan_id)
+      )
+    ''');
+
+    await db.execute('''
+      CREATE TABLE IF NOT EXISTS plan_day_completions (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        plan_id TEXT NOT NULL,
+        day_number INTEGER NOT NULL,
+        completed_at TEXT NOT NULL,
+        UNIQUE(plan_id, day_number)
+      )
+    ''');
+
+    await db.execute(
+        'CREATE INDEX IF NOT EXISTS idx_plan_day_completions_plan ON plan_day_completions(plan_id)');
   }
 
   Future<void> _createSearchTables(Database db) async {
@@ -354,6 +385,90 @@ class DatabaseService {
     final terms = cleaned.split(RegExp(r'\s+'));
     // Use prefix matching for each term
     return terms.map((t) => '"$t" *').join(' ');
+  }
+
+  // --- Reading Plans ---
+
+  Future<void> startPlan(String planId) async {
+    final db = await database;
+    await db.insert(
+      'plan_progress',
+      {
+        'plan_id': planId,
+        'started_at': DateTime.now().toIso8601String(),
+        'current_streak': 0,
+        'longest_streak': 0,
+      },
+      conflictAlgorithm: ConflictAlgorithm.ignore,
+    );
+  }
+
+  Future<Map<String, dynamic>?> getPlanProgress(String planId) async {
+    final db = await database;
+    final result = await db.query(
+      'plan_progress',
+      where: 'plan_id = ?',
+      whereArgs: [planId],
+    );
+    if (result.isEmpty) return null;
+    return result.first;
+  }
+
+  Future<List<int>> getCompletedDays(String planId) async {
+    final db = await database;
+    final result = await db.query(
+      'plan_day_completions',
+      columns: ['day_number'],
+      where: 'plan_id = ?',
+      whereArgs: [planId],
+      orderBy: 'day_number ASC',
+    );
+    return result.map((r) => r['day_number'] as int).toList();
+  }
+
+  Future<void> completePlanDay(String planId, int dayNumber) async {
+    final db = await database;
+    await db.insert(
+      'plan_day_completions',
+      {
+        'plan_id': planId,
+        'day_number': dayNumber,
+        'completed_at': DateTime.now().toIso8601String(),
+      },
+      conflictAlgorithm: ConflictAlgorithm.ignore,
+    );
+  }
+
+  Future<void> uncompletePlanDay(String planId, int dayNumber) async {
+    final db = await database;
+    await db.delete(
+      'plan_day_completions',
+      where: 'plan_id = ? AND day_number = ?',
+      whereArgs: [planId, dayNumber],
+    );
+  }
+
+  Future<void> updatePlanStreak(
+      String planId, int currentStreak, int longestStreak) async {
+    final db = await database;
+    await db.update(
+      'plan_progress',
+      {
+        'current_streak': currentStreak,
+        'longest_streak': longestStreak,
+        'last_completed_at': DateTime.now().toIso8601String(),
+      },
+      where: 'plan_id = ?',
+      whereArgs: [planId],
+    );
+  }
+
+  Future<void> deletePlanProgress(String planId) async {
+    final db = await database;
+    await db.delete('plan_progress',
+        where: 'plan_id = ?', whereArgs: [planId]);
+    await db.delete('plan_day_completions',
+        where: 'plan_id = ?', whereArgs: [planId]);
   }
 
   Future<void> close() async {

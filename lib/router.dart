@@ -6,6 +6,8 @@ import 'package:patres/blocs/reader_event.dart';
 import 'package:patres/blocs/search_bloc.dart';
 import 'package:patres/screens/home_screen.dart';
 import 'package:patres/screens/library_screen.dart';
+import 'package:patres/screens/plan_detail_screen.dart';
+import 'package:patres/screens/plans_screen.dart';
 import 'package:patres/screens/reader_screen.dart';
 import 'package:patres/screens/search_screen.dart';
 import 'package:patres/screens/settings_screen.dart';
@@ -58,12 +60,26 @@ GoRouter createRouter({
             ),
           ),
           GoRoute(
+            path: '/plans',
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: PlansScreen(),
+            ),
+          ),
+          GoRoute(
             path: '/settings',
             pageBuilder: (context, state) => const NoTransitionPage(
               child: SettingsScreen(),
             ),
           ),
         ],
+      ),
+      GoRoute(
+        path: '/plans/:id',
+        parentNavigatorKey: rootNavigatorKey,
+        builder: (context, state) {
+          final planId = state.pathParameters['id'] ?? '';
+          return PlanDetailScreen(planId: planId);
+        },
       ),
       GoRoute(
         path: '/author/:id',

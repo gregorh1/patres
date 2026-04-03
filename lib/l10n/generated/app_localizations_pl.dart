@@ -253,4 +253,64 @@ class AppLocalizationsPl extends AppLocalizations {
     );
     return '$count $_temp0';
   }
+
+  @override
+  String get plansTab => 'Plany';
+
+  @override
+  String get plansTitle => 'Plany czytania';
+
+  @override
+  String get plansError => 'Nie udało się załadować planów';
+
+  @override
+  String planDaysCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'dni',
+      few: 'dni',
+      one: 'dzień',
+    );
+    return '$count $_temp0';
+  }
+
+  @override
+  String get planStart => 'Rozpocznij plan';
+
+  @override
+  String get planCompleted => 'ukończono';
+
+  @override
+  String get planStreak => 'seria';
+
+  @override
+  String get planLongestStreak => 'rekord';
+
+  @override
+  String get planMarkComplete => 'Oznacz jako ukończone';
+
+  @override
+  String get planMarkIncomplete => 'Cofnij ukończenie';
+
+  @override
+  String streakDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'dni',
+      few: 'dni',
+      one: 'dzień',
+    );
+    return '$count $_temp0 z rzędu';
+  }
+
+  @override
+  String get planInProgress => 'W trakcie';
+
+  @override
+  String get planCompletedStatus => 'Ukończony';
+
+  @override
+  String get planStartPrompt => 'Rozpocznij plan, aby śledzić postępy';
 }

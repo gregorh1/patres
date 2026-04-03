@@ -1,0 +1,545 @@
+{
+  "version": "1.0.0",
+  "plans": [
+    {
+      "id": "intro-church-fathers",
+      "title": "Wprowadzenie do Ojców Kościoła",
+      "description": "Siedmiodniowa podróż przez najważniejsze teksty patrystyczne — od Didache po Wyznania św. Augustyna.",
+      "totalDays": 7,
+      "icon": "school",
+      "days": [
+        {
+          "day": 1,
+          "title": "Didache — Droga Życia",
+          "textId": "didache",
+          "chapterIndex": 0,
+          "description": "Poznaj najstarszą instrukcję chrześcijańskiego życia: Drogę Życia i Drogę Śmierci."
+        },
+        {
+          "day": 2,
+          "title": "Didache — Liturgia i Wspólnota",
+          "textId": "didache",
+          "chapterIndex": 2,
+          "description": "Odkryj, jak pierwsi chrześcijanie celebrowali chrzest, post i Eucharystię."
+        },
+        {
+          "day": 3,
+          "title": "List do Diogneta — Kim są chrześcijanie?",
+          "textId": "list-do-diogneta",
+          "chapterIndex": 0,
+          "description": "Słynny opis chrześcijan jako 'duszy świata' — jeden z najpiękniejszych tekstów apologetycznych."
+        },
+        {
+          "day": 4,
+          "title": "List do Diogneta — Tajemnica wiary",
+          "textId": "list-do-diogneta",
+          "chapterIndex": 2,
+          "description": "Kontynuacja apologetyki: dlaczego chrześcijanie różnią się od pogan i Żydów."
+        },
+        {
+          "day": 5,
+          "title": "Reguła św. Benedykta — Fundamenty",
+          "textId": "benedykt-regula",
+          "chapterIndex": 0,
+          "description": "Podstawy życia monastycznego, które ukształtowały cywilizację zachodnią."
+        },
+        {
+          "day": 6,
+          "title": "Augustyn — Początki Wyznań",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 0,
+          "description": "Otwarcie jednej z najważniejszych autobiografii w historii ludzkości."
+        },
+        {
+          "day": 7,
+          "title": "Augustyn — Nawrócenie",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 15,
+          "description": "Słynna scena nawrócenia w ogrodzie — 'Tolle, lege' (Weź, czytaj)."
+        }
+      ]
+    },
+    {
+      "id": "augustyn-wyznania-30",
+      "title": "Wyznania św. Augustyna w 30 dni",
+      "description": "Systematyczna lektura całych Wyznań — codziennie jeden lub dwa rozdziały, od dzieciństwa po medytację nad Stworzeniem.",
+      "totalDays": 30,
+      "icon": "auto_stories",
+      "days": [
+        {
+          "day": 1,
+          "title": "Księga I — Dzieciństwo i grzech",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 0,
+          "description": "Augustyn wspomina swoje najwcześniejsze lata i pyta o naturę grzechu u dzieci."
+        },
+        {
+          "day": 2,
+          "title": "Księga I — Szkoła i kary",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 1,
+          "description": "Wspomnienia szkolne, niechęć do greki i miłość do łacińskiej literatury."
+        },
+        {
+          "day": 3,
+          "title": "Księga II — Młodzieńcze grzechy",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 2,
+          "description": "Słynna historia kradzieży gruszek — refleksja nad naturą zła."
+        },
+        {
+          "day": 4,
+          "title": "Księga II — Przyjaźń i pokusa",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 3,
+          "description": "Wpływ złego towarzystwa i siła grupowej presji."
+        },
+        {
+          "day": 5,
+          "title": "Księga III — Kartagina",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 4,
+          "description": "Przybycie do Kartaginy, fascynacja teatrem i poszukiwanie mądrości."
+        },
+        {
+          "day": 6,
+          "title": "Księga III — Hortensjusz Cycerona",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 5,
+          "description": "Lektura Hortensjusza budzi w Augustynie pragnienie filozofii."
+        },
+        {
+          "day": 7,
+          "title": "Księga III — Manichejczycy",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 6,
+          "description": "Augustyn dołącza do sekty manichejskiej — początek długiego błądzenia."
+        },
+        {
+          "day": 8,
+          "title": "Księga IV — Nauczyciel retoryki",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 7,
+          "description": "Kariera retoryczna i przyjaźń, która zakończy się tragicznie."
+        },
+        {
+          "day": 9,
+          "title": "Księga IV — Śmierć przyjaciela",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 8,
+          "description": "Głęboka żałoba i pytanie o sens cierpienia."
+        },
+        {
+          "day": 10,
+          "title": "Księga V — Rozczarowanie manicheizmem",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 10,
+          "description": "Spotkanie z biskupem manichejskim Faustusem — początki wątpliwości."
+        },
+        {
+          "day": 11,
+          "title": "Księga V — Podróż do Rzymu",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 11,
+          "description": "Augustyn potajemnie opuszcza Afrykę i udaje się do Rzymu."
+        },
+        {
+          "day": 12,
+          "title": "Księga V — Mediolan",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 12,
+          "description": "Przybycie do Mediolanu i pierwsze spotkanie z biskupem Ambrożym."
+        },
+        {
+          "day": 13,
+          "title": "Księga VI — Ambroży i Monika",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 13,
+          "description": "Matka Augustyna przybywa do Mediolanu; wpływ kazań Ambrożego."
+        },
+        {
+          "day": 14,
+          "title": "Księga VI — Poszukiwanie prawdy",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 14,
+          "description": "Wewnętrzne rozdarcie między ambicją a pragnieniem Boga."
+        },
+        {
+          "day": 15,
+          "title": "Księga VII — Neoplatonizm",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 15,
+          "description": "Odkrycie pism neoplatońskich i nowe rozumienie natury Boga."
+        },
+        {
+          "day": 16,
+          "title": "Księga VII — Problem zła",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 16,
+          "description": "Przełom w rozumieniu zła — nie jako substancji, lecz braku dobra."
+        },
+        {
+          "day": 17,
+          "title": "Księga VIII — Nawrócenia innych",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 17,
+          "description": "Historie nawróceń Wiktoryna i mnichów egipskich."
+        },
+        {
+          "day": 18,
+          "title": "Księga VIII — Tolle, lege!",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 18,
+          "description": "Kulminacyjna scena nawrócenia w ogrodzie mediolańskim."
+        },
+        {
+          "day": 19,
+          "title": "Księga IX — Chrzest i Kasycjakum",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 20,
+          "description": "Przygotowania do chrztu w Kasycjakum i przyjęcie sakramentu."
+        },
+        {
+          "day": 20,
+          "title": "Księga IX — Śmierć Moniki",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 21,
+          "description": "Wizja w Ostii i śmierć matki — jedne z najpiękniejszych stronic Wyznań."
+        },
+        {
+          "day": 21,
+          "title": "Księga X — Pamięć",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 23,
+          "description": "Słynna analiza pamięci ludzkiej — 'wielki pałac pamięci'."
+        },
+        {
+          "day": 22,
+          "title": "Księga X — Pokusy i łaska",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 25,
+          "description": "Augustyn bada swoje obecne pokusy i potrzebę Bożej łaski."
+        },
+        {
+          "day": 23,
+          "title": "Księga X — Pośrednik",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 27,
+          "description": "Chrystus jako jedyny pośrednik między Bogiem a człowiekiem."
+        },
+        {
+          "day": 24,
+          "title": "Księga XI — Czas i wieczność",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 28,
+          "description": "Początek egzegezy Księgi Rodzaju — czym jest czas?"
+        },
+        {
+          "day": 25,
+          "title": "Księga XI — Natura czasu",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 30,
+          "description": "Słynna medytacja: czas jako rozciągłość duszy."
+        },
+        {
+          "day": 26,
+          "title": "Księga XII — Materia i forma",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 32,
+          "description": "Filozoficzna analiza stworzenia — niebo nieba i ziemia bezładna."
+        },
+        {
+          "day": 27,
+          "title": "Księga XII — Interpretacja Pisma",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 34,
+          "description": "Zasady interpretacji biblijnej i pokora wobec tekstu."
+        },
+        {
+          "day": 28,
+          "title": "Księga XIII — Duch Święty",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 36,
+          "description": "Rola Ducha Świętego w stworzeniu i w życiu duchowym."
+        },
+        {
+          "day": 29,
+          "title": "Księga XIII — Alegoreza stworzenia",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 38,
+          "description": "Duchowa interpretacja dni stworzenia jako etapów życia wewnętrznego."
+        },
+        {
+          "day": 30,
+          "title": "Księga XIII — Odpoczynek w Bogu",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 41,
+          "description": "Finał Wyznań — odpoczynek szabatowy jako obraz wieczności."
+        }
+      ]
+    },
+    {
+      "id": "desert-fathers-week",
+      "title": "Ojcowie Pustyni w tydzień",
+      "description": "Tygodniowy plan lektury mądrości Ojców Pustyni — od myśli św. Jana Chryzostoma po reguły monastyczne.",
+      "totalDays": 7,
+      "icon": "terrain",
+      "days": [
+        {
+          "day": 1,
+          "title": "Chryzostom — O modlitwie",
+          "textId": "chryzostom-mysli",
+          "chapterIndex": 0,
+          "description": "Wprowadzenie do myśli Złotoustego — o mocy i potrzebie modlitwy."
+        },
+        {
+          "day": 2,
+          "title": "Chryzostom — O pokorze",
+          "textId": "chryzostom-mysli",
+          "chapterIndex": 5,
+          "description": "Nauki o pokorze jako fundamencie życia duchowego."
+        },
+        {
+          "day": 3,
+          "title": "Chryzostom — O cierpieniu",
+          "textId": "chryzostom-mysli",
+          "chapterIndex": 10,
+          "description": "Jak Ojcowie rozumieli sens cierpienia i prób."
+        },
+        {
+          "day": 4,
+          "title": "Reguła — Posłuszeństwo",
+          "textId": "benedykt-regula",
+          "chapterIndex": 0,
+          "description": "Fundamenty reguły benedyktyńskiej — słuchanie i posłuszeństwo."
+        },
+        {
+          "day": 5,
+          "title": "Reguła — Ora et Labora",
+          "textId": "benedykt-regula",
+          "chapterIndex": 1,
+          "description": "Równowaga modlitwy i pracy w tradycji monastycznej."
+        },
+        {
+          "day": 6,
+          "title": "Chryzostom — O miłosierdziu",
+          "textId": "chryzostom-mysli",
+          "chapterIndex": 15,
+          "description": "Praktyczne nauczanie o jałmużnie i trosce o ubogich."
+        },
+        {
+          "day": 7,
+          "title": "Chryzostom — O Eucharystii",
+          "textId": "chryzostom-mysli",
+          "chapterIndex": 20,
+          "description": "Podsumowanie tygodnia — Eucharystia jako centrum życia duchowego."
+        }
+      ]
+    },
+    {
+      "id": "advent-z-ojcami",
+      "title": "Adwent z Ojcami",
+      "description": "Czterotygodniowy plan adwentowy — codzienne czytania z Ojców Kościoła przygotowujące do Bożego Narodzenia.",
+      "totalDays": 28,
+      "icon": "brightness_7",
+      "days": [
+        {
+          "day": 1,
+          "title": "Oczekiwanie — Didache",
+          "textId": "didache",
+          "chapterIndex": 0,
+          "description": "Droga Życia jako przygotowanie serca na przyjście Pana."
+        },
+        {
+          "day": 2,
+          "title": "Czuwanie — Didache",
+          "textId": "didache",
+          "chapterIndex": 1,
+          "description": "Wezwanie do czujności i gotowości."
+        },
+        {
+          "day": 3,
+          "title": "Nawrócenie — Augustyn",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 0,
+          "description": "Niespokojne serce szuka Boga — początek drogi nawrócenia."
+        },
+        {
+          "day": 4,
+          "title": "Pokora — Chryzostom",
+          "textId": "chryzostom-mysli",
+          "chapterIndex": 5,
+          "description": "O pokorze jako warunku przyjęcia Bożych darów."
+        },
+        {
+          "day": 5,
+          "title": "Tęsknota — Augustyn",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 2,
+          "description": "Augustyn szuka szczęścia w świecie — a znajduje pustkę."
+        },
+        {
+          "day": 6,
+          "title": "Światło — List do Diogneta",
+          "textId": "list-do-diogneta",
+          "chapterIndex": 0,
+          "description": "Chrześcijanie jako światło świata — apologia wiary."
+        },
+        {
+          "day": 7,
+          "title": "Niedziela I — Dusza świata",
+          "textId": "list-do-diogneta",
+          "chapterIndex": 1,
+          "description": "Słynny fragment o chrześcijanach jako duszy świata."
+        },
+        {
+          "day": 8,
+          "title": "Modlitwa — Chryzostom",
+          "textId": "chryzostom-mysli",
+          "chapterIndex": 0,
+          "description": "O mocy modlitwy w czasie oczekiwania."
+        },
+        {
+          "day": 9,
+          "title": "Cisza — Benedykt",
+          "textId": "benedykt-regula",
+          "chapterIndex": 0,
+          "description": "Milczenie i słuchanie — adwentowa postawa serca."
+        },
+        {
+          "day": 10,
+          "title": "Poszukiwanie — Augustyn",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 4,
+          "description": "Poszukiwanie mądrości — Augustyn w Kartaginie."
+        },
+        {
+          "day": 11,
+          "title": "Prawda — Augustyn",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 6,
+          "description": "Błądzenie wśród fałszywych nauk — tęsknota za prawdą."
+        },
+        {
+          "day": 12,
+          "title": "Przyjaźń — Chryzostom",
+          "textId": "chryzostom-mysli",
+          "chapterIndex": 8,
+          "description": "O prawdziwej przyjaźni i wspólnocie wiary."
+        },
+        {
+          "day": 13,
+          "title": "Nadzieja — Augustyn",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 8,
+          "description": "W ciemności żałoby rodzi się nadzieja."
+        },
+        {
+          "day": 14,
+          "title": "Niedziela II — Bogurodzica",
+          "textId": "bogurodzica",
+          "chapterIndex": 0,
+          "description": "Najstarsza polska pieśń maryjna — modlitwa do Matki Bożej."
+        },
+        {
+          "day": 15,
+          "title": "Jałmużna — Chryzostom",
+          "textId": "chryzostom-mysli",
+          "chapterIndex": 15,
+          "description": "O miłosierdziu i dzieleniu się z potrzebującymi."
+        },
+        {
+          "day": 16,
+          "title": "Praca — Benedykt",
+          "textId": "benedykt-regula",
+          "chapterIndex": 1,
+          "description": "Ora et labora — modlitwa i praca jako służba Bogu."
+        },
+        {
+          "day": 17,
+          "title": "Spotkanie — Augustyn",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 12,
+          "description": "Pierwsze spotkanie z Ambrożym — bliskość łaski."
+        },
+        {
+          "day": 18,
+          "title": "Słuchanie — Augustyn",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 13,
+          "description": "Kazania Ambrożego otwierają nową perspektywę."
+        },
+        {
+          "day": 19,
+          "title": "Wierność — Chryzostom",
+          "textId": "chryzostom-mysli",
+          "chapterIndex": 20,
+          "description": "O wierności w codziennym życiu duchowym."
+        },
+        {
+          "day": 20,
+          "title": "Oczyszczenie — Augustyn",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 15,
+          "description": "Neoplatońskie oczyszczenie umysłu — zbliżanie się do Boga."
+        },
+        {
+          "day": 21,
+          "title": "Niedziela III — Kazanie",
+          "textId": "skarga-kazania-sejmowe",
+          "chapterIndex": 0,
+          "description": "Piotr Skarga o miłości ojczyzny i odpowiedzialności — radość adwentu."
+        },
+        {
+          "day": 22,
+          "title": "Nawrócenie — Augustyn",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 17,
+          "description": "Historie nawróceń, które inspirują Augustyna."
+        },
+        {
+          "day": 23,
+          "title": "Tolle, lege! — Augustyn",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 18,
+          "description": "Weź i czytaj! — moment przełomu."
+        },
+        {
+          "day": 24,
+          "title": "Chrzest — Augustyn",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 20,
+          "description": "Nowe narodziny w wodach chrztu — symbol Bożego Narodzenia."
+        },
+        {
+          "day": 25,
+          "title": "Boże Narodzenie — Pałac pamięci",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 23,
+          "description": "W pałacu pamięci szukamy Boga, który sam nas szuka."
+        },
+        {
+          "day": 26,
+          "title": "Dziękczynienie — Chryzostom",
+          "textId": "chryzostom-mysli",
+          "chapterIndex": 25,
+          "description": "O wdzięczności za dar Wcielenia."
+        },
+        {
+          "day": 27,
+          "title": "Czas — Augustyn",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 28,
+          "description": "Medytacja nad czasem i wiecznością — Bóg wkracza w czas."
+        },
+        {
+          "day": 28,
+          "title": "Odpoczynek — Augustyn",
+          "textId": "augustyn-wyznania",
+          "chapterIndex": 41,
+          "description": "Szabatowy odpoczynek — zakończenie adwentowej podróży."
+        }
+      ]
+    }
+  ]
+}
