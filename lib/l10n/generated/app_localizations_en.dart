@@ -145,4 +145,48 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get statusPlaceholder => 'Coming soon';
+
+  @override
+  String get readerSettings => 'Reader settings';
+
+  @override
+  String get fontSize => 'Font size';
+
+  @override
+  String get fontFamily => 'Font';
+
+  @override
+  String get chapters => 'Chapters';
+
+  @override
+  String chapterOf(int current, int total) {
+    return 'Chapter $current of $total';
+  }
+
+  @override
+  String get addBookmark => 'Add bookmark';
+
+  @override
+  String get removeBookmark => 'Remove bookmark';
+
+  @override
+  String get bookmarkAdded => 'Bookmark added';
+
+  @override
+  String get bookmarkRemoved => 'Bookmark removed';
+
+  @override
+  String get bookmarkNoteHint => 'Add a note (optional)';
+
+  @override
+  String get previousChapter => 'Previous chapter';
+
+  @override
+  String get nextChapter => 'Next chapter';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get save => 'Save';
 }

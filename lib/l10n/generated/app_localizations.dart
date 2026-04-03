@@ -355,6 +355,90 @@ abstract class AppLocalizations {
   /// In pl, this message translates to:
   /// **'Wkrótce'**
   String get statusPlaceholder;
+
+  /// No description provided for @readerSettings.
+  ///
+  /// In pl, this message translates to:
+  /// **'Ustawienia czytnika'**
+  String get readerSettings;
+
+  /// No description provided for @fontSize.
+  ///
+  /// In pl, this message translates to:
+  /// **'Rozmiar czcionki'**
+  String get fontSize;
+
+  /// No description provided for @fontFamily.
+  ///
+  /// In pl, this message translates to:
+  /// **'Czcionka'**
+  String get fontFamily;
+
+  /// No description provided for @chapters.
+  ///
+  /// In pl, this message translates to:
+  /// **'Rozdziały'**
+  String get chapters;
+
+  /// No description provided for @chapterOf.
+  ///
+  /// In pl, this message translates to:
+  /// **'Rozdział {current} z {total}'**
+  String chapterOf(int current, int total);
+
+  /// No description provided for @addBookmark.
+  ///
+  /// In pl, this message translates to:
+  /// **'Dodaj zakładkę'**
+  String get addBookmark;
+
+  /// No description provided for @removeBookmark.
+  ///
+  /// In pl, this message translates to:
+  /// **'Usuń zakładkę'**
+  String get removeBookmark;
+
+  /// No description provided for @bookmarkAdded.
+  ///
+  /// In pl, this message translates to:
+  /// **'Zakładka dodana'**
+  String get bookmarkAdded;
+
+  /// No description provided for @bookmarkRemoved.
+  ///
+  /// In pl, this message translates to:
+  /// **'Zakładka usunięta'**
+  String get bookmarkRemoved;
+
+  /// No description provided for @bookmarkNoteHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Dodaj notatkę (opcjonalnie)'**
+  String get bookmarkNoteHint;
+
+  /// No description provided for @previousChapter.
+  ///
+  /// In pl, this message translates to:
+  /// **'Poprzedni rozdział'**
+  String get previousChapter;
+
+  /// No description provided for @nextChapter.
+  ///
+  /// In pl, this message translates to:
+  /// **'Następny rozdział'**
+  String get nextChapter;
+
+  /// No description provided for @cancel.
+  ///
+  /// In pl, this message translates to:
+  /// **'Anuluj'**
+  String get cancel;
+
+  /// No description provided for @save.
+  ///
+  /// In pl, this message translates to:
+  /// **'Zapisz'**
+  String get save;
 }
 
 class _AppLocalizationsDelegate

@@ -146,4 +146,48 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get statusPlaceholder => 'Wkrótce';
+
+  @override
+  String get readerSettings => 'Ustawienia czytnika';
+
+  @override
+  String get fontSize => 'Rozmiar czcionki';
+
+  @override
+  String get fontFamily => 'Czcionka';
+
+  @override
+  String get chapters => 'Rozdziały';
+
+  @override
+  String chapterOf(int current, int total) {
+    return 'Rozdział $current z $total';
+  }
+
+  @override
+  String get addBookmark => 'Dodaj zakładkę';
+
+  @override
+  String get removeBookmark => 'Usuń zakładkę';
+
+  @override
+  String get bookmarkAdded => 'Zakładka dodana';
+
+  @override
+  String get bookmarkRemoved => 'Zakładka usunięta';
+
+  @override
+  String get bookmarkNoteHint => 'Dodaj notatkę (opcjonalnie)';
+
+  @override
+  String get previousChapter => 'Poprzedni rozdział';
+
+  @override
+  String get nextChapter => 'Następny rozdział';
+
+  @override
+  String get cancel => 'Anuluj';
+
+  @override
+  String get save => 'Zapisz';
 }
