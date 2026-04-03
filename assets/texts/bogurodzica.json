@@ -1,0 +1,30 @@
+{
+  "id": "bogurodzica",
+  "title": "Bogurodzica",
+  "titleOriginal": "Bogurodzica",
+  "author": "Anonim",
+  "authorOriginal": "Anonymus",
+  "era": "XIII w.",
+  "yearWritten": "ok. 1250",
+  "category": "hymnografia",
+  "language": "pl",
+  "translator": null,
+  "translationYear": null,
+  "source": "pl.wikisource.org",
+  "license": "public_domain",
+  "description": "Najstarsza znana polska pieśń religijna, będąca zarazem najstarszym zachowanym polskim tekstem poetyckim. Bogurodzica pełniła rolę hymnu narodowego — śpiewali ją rycerze polscy przed bitwą pod Grunwaldem w 1410 roku. Tekst jest modlitewnym wezwaniem do Maryi i Chrystusa.",
+  "chapters": [
+    {
+      "title": "Strofy pierwotne",
+      "content": "Boga-Rodzica Dziewica,\nBogiem wsławiona Marya.\nU Twego Syna, Hospodyna\nMatko zwolona Marya,\nZiści nam spust winom,\nKyrye eleyson!\n\nTwego Syna Chrzciciela, zbożny czas.\nUsłysz głos, napełnij myśli człowiecze:\nSłysz modlitwę, jenże Cię prosimy:\nTo dać raczy, Jego prosimy:\nDaj na świecie zbożny pobyt;\nPo żywocie rajski przebyt,\nKyrye eleyson."
+    },
+    {
+      "title": "Rozszerzenie średniowieczne",
+      "content": "Narodził się dla nas Syn Boży,\nW to wierzaj człowiecze zbożny\nIż przez trud Bóg swój lud\nOdjął djabłu z straży.\nPrzydał nam zdrowia wiecznego,\nStarostę skował piekielnego;\nŚmierć podjął, wspomionął człowieka pierwszego\nJeszcze trudy cierpiał bezmierne,\nJeszcze był nie przyśpiał za wierne,\nA że sam Bóg zmartwychwstał.\n\nAdamie, ty Boży kmieciu,\nTy siedzisz u Boga w wiecu,\nDomieść nas swe dzieci\nGdzie królują święci Anieli.\n\nTam radość, tam miłość,\nTam widzenie Twórca anielskie bez końca.\nTu się nam zjawiło djable potępienie;\nNi srebrem, ni złotem, nas z piekła odkupił,\nMocą swą zastąpił.\nDla ciebie człowiecze, dał Bóg przekłuć sobie:\nBok, ręce, nodze obie;\nKrew święta szła z boku na zbawienie tobie.\n\nWierz-że w to człowiecze, iż Jezus, Bóg prawy\nCierpiał za nas rany:\nSwą świętą krew przelał za nas chrześcijany\nO duszy, o grzesznej sam Bóg pieczy ima,\nDjabłu ją odejma,\nGdzie to sam króluje, tam ją sobie przyjmuje."
+    },
+    {
+      "title": "Strofy końcowe",
+      "content": "Już nam czas, godzina grzechów się kajaci,\nBogu chwałę daci,\nZe wszemi siłami Boga miłowaci\n\nMarya Dziewica prosi Syna Swego,\nKróla niebieskiego,\nAby nas uchował ode wszego złego.\n\nWszyscy święci proście, nas grzesznych wspomóżcie;\nByśmy z wami przebywali\nJezu Chrysta chwalili.\n\nTegoż nas domieści Jezu Chryste miły,\nByśmy z sobą byli,\nGdzie się nam radują już niebieskie siły,\nAmen, amen, amen, tako Bóg daj.\nAbyśmy wszyscy poszli w raj,\nGdzie królują Anieli."
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-04-03",
+  "texts": [
+    {
+      "id": "augustyn-wyznania",
+      "file": "augustyn-wyznania.json",
+      "title": "Wyznania",
+      "titleOriginal": "Confessiones",
+      "author": "Św. Augustyn z Hippony",
+      "era": "IV-V w.",
+      "category": "patrystyka",
+      "language": "pl",
+      "chaptersCount": 42,
+      "status": "complete"
+    },
+    {
+      "id": "didache",
+      "file": "didache.json",
+      "title": "Didache — Nauka Dwunastu Apostołów",
+      "titleOriginal": "Διδαχὴ τῶν δώδεκα ἀποστόλων",
+      "author": "Anonim (Ojcowie Apostolscy)",
+      "era": "I-II w.",
+      "category": "patrystyka",
+      "language": "pl",
+      "chaptersCount": 6,
+      "status": "complete"
+    },
+    {
+      "id": "chryzostom-mysli",
+      "file": "chryzostom-mysli.json",
+      "title": "Myśli",
+      "titleOriginal": "Selecta ex operibus S. Joannis Chrysostomi",
+      "author": "Św. Jan Chryzostom",
+      "era": "IV-V w.",
+      "category": "patrystyka",
+      "language": "pl",
+      "chaptersCount": 38,
+      "status": "complete"
+    },
+    {
+      "id": "kempis-nasladowanie",
+      "file": "kempis-nasladowanie.json",
+      "title": "O naśladowaniu Chrystusa",
+      "titleOriginal": "De Imitatione Christi",
+      "author": "Tomasz à Kempis",
+      "era": "XV w.",
+      "category": "duchowość",
+      "language": "pl",
+      "chaptersCount": 5,
+      "status": "placeholder"
+    },
+    {
+      "id": "list-do-diogneta",
+      "file": "list-do-diogneta.json",
+      "title": "List do Diogneta",
+      "titleOriginal": "Πρὸς Διόγνητον",
+      "author": "Anonim (Ojcowie Apostolscy)",
+      "era": "II-III w.",
+      "category": "patrystyka",
+      "language": "pl",
+      "chaptersCount": 5,
+      "status": "partial"
+    },
+    {
+      "id": "benedykt-regula",
+      "file": "benedykt-regula.json",
+      "title": "Reguła",
+      "titleOriginal": "Regula Sancti Benedicti",
+      "author": "Św. Benedykt z Nursji",
+      "era": "VI w.",
+      "category": "monastycyzm",
+      "language": "pl",
+      "chaptersCount": 4,
+      "status": "partial"
+    },
+    {
+      "id": "bogurodzica",
+      "file": "bogurodzica.json",
+      "title": "Bogurodzica",
+      "titleOriginal": "Bogurodzica",
+      "author": "Anonim",
+      "era": "XIII w.",
+      "category": "hymnografia",
+      "language": "pl",
+      "chaptersCount": 3,
+      "status": "complete"
+    },
+    {
+      "id": "skarga-kazania-sejmowe",
+      "file": "skarga-kazania-sejmowe.json",
+      "title": "Kazania sejmowe",
+      "titleOriginal": "Kazania sejmowe",
+      "author": "Piotr Skarga",
+      "era": "XVI w.",
+      "category": "kaznodziejstwo",
+      "language": "pl",
+      "chaptersCount": 2,
+      "status": "complete"
+    }
+  ]
+}
