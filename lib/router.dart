@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:patres/blocs/audio_bloc.dart';
 import 'package:patres/blocs/reader_bloc.dart';
 import 'package:patres/blocs/reader_event.dart';
 import 'package:patres/blocs/search_bloc.dart';
+import 'package:patres/blocs/tts_generation_bloc.dart';
+import 'package:patres/blocs/tts_generation_event.dart';
+import 'package:patres/screens/audio_downloads_screen.dart';
 import 'package:patres/screens/home_screen.dart';
 import 'package:patres/screens/library_screen.dart';
 import 'package:patres/screens/plan_detail_screen.dart';
@@ -13,6 +17,7 @@ import 'package:patres/screens/search_screen.dart';
 import 'package:patres/screens/settings_screen.dart';
 import 'package:patres/screens/author_profile_screen.dart';
 import 'package:patres/screens/splash_screen.dart';
+import 'package:patres/services/audio_service.dart';
 import 'package:patres/services/database_service.dart';
 import 'package:patres/services/reader_storage_service.dart';
 import 'package:patres/services/search_service.dart';
@@ -25,8 +30,12 @@ final _shellNavigatorKey = GlobalKey<NavigatorState>();
 GoRouter createRouter({
   DatabaseService? databaseService,
   SearchService? searchService,
+  TtsAudioService? ttsAudioService,
+  AudioBloc? audioBloc,
+  TtsGenerationBloc? ttsGenerationBloc,
 }) {
   final dbService = databaseService ?? DatabaseService();
+  final ttsService = ttsAudioService ?? TtsAudioService();
 
   return GoRouter(
     navigatorKey: rootNavigatorKey,
@@ -97,14 +106,27 @@ GoRouter createRouter({
           final chapterParam = state.uri.queryParameters['chapter'];
           final initialChapter =
               chapterParam != null ? int.tryParse(chapterParam) : null;
-          return BlocProvider(
-            create: (_) => ReaderBloc(
-              textService: const TextService(),
-              storageService: ReaderStorageService(
-                databaseService: dbService,
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (_) => ReaderBloc(
+                  textService: const TextService(),
+                  storageService: ReaderStorageService(
+                    databaseService: dbService,
+                  ),
+                )..add(ReaderLoadRequested(
+                    textId: textId, initialChapter: initialChapter)),
               ),
-            )..add(ReaderLoadRequested(
-                textId: textId, initialChapter: initialChapter)),
+              BlocProvider(
+                create: (_) =>
+                    audioBloc ?? AudioBloc(),
+              ),
+              BlocProvider(
+                create: (_) =>
+                    ttsGenerationBloc ??
+                    TtsGenerationBloc(audioService: ttsService),
+              ),
+            ],
             child: ReaderScreen(textId: textId),
           );
         },
@@ -123,6 +145,19 @@ GoRouter createRouter({
                 SearchBloc(searchService: svc)
                   ..add(const SearchIndexRequested()),
             child: const SearchScreen(),
+          );
+        },
+      ),
+      GoRoute(
+        path: '/audio-downloads',
+        parentNavigatorKey: rootNavigatorKey,
+        builder: (context, state) {
+          return BlocProvider(
+            create: (_) =>
+                ttsGenerationBloc ??
+                TtsGenerationBloc(audioService: ttsService)
+                  ..add(const TtsLoadCacheStatus()),
+            child: const AudioDownloadsScreen(),
           );
         },
       ),

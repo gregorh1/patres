@@ -126,5 +126,33 @@
   },
   "planInProgress": "W trakcie",
   "planCompletedStatus": "Ukończony",
-  "planStartPrompt": "Rozpocznij plan, aby śledzić postępy"
+  "planStartPrompt": "Rozpocznij plan, aby śledzić postępy",
+  "audioListen": "Słuchaj",
+  "audioDownloads": "Audiobooki",
+  "audioDownloadsDescription": "Zarządzaj pobranymi audiobookami",
+  "audioDownload": "Pobierz audio",
+  "audioDeleteDownload": "Usuń audio",
+  "audioDeleteConfirm": "Czy na pewno chcesz usunąć pobrane audio?",
+  "audioDelete": "Usuń",
+  "audioStorageUsed": "Zajęte miejsce",
+  "audioGenerating": "Generowanie audio…",
+  "audioGeneratingChapter": "Generowanie audio rozdziału…",
+  "audioGenerationError": "Błąd generowania audio",
+  "audioChapterProgress": "Rozdział {completed} z {total}",
+  "@audioChapterProgress": {
+    "placeholders": {
+      "completed": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "audioSpeed": "Prędkość odtwarzania",
+  "audioSleepTimer": "Wyłącznik czasowy",
+  "audioSleepTimerActive": "Wyłącznik aktywny",
+  "audioSleepTimerCancel": "Anuluj wyłącznik",
+  "audioSleepTimer15": "15 minut",
+  "audioSleepTimer30": "30 minut",
+  "audioSleepTimer45": "45 minut",
+  "audioSleepTimer60": "1 godzina",
+  "audioSkipForward": "Przewiń do przodu",
+  "audioSkipBackward": "Przewiń do tyłu"
 }
