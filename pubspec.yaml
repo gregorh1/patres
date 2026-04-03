@@ -26,3 +26,13 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
+  assets:
+    - assets/texts/manifest.json
+    - assets/texts/augustyn-wyznania.json
+    - assets/texts/didache.json
+    - assets/texts/chryzostom-mysli.json
+    - assets/texts/kempis-nasladowanie.json
+    - assets/texts/list-do-diogneta.json
+    - assets/texts/benedykt-regula.json
+    - assets/texts/bogurodzica.json
+    - assets/texts/skarga-kazania-sejmowe.json
