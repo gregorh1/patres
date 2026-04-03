@@ -769,6 +769,12 @@ abstract class AppLocalizations {
   /// In pl, this message translates to:
   /// **'Przewiń do tyłu'**
   String get audioSkipBackward;
+
+  /// No description provided for @switchLanguage.
+  ///
+  /// In pl, this message translates to:
+  /// **'Zmień język'**
+  String get switchLanguage;
 }
 
 class _AppLocalizationsDelegate

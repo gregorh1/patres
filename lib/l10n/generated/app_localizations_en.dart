@@ -378,4 +378,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get audioSkipBackward => 'Skip backward';
+
+  @override
+  String get switchLanguage => 'Switch language';
 }

@@ -387,4 +387,7 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get audioSkipBackward => 'Przewiń do tyłu';
+
+  @override
+  String get switchLanguage => 'Zmień język';
 }
