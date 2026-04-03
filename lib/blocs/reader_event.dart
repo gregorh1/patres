@@ -72,3 +72,11 @@ class ReaderHighlightToggled extends ReaderEvent {
   @override
   List<Object?> get props => [paragraphIndex];
 }
+
+class ReaderLanguageSwitchRequested extends ReaderEvent {
+  const ReaderLanguageSwitchRequested({required this.targetTextId});
+  final String targetTextId;
+
+  @override
+  List<Object?> get props => [targetTextId];
+}

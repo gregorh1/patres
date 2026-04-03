@@ -16,6 +16,7 @@ class LibraryState extends Equatable {
     this.searchQuery = '',
     this.selectedCategory,
     this.selectedEra,
+    this.selectedLanguage,
     this.sortMode = LibrarySortMode.title,
     this.viewMode = LibraryViewMode.grid,
   });
@@ -28,6 +29,7 @@ class LibraryState extends Equatable {
   final String searchQuery;
   final String? selectedCategory;
   final String? selectedEra;
+  final String? selectedLanguage;
   final LibrarySortMode sortMode;
   final LibraryViewMode viewMode;
 
@@ -40,6 +42,7 @@ class LibraryState extends Equatable {
     String? searchQuery,
     String? selectedCategory,
     String? selectedEra,
+    String? selectedLanguage,
     LibrarySortMode? sortMode,
     LibraryViewMode? viewMode,
   }) {
@@ -52,6 +55,7 @@ class LibraryState extends Equatable {
       searchQuery: searchQuery ?? this.searchQuery,
       selectedCategory: selectedCategory,
       selectedEra: selectedEra,
+      selectedLanguage: selectedLanguage,
       sortMode: sortMode ?? this.sortMode,
       viewMode: viewMode ?? this.viewMode,
     );
@@ -67,6 +71,7 @@ class LibraryState extends Equatable {
         searchQuery,
         selectedCategory,
         selectedEra,
+        selectedLanguage,
         sortMode,
         viewMode,
       ];

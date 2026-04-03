@@ -24,6 +24,18 @@ const _manifestJson = '''
       "status": "complete"
     },
     {
+      "id": "augustine-en",
+      "file": "augustine-en.json",
+      "title": "Confessions",
+      "titleOriginal": "Confessiones",
+      "author": "St. Augustine",
+      "era": "IV-V w.",
+      "category": "patrystyka",
+      "language": "en",
+      "chaptersCount": 4,
+      "status": "placeholder"
+    },
+    {
       "id": "didache",
       "file": "didache.json",
       "title": "Didache",
@@ -92,8 +104,8 @@ void main() {
       await Future<void>.delayed(const Duration(milliseconds: 50));
 
       expect(bloc.state.status, LibraryStatus.loaded);
-      expect(bloc.state.allTexts, hasLength(3));
-      expect(bloc.state.filteredTexts, hasLength(3));
+      expect(bloc.state.allTexts, hasLength(4));
+      expect(bloc.state.filteredTexts, hasLength(4));
       expect(bloc.state.availableCategories, containsAll(['monastycyzm', 'patrystyka']));
       expect(bloc.state.availableEras, isNotEmpty);
     });
@@ -141,7 +153,7 @@ void main() {
 
       bloc.add(const LibraryCategoryFilterChanged(null));
       await Future<void>.delayed(Duration.zero);
-      expect(bloc.state.filteredTexts, hasLength(3));
+      expect(bloc.state.filteredTexts, hasLength(4));
     });
 
     test('LibraryEraFilterChanged filters by era', () async {
@@ -175,8 +187,13 @@ void main() {
 
       // I-II w. (1) should come before IV-V w. (4) before VI w. (6)
       expect(bloc.state.filteredTexts[0].id, 'didache');
-      expect(bloc.state.filteredTexts[1].id, 'augustyn');
-      expect(bloc.state.filteredTexts[2].id, 'benedykt');
+      // augustyn and augustine-en share the same era (IV-V w.)
+      final middleIds = bloc.state.filteredTexts
+          .sublist(1, 3)
+          .map((t) => t.id)
+          .toSet();
+      expect(middleIds, containsAll(['augustyn', 'augustine-en']));
+      expect(bloc.state.filteredTexts[3].id, 'benedykt');
     });
 
     test('LibraryViewModeToggled toggles between grid and list', () async {
@@ -191,13 +208,37 @@ void main() {
       expect(bloc.state.viewMode, LibraryViewMode.grid);
     });
 
+    test('LibraryLanguageFilterChanged filters by language', () async {
+      bloc.add(const LibraryLoadRequested());
+      await Future<void>.delayed(const Duration(milliseconds: 50));
+
+      bloc.add(const LibraryLanguageFilterChanged('en'));
+      await Future<void>.delayed(Duration.zero);
+
+      expect(bloc.state.filteredTexts, hasLength(1));
+      expect(bloc.state.filteredTexts.first.language, 'en');
+    });
+
+    test('LibraryLanguageFilterChanged(null) shows all languages', () async {
+      bloc.add(const LibraryLoadRequested());
+      await Future<void>.delayed(const Duration(milliseconds: 50));
+
+      bloc.add(const LibraryLanguageFilterChanged('pl'));
+      await Future<void>.delayed(Duration.zero);
+      expect(bloc.state.filteredTexts, hasLength(3));
+
+      bloc.add(const LibraryLanguageFilterChanged(null));
+      await Future<void>.delayed(Duration.zero);
+      expect(bloc.state.filteredTexts, hasLength(4));
+    });
+
     test('combined filters work together', () async {
       bloc.add(const LibraryLoadRequested());
       await Future<void>.delayed(const Duration(milliseconds: 50));
 
       bloc.add(const LibraryCategoryFilterChanged('patrystyka'));
       await Future<void>.delayed(Duration.zero);
-      expect(bloc.state.filteredTexts, hasLength(2));
+      expect(bloc.state.filteredTexts, hasLength(3));
 
       bloc.add(const LibrarySearchChanged('Didache'));
       await Future<void>.delayed(Duration.zero);

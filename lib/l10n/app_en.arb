@@ -18,6 +18,8 @@
   "themeDark": "Dark",
   "themeSepia": "Sepia",
   "language": "Language",
+  "languageEnglish": "English",
+  "languagePolish": "Polski",
   "readerTitle": "Reader",
   "readerPlaceholder": "Reading content will appear here.",
   "churchFathers": "Church Fathers",
@@ -57,8 +59,12 @@
   "chapterOf": "Chapter {current} of {total}",
   "@chapterOf": {
     "placeholders": {
-      "current": { "type": "int" },
-      "total": { "type": "int" }
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
   "addBookmark": "Add bookmark",
@@ -75,7 +81,9 @@
   "dailyReadingShared": "— {author}, via Patres",
   "@dailyReadingShared": {
     "placeholders": {
-      "author": { "type": "String" }
+      "author": {
+        "type": "String"
+      }
     }
   },
   "authorProfile": "Author profile",
@@ -141,8 +149,12 @@
   "audioChapterProgress": "Chapter {completed} of {total}",
   "@audioChapterProgress": {
     "placeholders": {
-      "completed": { "type": "int" },
-      "total": { "type": "int" }
+      "completed": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
   "audioSpeed": "Playback speed",
@@ -154,5 +166,6 @@
   "audioSleepTimer45": "45 minutes",
   "audioSleepTimer60": "1 hour",
   "audioSkipForward": "Skip forward",
-  "audioSkipBackward": "Skip backward"
+  "audioSkipBackward": "Skip backward",
+  "switchLanguage": "Switch language"
 }

@@ -155,6 +155,8 @@ class _ReaderScreenState extends State<ReaderScreen> {
                         ),
                       ),
                       actions: [
+                        if (state.alternateLanguageIds.length > 1)
+                          _LanguageSwitchButton(state: state),
                         IconButton(
                           icon: const Icon(Icons.headphones_rounded),
                           tooltip: l10n.audioListen,
@@ -637,6 +639,51 @@ class _ChapterNavigationBar extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+// --- Language Switch Button ---
+
+class _LanguageSwitchButton extends StatelessWidget {
+  const _LanguageSwitchButton({required this.state});
+  final ReaderState state;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    // Determine which language we're currently reading
+    final currentLang = state.alternateLanguageIds.entries
+        .where((e) => e.value == state.textId)
+        .map((e) => e.key)
+        .firstOrNull;
+
+    return PopupMenuButton<String>(
+      icon: const Icon(Icons.translate_rounded),
+      tooltip: l10n.switchLanguage,
+      onSelected: (targetId) {
+        context
+            .read<ReaderBloc>()
+            .add(ReaderLanguageSwitchRequested(targetTextId: targetId));
+      },
+      itemBuilder: (context) => state.alternateLanguageIds.entries.map((e) {
+        final langLabel = e.key == 'pl'
+            ? l10n.languagePolish
+            : l10n.languageEnglish;
+        return PopupMenuItem(
+          value: e.value,
+          enabled: e.key != currentLang,
+          child: Row(
+            children: [
+              Text(langLabel),
+              if (e.key == currentLang) ...[
+                const SizedBox(width: 8),
+                Icon(Icons.check, size: 16, color: Theme.of(context).colorScheme.primary),
+              ],
+            ],
+          ),
+        );
+      }).toList(),
     );
   }
 }

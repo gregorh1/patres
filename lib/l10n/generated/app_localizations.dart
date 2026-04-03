@@ -206,6 +206,18 @@ abstract class AppLocalizations {
   /// **'Język'**
   String get language;
 
+  /// No description provided for @languageEnglish.
+  ///
+  /// In pl, this message translates to:
+  /// **'English'**
+  String get languageEnglish;
+
+  /// No description provided for @languagePolish.
+  ///
+  /// In pl, this message translates to:
+  /// **'Polski'**
+  String get languagePolish;
+
   /// No description provided for @readerTitle.
   ///
   /// In pl, this message translates to:
@@ -757,6 +769,12 @@ abstract class AppLocalizations {
   /// In pl, this message translates to:
   /// **'Przewiń do tyłu'**
   String get audioSkipBackward;
+
+  /// No description provided for @switchLanguage.
+  ///
+  /// In pl, this message translates to:
+  /// **'Zmień język'**
+  String get switchLanguage;
 }
 
 class _AppLocalizationsDelegate

@@ -5,6 +5,7 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:patres/l10n/generated/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:patres/blocs/library_bloc.dart';
+import 'package:patres/blocs/locale_bloc.dart';
 import 'package:patres/blocs/plan_bloc.dart';
 import 'package:patres/blocs/theme_bloc.dart';
 import 'package:patres/router.dart';
@@ -42,6 +43,10 @@ class PatresApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => ThemeBloc()),
         BlocProvider(
+          create: (_) =>
+              LocaleBloc()..add(const LocaleLoadRequested()),
+        ),
+        BlocProvider(
           create: (_) => LibraryBloc(textService: textService),
         ),
         BlocProvider(
@@ -53,20 +58,24 @@ class PatresApp extends StatelessWidget {
         ),
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(
-        builder: (context, state) {
-          return MaterialApp.router(
-            title: 'Patres',
-            debugShowCheckedModeBanner: false,
-            theme: PatresTheme.themeFor(state.themeMode),
-            locale: const Locale('pl'),
-            supportedLocales: AppLocalizations.supportedLocales,
-            localizationsDelegates: const [
-              AppLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            routerConfig: router,
+        builder: (context, themeState) {
+          return BlocBuilder<LocaleBloc, LocaleState>(
+            builder: (context, localeState) {
+              return MaterialApp.router(
+                title: 'Patres',
+                debugShowCheckedModeBanner: false,
+                theme: PatresTheme.themeFor(themeState.themeMode),
+                locale: localeState.locale,
+                supportedLocales: AppLocalizations.supportedLocales,
+                localizationsDelegates: const [
+                  AppLocalizations.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+                routerConfig: router,
+              );
+            },
           );
         },
       ),

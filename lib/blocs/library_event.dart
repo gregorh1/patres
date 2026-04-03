@@ -47,6 +47,16 @@ class LibrarySortChanged extends LibraryEvent {
   List<Object?> get props => [sortMode];
 }
 
+class LibraryLanguageFilterChanged extends LibraryEvent {
+  const LibraryLanguageFilterChanged(this.language);
+
+  /// Null shows all languages.
+  final String? language;
+
+  @override
+  List<Object?> get props => [language];
+}
+
 class LibraryViewModeToggled extends LibraryEvent {
   const LibraryViewModeToggled();
 }

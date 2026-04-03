@@ -188,6 +188,8 @@ class _FilterBar extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       child: Row(
         children: [
+          _LanguageFilterChips(state: state),
+          const SizedBox(width: 8),
           if (state.availableCategories.isNotEmpty) ...[
             _buildFilterChip(
               context,
@@ -421,7 +423,13 @@ class _TextGridCard extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 8),
-              _StatusBadge(status: entry.status),
+              Row(
+                children: [
+                  _StatusBadge(status: entry.status),
+                  const SizedBox(width: 6),
+                  _LanguageBadge(language: entry.language),
+                ],
+              ),
             ],
           ),
         ),
@@ -501,6 +509,8 @@ class _TextListCard extends StatelessWidget {
                     Row(
                       children: [
                         _StatusBadge(status: entry.status),
+                        const SizedBox(width: 6),
+                        _LanguageBadge(language: entry.language),
                         const SizedBox(width: 8),
                         Text(
                           l10n.chaptersCount(entry.chaptersCount),
@@ -557,6 +567,36 @@ class _StatusBadge extends StatelessWidget {
 }
 
 // ---------------------------------------------------------------------------
+// Language badge
+// ---------------------------------------------------------------------------
+
+class _LanguageBadge extends StatelessWidget {
+  const _LanguageBadge({required this.language});
+  final String language;
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+      decoration: BoxDecoration(
+        color: cs.surfaceContainerHighest,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Text(
+        language.toUpperCase(),
+        style: TextStyle(
+          fontSize: 10,
+          fontWeight: FontWeight.w600,
+          color: cs.onSurfaceVariant,
+        ),
+      ),
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
 // Empty state
 // ---------------------------------------------------------------------------
 
@@ -589,6 +629,50 @@ class _EmptyState extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Language filter chips
+// ---------------------------------------------------------------------------
+
+class _LanguageFilterChips extends StatelessWidget {
+  const _LanguageFilterChips({required this.state});
+  final LibraryState state;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final cs = Theme.of(context).colorScheme;
+    final bloc = context.read<LibraryBloc>();
+
+    Widget chip(String label, String? filterValue) {
+      final isSelected = state.selectedLanguage == filterValue;
+      return ChoiceChip(
+        label: Text(label),
+        selected: isSelected,
+        onSelected: (_) =>
+            bloc.add(LibraryLanguageFilterChanged(filterValue)),
+        selectedColor: cs.primaryContainer,
+        labelStyle: TextStyle(
+          fontSize: 12,
+          color: isSelected ? cs.onPrimaryContainer : cs.onSurfaceVariant,
+        ),
+        visualDensity: VisualDensity.compact,
+        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      );
+    }
+
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        chip(l10n.filterAll, null),
+        const SizedBox(width: 6),
+        chip(l10n.languagePolish, 'pl'),
+        const SizedBox(width: 6),
+        chip(l10n.languageEnglish, 'en'),
+      ],
     );
   }
 }

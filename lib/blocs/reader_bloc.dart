@@ -19,6 +19,7 @@ class ReaderBloc extends Bloc<ReaderEvent, ReaderState> {
     on<ReaderBookmarkToggled>(_onBookmarkToggled);
     on<ReaderBookmarkRemoved>(_onBookmarkRemoved);
     on<ReaderHighlightToggled>(_onHighlightToggled);
+    on<ReaderLanguageSwitchRequested>(_onLanguageSwitchRequested);
   }
 
   final TextService textService;
@@ -41,6 +42,10 @@ class ReaderBloc extends Bloc<ReaderEvent, ReaderState> {
       final bookmarks = await storageService.getBookmarks(event.textId);
       final highlights = await storageService.getHighlights(event.textId);
 
+      // Find alternate language versions by matching titleOriginal
+      final alternateLanguageIds = await _findAlternateLanguages(
+          event.textId, textContent.titleOriginal);
+
       emit(state.copyWith(
         status: ReaderStatus.loaded,
         textContent: textContent,
@@ -50,6 +55,7 @@ class ReaderBloc extends Bloc<ReaderEvent, ReaderState> {
         scrollPosition: scrollPosition,
         bookmarks: bookmarks,
         highlights: highlights,
+        alternateLanguageIds: alternateLanguageIds,
       ));
     } catch (e) {
       emit(state.copyWith(
@@ -165,6 +171,31 @@ class ReaderBloc extends Bloc<ReaderEvent, ReaderState> {
       // Re-fetch to get the id assigned by SQLite
       final highlights = await storageService.getHighlights(state.textId);
       emit(state.copyWith(highlights: highlights));
+    }
+  }
+
+  Future<void> _onLanguageSwitchRequested(
+    ReaderLanguageSwitchRequested event,
+    Emitter<ReaderState> emit,
+  ) async {
+    // Reload with the alternate text ID
+    add(ReaderLoadRequested(textId: event.targetTextId));
+  }
+
+  Future<Map<String, String>> _findAlternateLanguages(
+      String currentId, String? titleOriginal) async {
+    if (titleOriginal == null || titleOriginal.isEmpty) return {};
+    try {
+      final manifest = await textService.loadManifest();
+      final alternates = <String, String>{};
+      for (final entry in manifest) {
+        if (entry.titleOriginal == titleOriginal) {
+          alternates[entry.language] = entry.id;
+        }
+      }
+      return alternates;
+    } catch (_) {
+      return {};
     }
   }
 }

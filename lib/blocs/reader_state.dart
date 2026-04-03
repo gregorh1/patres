@@ -17,6 +17,7 @@ class ReaderState extends Equatable {
     this.bookmarks = const [],
     this.highlights = const [],
     this.errorMessage,
+    this.alternateLanguageIds = const {},
   });
 
   final ReaderStatus status;
@@ -29,6 +30,8 @@ class ReaderState extends Equatable {
   final List<Bookmark> bookmarks;
   final List<Highlight> highlights;
   final String? errorMessage;
+  /// Maps language code → text ID for alternate language versions of the same work.
+  final Map<String, String> alternateLanguageIds;
 
   static const fontSizes = [14.0, 17.0, 20.0, 24.0, 28.0];
   static const fontSizeLabels = ['S', 'M', 'L', 'XL', 'XXL'];
@@ -61,6 +64,7 @@ class ReaderState extends Equatable {
     List<Bookmark>? bookmarks,
     List<Highlight>? highlights,
     String? errorMessage,
+    Map<String, String>? alternateLanguageIds,
   }) {
     return ReaderState(
       status: status ?? this.status,
@@ -73,6 +77,7 @@ class ReaderState extends Equatable {
       bookmarks: bookmarks ?? this.bookmarks,
       highlights: highlights ?? this.highlights,
       errorMessage: errorMessage ?? this.errorMessage,
+      alternateLanguageIds: alternateLanguageIds ?? this.alternateLanguageIds,
     );
   }
 
@@ -88,5 +93,6 @@ class ReaderState extends Equatable {
         bookmarks,
         highlights,
         errorMessage,
+        alternateLanguageIds,
       ];
 }

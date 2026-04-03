@@ -18,6 +18,8 @@
   "themeDark": "Ciemny",
   "themeSepia": "Sepia",
   "language": "Język",
+  "languageEnglish": "English",
+  "languagePolish": "Polski",
   "readerTitle": "Czytelnik",
   "readerPlaceholder": "Tutaj pojawi się tekst do czytania.",
   "churchFathers": "Ojcowie Kościoła",
@@ -57,8 +59,12 @@
   "chapterOf": "Rozdział {current} z {total}",
   "@chapterOf": {
     "placeholders": {
-      "current": { "type": "int" },
-      "total": { "type": "int" }
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
   "addBookmark": "Dodaj zakładkę",
@@ -75,7 +81,9 @@
   "dailyReadingShared": "— {author}, via Patres",
   "@dailyReadingShared": {
     "placeholders": {
-      "author": { "type": "String" }
+      "author": {
+        "type": "String"
+      }
     }
   },
   "authorProfile": "Profil autora",
@@ -141,8 +149,12 @@
   "audioChapterProgress": "Rozdział {completed} z {total}",
   "@audioChapterProgress": {
     "placeholders": {
-      "completed": { "type": "int" },
-      "total": { "type": "int" }
+      "completed": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
   "audioSpeed": "Prędkość odtwarzania",
@@ -154,5 +166,6 @@
   "audioSleepTimer45": "45 minut",
   "audioSleepTimer60": "1 godzina",
   "audioSkipForward": "Przewiń do przodu",
-  "audioSkipBackward": "Przewiń do tyłu"
+  "audioSkipBackward": "Przewiń do tyłu",
+  "switchLanguage": "Zmień język"
 }

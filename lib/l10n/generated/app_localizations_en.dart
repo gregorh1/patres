@@ -63,6 +63,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get language => 'Language';
 
   @override
+  String get languageEnglish => 'English';
+
+  @override
+  String get languagePolish => 'Polski';
+
+  @override
   String get readerTitle => 'Reader';
 
   @override
@@ -372,4 +378,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get audioSkipBackward => 'Skip backward';
+
+  @override
+  String get switchLanguage => 'Switch language';
 }

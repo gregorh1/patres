@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:patres/l10n/generated/app_localizations.dart';
+import 'package:patres/blocs/locale_bloc.dart';
 import 'package:patres/blocs/theme_bloc.dart';
 import 'package:patres/models/app_theme_mode.dart';
 
@@ -43,6 +44,26 @@ class SettingsScreen extends StatelessWidget {
                     currentMode: state.themeMode,
                     onChanged: (mode) {
                       context.read<ThemeBloc>().add(ThemeChanged(mode));
+                    },
+                  );
+                },
+              ),
+              const SizedBox(height: 32),
+
+              // Language section
+              Text(
+                l10n.language,
+                style: theme.textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(height: 12),
+              BlocBuilder<LocaleBloc, LocaleState>(
+                builder: (context, state) {
+                  return _LanguageSelector(
+                    currentLocale: state.locale,
+                    onChanged: (locale) {
+                      context.read<LocaleBloc>().add(LocaleChanged(locale));
                     },
                   );
                 },
@@ -296,6 +317,97 @@ class _ThemeOption extends StatelessWidget {
                 style: theme.textTheme.labelSmall?.copyWith(
                   color: isSelected ? cs.onPrimaryContainer : cs.onSurfaceVariant,
                   fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _LanguageSelector extends StatelessWidget {
+  const _LanguageSelector({
+    required this.currentLocale,
+    required this.onChanged,
+  });
+
+  final Locale currentLocale;
+  final ValueChanged<Locale> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        _LanguageOption(
+          label: 'Polski',
+          isSelected: currentLocale.languageCode == 'pl',
+          onTap: () => onChanged(const Locale('pl')),
+        ),
+        const SizedBox(width: 12),
+        _LanguageOption(
+          label: 'English',
+          isSelected: currentLocale.languageCode == 'en',
+          onTap: () => onChanged(const Locale('en')),
+        ),
+      ],
+    );
+  }
+}
+
+class _LanguageOption extends StatelessWidget {
+  const _LanguageOption({
+    required this.label,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  final String label;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final cs = theme.colorScheme;
+
+    return Expanded(
+      child: GestureDetector(
+        onTap: onTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.easeInOut,
+          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+          decoration: BoxDecoration(
+            color: isSelected
+                ? cs.primaryContainer
+                : cs.surfaceContainerHighest.withValues(alpha: 0.4),
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: isSelected ? cs.primary : Colors.transparent,
+              width: 2,
+            ),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.translate_rounded,
+                size: 18,
+                color: isSelected
+                    ? cs.onPrimaryContainer
+                    : cs.onSurfaceVariant,
+              ),
+              const SizedBox(width: 8),
+              Text(
+                label,
+                style: theme.textTheme.labelLarge?.copyWith(
+                  color: isSelected
+                      ? cs.onPrimaryContainer
+                      : cs.onSurfaceVariant,
+                  fontWeight:
+                      isSelected ? FontWeight.w600 : FontWeight.w400,
                 ),
               ),
             ],
