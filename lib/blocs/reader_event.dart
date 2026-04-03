@@ -8,11 +8,12 @@ sealed class ReaderEvent extends Equatable {
 }
 
 class ReaderLoadRequested extends ReaderEvent {
-  const ReaderLoadRequested({required this.textId});
+  const ReaderLoadRequested({required this.textId, this.initialChapter});
   final String textId;
+  final int? initialChapter;
 
   @override
-  List<Object?> get props => [textId];
+  List<Object?> get props => [textId, initialChapter];
 }
 
 class ReaderChapterChanged extends ReaderEvent {

@@ -1,13 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:patres/blocs/library_bloc.dart';
 import 'package:patres/l10n/generated/app_localizations.dart';
+import 'package:patres/models/daily_reading.dart';
 import 'package:patres/models/text_entry.dart';
+import 'package:patres/services/daily_reading_service.dart';
 import 'package:patres/theme.dart';
 import 'package:go_router/go_router.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key, this.dailyReadingService});
+
+  final DailyReadingService? dailyReadingService;
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  Future<DailyReading>? _dailyReadingFuture;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _dailyReadingFuture ??= _loadDailyReading();
+  }
+
+  Future<DailyReading> _loadDailyReading() {
+    final service = widget.dailyReadingService ??
+        DailyReadingService(
+            assetBundle: DefaultAssetBundle.of(context));
+    return service.getTodaysReading();
+  }
 
   static const _featuredIds = [
     'didache',
@@ -112,6 +137,25 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ],
                   ),
+                ),
+                const SizedBox(height: 24),
+
+                // Daily reading section
+                Text(
+                  l10n.dailyReading,
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                FutureBuilder<DailyReading>(
+                  future: _dailyReadingFuture,
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return const SizedBox(height: 120);
+                    }
+                    return _DailyReadingCard(reading: snapshot.data!);
+                  },
                 ),
                 const SizedBox(height: 32),
 
@@ -397,6 +441,107 @@ class _BookCard extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _DailyReadingCard extends StatelessWidget {
+  const _DailyReadingCard({required this.reading});
+
+  final DailyReading reading;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final cs = theme.colorScheme;
+    final l10n = AppLocalizations.of(context)!;
+
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: () => context.push(
+          '/reader/${reading.textId}?chapter=${reading.chapterIndex}',
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(
+                    Icons.format_quote_rounded,
+                    size: 28,
+                    color: cs.primary.withValues(alpha: 0.7),
+                  ),
+                  const Spacer(),
+                  IconButton(
+                    icon: Icon(
+                      Icons.share_rounded,
+                      size: 20,
+                      color: cs.onSurfaceVariant,
+                    ),
+                    tooltip: l10n.shareDailyReading,
+                    onPressed: () => _shareQuote(context),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Text(
+                reading.quote,
+                style: theme.textTheme.bodyLarge?.copyWith(
+                  fontStyle: FontStyle.italic,
+                  height: 1.6,
+                  color: cs.onSurface,
+                ),
+                maxLines: 6,
+                overflow: TextOverflow.ellipsis,
+              ),
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  Container(
+                    width: 24,
+                    height: 2,
+                    decoration: BoxDecoration(
+                      color: cs.primary.withValues(alpha: 0.4),
+                      borderRadius: BorderRadius.circular(1),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      reading.author,
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: cs.onSurfaceVariant,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  Icon(
+                    Icons.chevron_right,
+                    size: 18,
+                    color: cs.onSurfaceVariant.withValues(alpha: 0.5),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _shareQuote(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final text =
+        '„${reading.quote}"\n${l10n.dailyReadingShared(reading.author)}';
+    Clipboard.setData(ClipboardData(text: text));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(l10n.shareDailyReading),
+        duration: const Duration(seconds: 2),
       ),
     );
   }
