@@ -22,7 +22,7 @@ void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.dark,
-    systemNavigationBarColor: Color(0xFFF5E6D3),
+    systemNavigationBarColor: Color(0xFFF5EBE0),
   ));
 
   runApp(const PatresApp());
