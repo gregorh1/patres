@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(flutter devices:*)",
+      "Bash(flutter run:*)",
+      "Bash(python3 -m json.tool)",
+      "WebSearch",
+      "WebFetch(domain:pl.wikisource.org)",
+      "WebFetch(domain:pl.wikipedia.org)",
+      "WebFetch(domain:szkolateologii.dominikanie.pl)",
+      "WebFetch(domain:polona.pl)",
+      "WebFetch(domain:studiahistoricolitteraria.uken.krakow.pl)",
+      "WebFetch(domain:www.zarzeczny.jezuici.pl)",
+      "WebFetch(domain:archive.org)",
+      "WebFetch(domain:www.wtl.us.edu.pl)",
+      "WebFetch(domain:patres.pl)",
+      "WebFetch(domain:www.ultramontes.pl)",
+      "Bash(flutter analyze:*)"
+    ]
+  }
+}
