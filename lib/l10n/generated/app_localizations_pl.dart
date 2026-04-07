@@ -51,6 +51,9 @@ class AppLocalizationsPl extends AppLocalizations {
   String get themeMode => 'Motyw';
 
   @override
+  String get themeSystem => 'Systemowy';
+
+  @override
   String get themeLight => 'Jasny';
 
   @override

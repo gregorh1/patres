@@ -36,8 +36,15 @@ class PatresTheme {
   static const lightParchment = brandParchment;
   static const lightParchmentEnd = Color(0xFFEFE1D3);
 
-  static ThemeData themeFor(AppThemeMode mode) {
+  static ThemeData themeFor(
+    AppThemeMode mode, {
+    Brightness platformBrightness = Brightness.light,
+  }) {
     switch (mode) {
+      case AppThemeMode.system:
+        return platformBrightness == Brightness.dark
+            ? _darkTheme
+            : _lightTheme;
       case AppThemeMode.light:
         return _lightTheme;
       case AppThemeMode.dark:

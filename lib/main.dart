@@ -41,7 +41,10 @@ class PatresApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => ThemeBloc()),
+        BlocProvider(
+          create: (_) =>
+              ThemeBloc()..add(const ThemeLoadRequested()),
+        ),
         BlocProvider(
           create: (_) =>
               LocaleBloc()..add(const LocaleLoadRequested()),
@@ -61,10 +64,15 @@ class PatresApp extends StatelessWidget {
         builder: (context, themeState) {
           return BlocBuilder<LocaleBloc, LocaleState>(
             builder: (context, localeState) {
+              final platformBrightness =
+                  MediaQuery.platformBrightnessOf(context);
               return MaterialApp.router(
                 title: 'Patres',
                 debugShowCheckedModeBanner: false,
-                theme: PatresTheme.themeFor(themeState.themeMode),
+                theme: PatresTheme.themeFor(
+                  themeState.themeMode,
+                  platformBrightness: platformBrightness,
+                ),
                 locale: localeState.locale,
                 supportedLocales: AppLocalizations.supportedLocales,
                 localizationsDelegates: const [

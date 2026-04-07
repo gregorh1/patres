@@ -183,42 +183,62 @@ class _ThemeSelector extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
-    return Row(
+    return Column(
       children: [
-        _ThemeOption(
-          label: l10n.themeLight,
-          icon: Icons.light_mode_rounded,
-          isSelected: currentMode == AppThemeMode.light,
-          previewColors: (
-            bg: const Color(0xFFFFFBFF),
-            fg: const Color(0xFF201A18),
-            accent: const Color(0xFF8B1A1A),
-          ),
-          onTap: () => onChanged(AppThemeMode.light),
+        Row(
+          children: [
+            _ThemeOption(
+              label: l10n.themeSystem,
+              icon: Icons.brightness_auto_rounded,
+              isSelected: currentMode == AppThemeMode.system,
+              previewColors: (
+                bg: const Color(0xFFFFFBFF),
+                fg: const Color(0xFF201A18),
+                accent: const Color(0xFF8B1A1A),
+              ),
+              onTap: () => onChanged(AppThemeMode.system),
+            ),
+            const SizedBox(width: 12),
+            _ThemeOption(
+              label: l10n.themeLight,
+              icon: Icons.light_mode_rounded,
+              isSelected: currentMode == AppThemeMode.light,
+              previewColors: (
+                bg: const Color(0xFFFFFBFF),
+                fg: const Color(0xFF201A18),
+                accent: const Color(0xFF8B1A1A),
+              ),
+              onTap: () => onChanged(AppThemeMode.light),
+            ),
+          ],
         ),
-        const SizedBox(width: 12),
-        _ThemeOption(
-          label: l10n.themeDark,
-          icon: Icons.dark_mode_rounded,
-          isSelected: currentMode == AppThemeMode.dark,
-          previewColors: (
-            bg: const Color(0xFF201A18),
-            fg: const Color(0xFFFFFBFF),
-            accent: const Color(0xFFFFB4A8),
-          ),
-          onTap: () => onChanged(AppThemeMode.dark),
-        ),
-        const SizedBox(width: 12),
-        _ThemeOption(
-          label: l10n.themeSepia,
-          icon: Icons.auto_stories_rounded,
-          isSelected: currentMode == AppThemeMode.sepia,
-          previewColors: (
-            bg: const Color(0xFFF5ECD7),
-            fg: const Color(0xFF3E2C1C),
-            accent: const Color(0xFF6D4C2A),
-          ),
-          onTap: () => onChanged(AppThemeMode.sepia),
+        const SizedBox(height: 12),
+        Row(
+          children: [
+            _ThemeOption(
+              label: l10n.themeDark,
+              icon: Icons.dark_mode_rounded,
+              isSelected: currentMode == AppThemeMode.dark,
+              previewColors: (
+                bg: const Color(0xFF201A18),
+                fg: const Color(0xFFFFFBFF),
+                accent: const Color(0xFFFFB4A8),
+              ),
+              onTap: () => onChanged(AppThemeMode.dark),
+            ),
+            const SizedBox(width: 12),
+            _ThemeOption(
+              label: l10n.themeSepia,
+              icon: Icons.auto_stories_rounded,
+              isSelected: currentMode == AppThemeMode.sepia,
+              previewColors: (
+                bg: const Color(0xFFF5ECD7),
+                fg: const Color(0xFF3E2C1C),
+                accent: const Color(0xFF6D4C2A),
+              ),
+              onTap: () => onChanged(AppThemeMode.sepia),
+            ),
+          ],
         ),
       ],
     );
