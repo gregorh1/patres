@@ -182,6 +182,12 @@ abstract class AppLocalizations {
   /// **'Motyw'**
   String get themeMode;
 
+  /// No description provided for @themeSystem.
+  ///
+  /// In pl, this message translates to:
+  /// **'Systemowy'**
+  String get themeSystem;
+
   /// No description provided for @themeLight.
   ///
   /// In pl, this message translates to:

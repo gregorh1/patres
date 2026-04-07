@@ -14,3 +14,7 @@ class ThemeChanged extends ThemeEvent {
   @override
   List<Object?> get props => [themeMode];
 }
+
+class ThemeLoadRequested extends ThemeEvent {
+  const ThemeLoadRequested();
+}

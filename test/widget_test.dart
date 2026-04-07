@@ -174,10 +174,11 @@ void main() {
   });
 
   group('Theme switching', () {
-    testWidgets('Settings shows three theme options', (tester) async {
+    testWidgets('Settings shows four theme options', (tester) async {
       await tester.pumpWidget(testApp(const SettingsScreen()));
       await tester.pumpAndSettle();
 
+      expect(find.text('Systemowy'), findsOneWidget);
       expect(find.text('Jasny'), findsOneWidget);
       expect(find.text('Ciemny'), findsOneWidget);
       expect(find.text('Sepia'), findsOneWidget);
@@ -226,9 +227,9 @@ void main() {
   });
 
   group('ThemeBloc', () {
-    test('initial state is light theme', () {
+    test('initial state is system theme', () {
       final bloc = ThemeBloc();
-      expect(bloc.state.themeMode, AppThemeMode.light);
+      expect(bloc.state.themeMode, AppThemeMode.system);
       bloc.close();
     });
 
