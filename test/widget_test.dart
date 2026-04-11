@@ -15,6 +15,7 @@ import 'package:patres/screens/library_screen.dart';
 import 'package:patres/screens/settings_screen.dart';
 import 'package:patres/services/text_service.dart';
 import 'package:patres/theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 const _testManifestJson = '''
 {
@@ -318,6 +319,10 @@ void main() {
   });
 
   group('Language switching', () {
+    setUp(() {
+      SharedPreferences.setMockInitialValues({});
+    });
+
     testWidgets('Settings shows two language options', (tester) async {
       await tester.pumpWidget(testApp(const SettingsScreen()));
       await tester.pumpAndSettle();
@@ -338,25 +343,31 @@ void main() {
       await tester.pump();
 
       expect(bloc.state.locale.languageCode, 'en');
-      bloc.close();
+      // Close in real async zone so SharedPreferences operations complete
+      await tester.runAsync(() => bloc.close());
     });
 
     testWidgets('tapping Polski after English restores Polish',
         (tester) async {
       final bloc = LocaleBloc();
-      bloc.add(const LocaleChanged(Locale('en')));
-      await Future<void>.delayed(Duration.zero);
-
       await tester.pumpWidget(
         testApp(const SettingsScreen(), localeBloc: bloc),
       );
       await tester.pumpAndSettle();
 
+      // Switch to English first
+      await tester.tap(find.text('English'));
+      await tester.pump();
+      // Let SharedPreferences save complete
+      await tester.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 50)));
+      expect(bloc.state.locale.languageCode, 'en');
+
+      // Switch back to Polski
       await tester.tap(find.text('Polski'));
       await tester.pump();
 
       expect(bloc.state.locale.languageCode, 'pl');
-      bloc.close();
+      await tester.runAsync(() => bloc.close());
     });
   });
 

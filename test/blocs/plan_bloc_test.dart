@@ -133,13 +133,13 @@ void main() {
       await Future<void>.delayed(const Duration(milliseconds: 50));
 
       bloc.add(const PlanDayToggled(planId: 'test-plan', dayNumber: 1));
-      await Future<void>.delayed(const Duration(milliseconds: 50));
+      await Future<void>.delayed(const Duration(milliseconds: 300));
 
       expect(bloc.state.progressMap['test-plan']!.completedDays, contains(1));
 
       // Toggle again to uncomplete
       bloc.add(const PlanDayToggled(planId: 'test-plan', dayNumber: 1));
-      await Future<void>.delayed(const Duration(milliseconds: 50));
+      await Future<void>.delayed(const Duration(milliseconds: 300));
 
       expect(bloc.state.progressMap['test-plan']!.completedDays,
           isNot(contains(1)));
@@ -153,7 +153,7 @@ void main() {
       await Future<void>.delayed(const Duration(milliseconds: 50));
 
       bloc.add(const PlanDayToggled(planId: 'test-plan', dayNumber: 1));
-      await Future<void>.delayed(const Duration(milliseconds: 50));
+      await Future<void>.delayed(const Duration(milliseconds: 300));
 
       bloc.add(const PlanReset('test-plan'));
       await Future<void>.delayed(const Duration(milliseconds: 50));
