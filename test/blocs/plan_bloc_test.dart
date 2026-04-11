@@ -127,19 +127,22 @@ void main() {
 
     test('PlanDayToggled completes and uncompletes days', () async {
       bloc.add(const PlansLoadRequested());
-      await Future<void>.delayed(const Duration(milliseconds: 100));
+      await bloc.stream.firstWhere((s) => s.status == PlanStatus.loaded);
 
       bloc.add(const PlanStarted('test-plan'));
-      await Future<void>.delayed(const Duration(milliseconds: 50));
+      await bloc.stream
+          .firstWhere((s) => s.progressMap['test-plan']?.isStarted == true);
 
       bloc.add(const PlanDayToggled(planId: 'test-plan', dayNumber: 1));
-      await Future<void>.delayed(const Duration(milliseconds: 300));
+      await bloc.stream.firstWhere(
+          (s) => s.progressMap['test-plan']?.completedDays.contains(1) == true);
 
       expect(bloc.state.progressMap['test-plan']!.completedDays, contains(1));
 
       // Toggle again to uncomplete
       bloc.add(const PlanDayToggled(planId: 'test-plan', dayNumber: 1));
-      await Future<void>.delayed(const Duration(milliseconds: 300));
+      await bloc.stream.firstWhere((s) =>
+          s.progressMap['test-plan']?.completedDays.contains(1) == false);
 
       expect(bloc.state.progressMap['test-plan']!.completedDays,
           isNot(contains(1)));
@@ -147,16 +150,19 @@ void main() {
 
     test('PlanReset clears all progress', () async {
       bloc.add(const PlansLoadRequested());
-      await Future<void>.delayed(const Duration(milliseconds: 100));
+      await bloc.stream.firstWhere((s) => s.status == PlanStatus.loaded);
 
       bloc.add(const PlanStarted('test-plan'));
-      await Future<void>.delayed(const Duration(milliseconds: 50));
+      await bloc.stream
+          .firstWhere((s) => s.progressMap['test-plan']?.isStarted == true);
 
       bloc.add(const PlanDayToggled(planId: 'test-plan', dayNumber: 1));
-      await Future<void>.delayed(const Duration(milliseconds: 300));
+      await bloc.stream.firstWhere(
+          (s) => s.progressMap['test-plan']?.completedDays.contains(1) == true);
 
       bloc.add(const PlanReset('test-plan'));
-      await Future<void>.delayed(const Duration(milliseconds: 50));
+      await bloc.stream
+          .firstWhere((s) => s.progressMap['test-plan']?.isStarted == false);
 
       expect(bloc.state.progressMap['test-plan']!.isStarted, isFalse);
       expect(bloc.state.progressMap['test-plan']!.completedDays, isEmpty);

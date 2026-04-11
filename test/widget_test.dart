@@ -353,7 +353,10 @@ void main() {
       await tester.pumpWidget(
         testApp(const SettingsScreen(), localeBloc: bloc),
       );
-      await tester.pumpAndSettle();
+      // Use pump() instead of pumpAndSettle() — LocaleBloc's SharedPreferences
+      // init can cause pumpAndSettle to never settle under heavy load.
+      await tester.pump();
+      await tester.pump();
 
       // Switch to English first
       await tester.tap(find.text('English'));
